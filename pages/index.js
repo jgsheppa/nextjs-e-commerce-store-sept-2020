@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import styles from '../styles/Home.module.css';
+import Layout from './components/Layout.js';
 
 export default function Home() {
   return (
@@ -8,7 +9,9 @@ export default function Home() {
         <title>Book Nook</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main></main>
+      <Layout>
+        <main></main>
+      </Layout>
     </>
   );
 }
