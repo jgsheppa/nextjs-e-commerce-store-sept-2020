@@ -1,6 +1,6 @@
 const footerStyles = {
   padding: '20px',
-  backgroundColor: '#666',
+  backgroundColor: '#000',
   position: 'fixed',
   left: '0',
   bottom: '0',

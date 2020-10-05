@@ -1,8 +1,15 @@
 import Layout from '../components/Layout.js';
 import { products } from '../../util/database';
 
+const containerStyles = {
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+};
+
 const allProductsContainer = {
   display: 'flex',
+  flexWrap: 'wrap',
   flexDirection: 'row',
   justifyContent: 'space-around',
   alignContent: 'center',
@@ -14,16 +21,15 @@ const productContainer = {
 export default function Shop() {
   return (
     <Layout>
-      <h1>Shop</h1>
+      <div style={containerStyles}>
+        <h1>The Nook</h1>
+      </div>
       <div style={allProductsContainer}>
         {products.map((product) => {
           return (
             <div style={productContainer} key={product.id}>
-              <a>
-                <img
-                  src={product.productImage}
-                  alt="kobo abe's novel woman in the dunes"
-                ></img>
+              <a href={product.href}>
+                <img src={product.productImage} alt={product.alt}></img>
               </a>
               <p>
                 {product.firstName} {product.lastName}

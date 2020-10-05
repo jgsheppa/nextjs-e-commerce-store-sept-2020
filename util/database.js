@@ -6,6 +6,8 @@ export const products = [
     title: 'Woman in the Dunes',
     productImage: '/kobo_abe.jpg',
     price: '$10.00',
+    href: '/single_shopping_pages/woman_in_the_dunes',
+    alt: 'Woman in the Dunes by Kobo Abe',
   },
   {
     id: '2',
@@ -14,6 +16,8 @@ export const products = [
     title: 'Watchmen',
     productImage: '/watchmen.jpg',
     price: '$10.00',
+    href: '/single_shopping_pages/watchmen',
+    alt: 'Watchmen by Allen Moore',
   },
   {
     id: '3',
@@ -22,5 +26,7 @@ export const products = [
     title: 'Der Prozess',
     productImage: '/Kafka_Der_Prozess_1925.jpg',
     price: '$10.00',
+    href: '/single_shopping_pages/der_prozess',
+    alt: 'Der Prozess by Franz Kafka',
   },
 ];

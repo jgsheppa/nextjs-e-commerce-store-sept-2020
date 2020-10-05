@@ -19,3 +19,7 @@ img {
   max-width: 200px;
   max-height: auto;
 }
+
+button {
+  cursor: pointer;
+}

@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import Link from 'next/link';
+import { useState } from 'react';
 
 const headerStyles = {
   margin: '0 10%',
@@ -11,6 +12,15 @@ const headerContainerStyles = {
   justifyContent: 'space-between',
   alignContent: 'center',
   maxWidth: '1000px',
+  marginTop: '10px',
+};
+
+const navContainerStyles = {
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'space-evenly',
+  alignContent: 'center',
+  maxWidth: '600px',
 };
 
 const navStyles = {
@@ -21,10 +31,23 @@ const navStyles = {
   // maxWidth: '200px',
   fontSize: '24px',
   fontWeight: '300',
-  marginLeft: '10px',
+  marginLeft: '20px',
 };
 
+const shoppingCartStyles = {
+  display: 'flex',
+  flexDirection: 'column',
+};
+
+const cartStyles = {
+  margin: '-5px 0 0 20px',
+};
+
+const numStyles = {
+  marginLeft: '30px',
+};
 export default function Header() {
+  const [itemCount, setItemCount] = useState(0);
   return (
     <>
       <Head>
@@ -41,7 +64,7 @@ export default function Header() {
             />
           </a>
 
-          <div>
+          <div style={navContainerStyles}>
             <Link href="/nav/shop">
               <a style={navStyles}>Shop</a>
             </Link>
@@ -51,6 +74,19 @@ export default function Header() {
             <Link href="/nav/contact">
               <a style={navStyles}>Contact</a>
             </Link>
+            <div style={shoppingCartStyles}>
+              <Link href="/checkout/cart">
+                <a>
+                  <div style={numStyles}>{itemCount}</div>
+                  <img
+                    style={cartStyles}
+                    alt="Shopping Cart"
+                    src="/shopping_cart.png"
+                    height="25px"
+                  />
+                </a>
+              </Link>
+            </div>
           </div>
         </div>
       </header>
