@@ -1,16 +1,29 @@
 import Link from 'next/link';
 import Layout from '../components/Layout';
+import { products } from '../../util/database.js';
+
+// /Users/aadeehjmpprss / Desktop / Coding / nextjs -
+//   e -
+//   commerce -
+//   store -
+//   sept -
+//   2020 / util / database.js;
+
+//   /Users/jamessheppard/Desktop/Coding/nextjs-e-commerce-store-sept-2020/pages/checkout/cart.js
 
 const containerStyles = {
   display: 'flex',
   flexDirection: 'row',
   flexWrap: 'wrap',
   alignItems: 'center',
-  justifyContent: 'space-between',
+  justifyContent: 'space-around',
   marginLeft: '20px',
 };
 
 const itemBorder = {
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'space-between',
   border: 'solid',
   borderColor: '#000',
   borderRadius: '20px',
@@ -62,15 +75,53 @@ const purchaseButtonStyles = {
   fontWeight: 'bold',
   padding: '30px 50px',
   borderRadius: '15px',
+  backgroundColor: '#DE5963',
+  color: '#fff',
 };
 
-export default function confirmAddToCart() {
+const imageStyles = {
+  padding: '20px',
+  maxHeight: '300px',
+  maxWidth: 'auto',
+};
+
+const productInfoStyles = {
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'space-evenly',
+  justifyContent: 'center',
+};
+
+const productDetailStyles = {
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'flex-end',
+  alignItems: 'flex-start',
+  marginBottom: '20px',
+  lineHeight: '2',
+};
+
+export default function Cart() {
   return (
     <>
       <Layout>
         <h1>Your Cart</h1>
         <div style={containerStyles}>
           <div style={itemBorder}>
+            <div style={productInfoStyles}>
+              <img style={imageStyles} src={products[0].productImage} />
+              <div style={productDetailStyles}>
+                <div>
+                  <b>
+                    {products[0].firstName} {products[0].lastName}
+                  </b>
+                </div>
+                <div>
+                  <i>{products[0].title}</i>
+                </div>
+                <div>{products[0].price}</div>
+              </div>
+            </div>
             <div style={itemInfoStyles}>
               <div style={quatityStyles}>
                 <div>Quantity: </div>
