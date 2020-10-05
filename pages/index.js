@@ -7,7 +7,7 @@ const containerStyles = {
   flexDirection: 'column',
   alignItems: 'center',
 };
-export default function Home() {
+export default function Index() {
   return (
     <>
       <Head>
@@ -15,11 +15,9 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout>
-        <main>
-          <div style={containerStyles}>
-            <h1>Welcome to Book Nook!</h1>
-          </div>
-        </main>
+        <div style={containerStyles}>
+          <h1>Welcome to Book Nook!</h1>
+        </div>
       </Layout>
     </>
   );

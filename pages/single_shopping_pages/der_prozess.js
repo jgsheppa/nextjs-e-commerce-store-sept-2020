@@ -12,7 +12,7 @@ const productContainer = {
   display: 'flex',
   flexDirection: 'column',
 };
-export default function Shop() {
+export default function DerProzess({ cart }) {
   return (
     <Layout>
       <h1>Der Prozess - Franz Kafka</h1>
@@ -30,7 +30,7 @@ export default function Shop() {
           <p>{products[2].title}</p>
           <p>Price: {products[2].price}</p>
         </div>
-        <AddToCart></AddToCart>
+        <AddToCart cart={cart}></AddToCart>
       </div>
     </Layout>
   );

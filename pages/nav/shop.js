@@ -32,9 +32,13 @@ export default function Shop() {
                 <img src={product.productImage} alt={product.alt}></img>
               </a>
               <p>
-                {product.firstName} {product.lastName}
+                <b>
+                  {product.firstName} {product.lastName}
+                </b>
               </p>
-              <p>{product.title}</p>
+              <p>
+                <i>{product.title}</i>
+              </p>
               <p>Price: {product.price}</p>
             </div>
           );

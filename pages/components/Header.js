@@ -46,8 +46,8 @@ const cartStyles = {
 const numStyles = {
   marginLeft: '30px',
 };
-export default function Header() {
-  const [itemCount, setItemCount] = useState(0);
+export default function Header({ itemCount }) {
+  // const [itemCount, setItemCount] = useState(0);
   return (
     <>
       <Head>

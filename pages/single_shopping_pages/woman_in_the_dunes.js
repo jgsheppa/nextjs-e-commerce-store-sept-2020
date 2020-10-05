@@ -12,10 +12,10 @@ const productContainer = {
   display: 'flex',
   flexDirection: 'column',
 };
-export default function Shop() {
+export default function WomanInTheDunes() {
   return (
     <Layout>
-      <h1>Der Prozess - Franz Kafka</h1>
+      <h1>The Woman in the Dunes - Kobo Abe</h1>
       <div style={allProductsContainer}>
         <div style={productContainer}>
           <a>

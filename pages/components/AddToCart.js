@@ -1,6 +1,11 @@
 import Link from 'next/link';
 
-export default function AddToCart() {
+export default function AddToCart({ cart }) {
+  function handlePurchase() {
+    console.log(cart);
+    return cart;
+  }
+
   const addToCartStyles = {
     display: 'flex',
     flexDirection: 'column',
@@ -37,10 +42,10 @@ export default function AddToCart() {
           </select>
         </div>
 
-        <button style={addButtonStyles}>
-          <Link href="/checkout/confirmAddToCart">
+        <button onClick={handlePurchase} style={addButtonStyles}>
+          {/* <Link  href="/checkout/confirmAddToCart">
             <a>Add To Cart</a>
-          </Link>
+          </Link> */}
         </button>
       </div>
     </>
