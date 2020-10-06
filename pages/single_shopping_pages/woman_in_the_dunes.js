@@ -1,6 +1,8 @@
 import Layout from '../components/Layout.js';
 import { products } from '../../util/database';
 import AddToCart from '../components/AddToCart.js';
+import nextCookies from 'next-cookies';
+import cookie from 'js-cookie';
 
 const allProductsContainer = {
   display: 'flex',
@@ -12,10 +14,13 @@ const productContainer = {
   display: 'flex',
   flexDirection: 'column',
 };
+
 export default function WomanInTheDunes() {
   return (
     <Layout>
-      <h1>The Woman in the Dunes - Kobo Abe</h1>
+      <h1>
+        {products[0].title} - {products[0].firstName} {products[0].lastName}
+      </h1>
       <div style={allProductsContainer}>
         <div style={productContainer}>
           <a>

@@ -11,7 +11,6 @@ const headerContainerStyles = {
   flexDirection: 'row',
   justifyContent: 'space-between',
   alignContent: 'center',
-  maxWidth: '1000px',
   marginTop: '10px',
 };
 
@@ -46,7 +45,7 @@ const cartStyles = {
 const numStyles = {
   marginLeft: '30px',
 };
-export default function Header({ itemCount }) {
+export default function Header() {
   // const [itemCount, setItemCount] = useState(0);
   return (
     <>
@@ -59,7 +58,7 @@ export default function Header({ itemCount }) {
           <a href="/">
             <img
               style={{ maxHeight: '100px', maxWidth: 'auto' }}
-              src="/booknook_logo.jpg"
+              src="/booknook_logo.png"
               alt="book nook logo"
             />
           </a>
@@ -68,16 +67,13 @@ export default function Header({ itemCount }) {
             <Link href="/nav/shop">
               <a style={navStyles}>Shop</a>
             </Link>
-            <Link href="/nav/about">
-              <a style={navStyles}>About</a>
-            </Link>
             <Link href="/nav/contact">
               <a style={navStyles}>Contact</a>
             </Link>
             <div style={shoppingCartStyles}>
               <Link href="/checkout/cart">
                 <a>
-                  <div style={numStyles}>{itemCount}</div>
+                  <div style={numStyles}>0</div>
                   <img
                     style={cartStyles}
                     alt="Shopping Cart"

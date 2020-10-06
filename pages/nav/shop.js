@@ -1,5 +1,6 @@
 import Layout from '../components/Layout.js';
 import { products } from '../../util/database';
+import Link from 'next/link';
 
 const containerStyles = {
   display: 'flex',
@@ -28,9 +29,11 @@ export default function Shop() {
         {products.map((product) => {
           return (
             <div style={productContainer} key={product.id}>
-              <a href={product.href}>
-                <img src={product.productImage} alt={product.alt}></img>
-              </a>
+              <Link href={product.href}>
+                <a>
+                  <img src={product.productImage} alt={product.alt}></img>
+                </a>
+              </Link>
               <p>
                 <b>
                   {product.firstName} {product.lastName}
