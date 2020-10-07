@@ -64,7 +64,7 @@ export default function Header() {
           </a>
 
           <div style={navContainerStyles}>
-            <Link href="/nav/shop">
+            <Link href="/products/shop">
               <a style={navStyles}>Shop</a>
             </Link>
             <Link href="/nav/contact">

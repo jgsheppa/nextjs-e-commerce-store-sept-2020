@@ -1,6 +1,8 @@
 import Head from 'next/head';
 import Layout from './components/Layout.js';
 import Cookies from 'next-cookies';
+import Link from 'next/link';
+import { products } from './../util/database';
 
 const containerStyles = {
   // display: 'flex',
@@ -56,7 +58,11 @@ export default function Index() {
                 translations of the same title.{' '}
               </p>
             </div>
-            <img style={sleepBookStyles} src="/sleepbook.jpg" />
+            <Link href={`/products/${products[3].id}`}>
+              <a>
+                <img style={sleepBookStyles} src="/sleepbook.jpg" />;
+              </a>
+            </Link>
           </div>
         </div>
       </Layout>

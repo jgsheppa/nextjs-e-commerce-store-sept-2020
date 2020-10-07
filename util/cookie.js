@@ -1,14 +1,6 @@
-import nextCookies from 'next-cookies';
-import cookie from 'js-cookie';
+// import cookies from 'js-cookies';
 
-export function getServerSideProps(context) {
-  console.log(context);
-  const allCookies = nextCookies(context);
-  const productInCart = allCookies.productInCart || [];
-
-  return {
-    props: {
-      productInCart: ['1', '2'],
-    },
-  };
+export function getProductInCart() {
+  const product = cookie.getJSON('product') || [];
+  return product;
 }

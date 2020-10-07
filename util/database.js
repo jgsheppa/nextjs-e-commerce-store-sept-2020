@@ -1,3 +1,11 @@
+// import postgres from 'postgres';
+// import dotenv from 'dotenv';
+// // import camelcaseKeys from 'camelcase-keys';
+
+// dotenv.config();
+
+// const sql = postgres();
+
 export const products = [
   {
     id: '1',
@@ -6,7 +14,6 @@ export const products = [
     title: 'Woman in the Dunes',
     productImage: '/kobo_abe.jpg',
     price: '$10.00',
-    href: '/single_shopping_pages/woman_in_the_dunes',
     alt: 'Woman in the Dunes by Kobo Abe',
   },
   {
@@ -16,7 +23,6 @@ export const products = [
     title: 'Watchmen',
     productImage: '/watchmen.jpg',
     price: '$10.00',
-    href: '/single_shopping_pages/watchmen',
     alt: 'Watchmen by Allen Moore',
   },
   {
@@ -26,7 +32,59 @@ export const products = [
     title: 'Der Prozess',
     productImage: '/Kafka_Der_Prozess_1925.jpg',
     price: '$10.00',
-    href: '/single_shopping_pages/der_prozess',
     alt: 'Der Prozess by Franz Kafka',
   },
+  {
+    id: '4',
+    firstName: 'Dr.',
+    lastName: 'Suess',
+    title: 'The Sleep Book',
+    productImage: '/sleepbook.jpg',
+    price: '$10.00',
+    alt: 'The Sleep Book by Dr. Seuss',
+  },
 ];
+
+// export async function getUsers() {
+//   const users = await sql`
+//     SELECT * FROM users;
+//   `;
+//   return users.map(camelcaseKeys);
+// This is what it looks like without a library:
+// return users.map((user) => {
+//   return {
+//     id: user.id,
+//     firstName: user.first_name,
+//     lastName: user.last_name,
+//   };
+// });
+// }
+
+// export async function getUserById(id) {
+//   // Return undefined if the id is not
+//   // in the correct format
+//   if (!/^\d+$/.test(id)) return undefined;
+
+//   const users = await sql`
+//     SELECT * FROM users WHERE id = ${id};
+//   `;
+
+//   const camelcaseUsers = users.map(camelcaseKeys);
+//   return camelcaseUsers[0];
+// }
+
+// export async function updateUserById(id, user) {
+//   // Return undefined if the id is not
+//   // in the correct format
+//   if (!/^\d+$/.test(id)) return undefined;
+
+//   const users = await sql`
+//     UPDATE users
+//       SET first_name = ${user.firstName}
+//       WHERE id = ${id}
+//       RETURNING *;
+//   `;
+
+//   const camelcaseUsers = users.map(camelcaseKeys);
+//   return camelcaseUsers[0];
+// }

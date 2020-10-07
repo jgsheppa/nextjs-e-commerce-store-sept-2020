@@ -1,6 +1,7 @@
 import Layout from '../components/Layout.js';
 import { products } from '../../util/database';
 import Link from 'next/link';
+import { useState } from 'react';
 
 const containerStyles = {
   display: 'flex',
@@ -19,7 +20,9 @@ const productContainer = {
   display: 'flex',
   flexDirection: 'column',
 };
-export default function Shop() {
+export default function Shop(props) {
+  const [productsInShoppingCart, setProductsInShoppingCart] = useState([]);
+
   return (
     <Layout>
       <div style={containerStyles}>
@@ -29,7 +32,7 @@ export default function Shop() {
         {products.map((product) => {
           return (
             <div style={productContainer} key={product.id}>
-              <Link href={product.href}>
+              <Link href={`/products/${product.id}`}>
                 <a>
                   <img src={product.productImage} alt={product.alt}></img>
                 </a>
@@ -50,7 +53,3 @@ export default function Shop() {
     </Layout>
   );
 }
-
-// /Users/jamessheppard/Desktop/Coding/nextjs-e-commerce-store-sept-2020/pages/nav/shop.js
-
-// /Users/jamessheppard/Desktop/Coding/nextjs-e-commerce-store-sept-2020/util/database.js

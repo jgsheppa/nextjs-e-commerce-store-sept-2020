@@ -1,7 +1,8 @@
 import Link from 'next/link';
 import { useState } from 'react';
-import cookies from 'next-cookies';
-import Cookies from 'js-cookie';
+import nextCookies from 'next-cookies';
+// import Cookies from 'js-cookies';
+import { getProductInCart } from '../../util/cookie';
 
 const addToCartStyles = {
   display: 'flex',
@@ -23,12 +24,12 @@ const addButtonStyles = {
   borderRadius: '15px',
 };
 
-export default function AddToCart() {
+export default function AddToCart(props) {
   const [product, setProduct] = useState('Book');
   const [cart, setCart] = useState([]);
   const wholeCart = [...cart];
 
-  Cookies.set('productName', { product });
+  // Cookies.set('productName', { product });
   function handleChange(e) {
     const addToCart = e.target.value;
     document.cookie = `name=${product}; path=/single_shopping_pages/woman_in_the_dunes`;
@@ -58,4 +59,16 @@ export default function AddToCart() {
       </div>
     </>
   );
+}
+
+export function getServerSideProps(context) {
+  console.log(context);
+  const allCookies = nextCookies(context);
+  const productInCart = allCookies.productInCart || [];
+
+  return {
+    props: {
+      productInCart: ['1', '2'],
+    },
+  };
 }
