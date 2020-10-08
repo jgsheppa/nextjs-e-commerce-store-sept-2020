@@ -2,7 +2,9 @@ import Head from 'next/head';
 import Layout from './components/Layout.js';
 import Cookies from 'next-cookies';
 import Link from 'next/link';
-import { products } from './../util/database';
+// import { getBookById } from './../util/database';
+
+// const book = getBookById('3');
 
 const containerStyles = {
   // display: 'flex',
@@ -32,7 +34,7 @@ const textStyles = {
   maxWidth: '450px',
 };
 
-export default function Index() {
+export default function Index(props) {
   return (
     <>
       <Head>
@@ -58,14 +60,28 @@ export default function Index() {
                 translations of the same title.{' '}
               </p>
             </div>
-            <Link href={`/products/${products[3].id}`}>
+            {/* <Link href={`/products/[3]`}>
               <a>
                 <img style={sleepBookStyles} src="/sleepbook.jpg" />;
               </a>
-            </Link>
+            </Link> */}
           </div>
         </div>
       </Layout>
     </>
   );
 }
+
+// export async function getServerSideProps(context) {
+//   const id = context.query.id;
+//   const { getBookById } = await import('./../util/database');
+//   const books = await getBookById(id);
+//   console.log(books);
+
+//   const props = {};
+//   if (books) props.books = books[0];
+
+//   return {
+//     props: props,
+//   };
+// }

@@ -6,10 +6,7 @@ dotenv.config();
 
 const sql = postgres();
 
-// If you want to use the connection string instead for testing,
-// you can try this:
-//
-// const sql = postgres('postgres://username:password@localhost:5432/database')
+
 
 const books = await sql`
   SELECT * from books;

@@ -1,6 +1,8 @@
 import Layout from '../components/Layout.js';
-import { products } from '../../util/database';
 import AddToCart from '../components/AddToCart.js';
+import Head from 'next/head';
+import { useState } from 'react';
+import camelcaseKeys from 'camelcase-keys';
 
 const allProductsContainer = {
   display: 'flex',
@@ -13,26 +15,45 @@ const productContainer = {
   flexDirection: 'column',
 };
 export default function product(props) {
-  const product = products.find((currentProduct) => {
-    if (currentProduct.id === props.id) {
-      return true;
-    }
-    console.log(false);
-    return false;
-  });
+  const [firstName, setFirstName] = useState(props.books?.firstName);
+  const [lastName, setLastName] = useState(props.books?.lastName);
+  const [title, setTitle] = useState(props.books?.title);
+  const [price, setPrice] = useState(props.books?.price);
+  const [productImage, setProductImage] = useState(props.books?.productImage);
+  const [altTag, setAltTag] = useState(props.books?.alt);
+  // const product = products.find((currentProduct) => {
+  //   if (currentProduct.id === props.id) {
+  //     return true;
+  //   }
+  //   console.log(false);
+  //   return false;
+  // });
+
+  if (!props.books) {
+    return (
+      <Layout>
+        <Head>
+          <title>User not found</title>
+        </Head>
+        User not found.
+      </Layout>
+    );
+  }
   return (
     <Layout>
-      <h1>{props.title}</h1>
+      <h1>
+        {title} - {firstName} {lastName}
+      </h1>
       <div style={allProductsContainer}>
         <div style={productContainer}>
           <a>
-            <img src={product.productImage} alt={product.alt}></img>
+            <img src={productImage} alt={altTag}></img>
           </a>
           <p>
-            {product.firstName} {product.lastName}
+            {firstName} {lastName}
           </p>
-          <p>{product.title}</p>
-          <p>Price: {product.price}</p>
+          <p>{title}</p>
+          <p>Price: {price}</p>
         </div>
         <AddToCart></AddToCart>
       </div>
@@ -40,8 +61,16 @@ export default function product(props) {
   );
 }
 
-export function getServerSideProps(context) {
+export async function getServerSideProps(context) {
+  const id = context.query.id;
+  const { getBookById } = await import('../../util/database');
+  const books = await getBookById(id);
+  console.log(books);
+
+  const props = {};
+  if (books) props.books = books[0];
+
   return {
-    props: { id: context.query.id },
+    props: props,
   };
 }

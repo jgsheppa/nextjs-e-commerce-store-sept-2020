@@ -1,5 +1,5 @@
 import Layout from '../components/Layout.js';
-import { products } from '../../util/database';
+// import { products } from '../../util/database';
 import Link from 'next/link';
 import { useState } from 'react';
 
@@ -21,35 +21,47 @@ const productContainer = {
   flexDirection: 'column',
 };
 export default function Shop(props) {
-  const [productsInShoppingCart, setProductsInShoppingCart] = useState([]);
-
   return (
     <Layout>
       <div style={containerStyles}>
         <h1>The Nook</h1>
       </div>
       <div style={allProductsContainer}>
-        {products.map((product) => {
+        {props.books.map((book) => {
           return (
-            <div style={productContainer} key={product.id}>
-              <Link href={`/products/${product.id}`}>
+            <div style={productContainer} key={book.id}>
+              <Link href={`/products/${book.id}`}>
                 <a>
-                  <img src={product.productImage} alt={product.alt}></img>
+                  <img src={book.productImage} alt={book.alt}></img>
                 </a>
               </Link>
               <p>
                 <b>
-                  {product.firstName} {product.lastName}
+                  {book.firstName} {book.lastName}
                 </b>
               </p>
               <p>
-                <i>{product.title}</i>
+                <i>{book.title}</i>
               </p>
-              <p>Price: {product.price}</p>
+              <p>Price: {book.price}</p>
             </div>
           );
         })}
       </div>
     </Layout>
   );
+}
+
+export async function getServerSideProps(context) {
+  const id = context.query.id;
+  const { getBooks } = await import('../../util/database');
+  const books = await getBooks();
+  console.log(books);
+
+  const props = {};
+  if (books) props.books = books;
+
+  return {
+    props: props,
+  };
 }

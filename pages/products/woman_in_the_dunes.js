@@ -1,5 +1,5 @@
 import Layout from '../components/Layout.js';
-import { products } from '../../util/database';
+// import { products } from '../../util/database';
 import AddToCart from '../components/AddToCart.js';
 import nextCookies from 'next-cookies';
 import cookie from 'js-cookie';

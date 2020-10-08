@@ -33,9 +33,9 @@ const products = [
   },
 ];
 
-exports.up = async (client) => {
+exports.up = async (sql) => {
   await sql`
-    INSERT INTO users ${sql(
+    INSERT INTO books ${sql(
       products,
       'first_name',
       'last_name',
@@ -47,10 +47,10 @@ exports.up = async (client) => {
   `;
 };
 
-exports.down = async (client) => {
+exports.down = async (sql) => {
   for (const product in products) {
     await sql`
-      DELETE FROM users WHERE
+      DELETE FROM books WHERE
         first_name = ${product.first_name} AND
         last_name = ${product.last_name};
     `;

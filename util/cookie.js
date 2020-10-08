@@ -1,6 +1,6 @@
-// import cookies from 'js-cookies';
+import cookies from 'js-cookie';
 
 export function getProductInCart() {
-  const product = cookie.getJSON('product') || [];
+  const product = cookies.getJSON('product') || [];
   return product;
 }

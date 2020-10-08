@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Layout from '../components/Layout';
-import { products } from '../../util/database.js';
+// import { products } from '../../util/database.js';
 
 // /Users/aadeehjmpprss / Desktop / Coding / nextjs -
 //   e -
