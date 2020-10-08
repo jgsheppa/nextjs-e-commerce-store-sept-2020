@@ -15,6 +15,7 @@ const productContainer = {
   flexDirection: 'column',
 };
 export default function product(props) {
+  const [id, setID] = useState(props.books?.id);
   const [firstName, setFirstName] = useState(props.books?.firstName);
   const [lastName, setLastName] = useState(props.books?.lastName);
   const [title, setTitle] = useState(props.books?.title);
@@ -55,7 +56,7 @@ export default function product(props) {
           <p>{title}</p>
           <p>Price: {price}</p>
         </div>
-        <AddToCart></AddToCart>
+        <AddToCart title={title} id={id}></AddToCart>
       </div>
     </Layout>
   );

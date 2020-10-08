@@ -1,15 +1,6 @@
 import Link from 'next/link';
-import Layout from '../components/Layout';
-// import { products } from '../../util/database.js';
-
-// /Users/aadeehjmpprss / Desktop / Coding / nextjs -
-//   e -
-//   commerce -
-//   store -
-//   sept -
-//   2020 / util / database.js;
-
-//   /Users/jamessheppard/Desktop/Coding/nextjs-e-commerce-store-sept-2020/pages/checkout/cart.js
+import Layout from './components/Layout';
+import { useState } from 'react';
 
 const containerStyles = {
   display: 'flex',
@@ -101,44 +92,48 @@ const productDetailStyles = {
   lineHeight: '2',
 };
 
-export default function Cart() {
+export default function Cart(props) {
   return (
     <>
       <Layout>
         <h1>Your Cart</h1>
         <div style={containerStyles}>
-          <div style={itemBorder}>
-            <div style={productInfoStyles}>
-              <img style={imageStyles} src={products[0].productImage} />
-              <div style={productDetailStyles}>
-                <div>
-                  <b>
-                    {products[0].firstName} {products[0].lastName}
-                  </b>
+          {wholeListOfBooks.map((book) => (
+            <div key={book.id} style={itemBorder}>
+              <div style={productInfoStyles}>
+                <img style={imageStyles} src={book.productImage} />
+
+                <div style={productDetailStyles}>
+                  <div>
+                    <b>
+                      {book.firstName} {book.lastName}
+                    </b>
+                  </div>
+                  <div>
+                    <i>{book.title}</i>
+                  </div>
+                  <div>{book.price}</div>
+                </div>
+              </div>
+              <div style={itemInfoStyles}>
+                <div style={quatityStyles}>
+                  <div>Quantity: </div>
+                  <select>
+                    <option>0</option>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                  </select>
                 </div>
                 <div>
-                  <i>{products[0].title}</i>
+                  <button style={removeItemStyles}>Remove Item</button>
                 </div>
-                <div>{products[0].price}</div>
               </div>
             </div>
-            <div style={itemInfoStyles}>
-              <div style={quatityStyles}>
-                <div>Quantity: </div>
-                <select>
-                  <option>0</option>
-                  <option>1</option>
-                  <option>2</option>
-                  <option>3</option>
-                  <option>4</option>
-                  <option>5</option>
-                </select>
-              </div>
-              <div>
-                <button style={removeItemStyles}>Remove Item</button>
-              </div>
-            </div>
-          </div>
+          ))}
+
           <div style={buttonBorderStyles}>
             <button style={purchaseButtonStyles}>
               <a>Purchase</a>
@@ -148,4 +143,17 @@ export default function Cart() {
       </Layout>
     </>
   );
+}
+
+export async function getServerSideProps() {
+  // const id = context.query.id;
+  const { getBooks } = await import('../util/database');
+  const books = await getBooks();
+
+  const props = {};
+  if (books) props.books = books;
+
+  return {
+    props: props,
+  };
 }

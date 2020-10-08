@@ -52,8 +52,7 @@ export default function Shop(props) {
   );
 }
 
-export async function getServerSideProps(context) {
-  const id = context.query.id;
+export async function getServerSideProps() {
   const { getBooks } = await import('../../util/database');
   const books = await getBooks();
   console.log(books);

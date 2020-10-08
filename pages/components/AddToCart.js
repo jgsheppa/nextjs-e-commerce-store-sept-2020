@@ -1,7 +1,7 @@
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import nextCookies from 'next-cookies';
-// import Cookies from 'js-cookies';
+import Cookie from 'js-cookie';
 import { getProductInCart } from '../../util/cookie';
 
 const addToCartStyles = {
@@ -25,20 +25,26 @@ const addButtonStyles = {
 };
 
 export default function AddToCart(props) {
-  const [product, setProduct] = useState('Book');
-  const [cart, setCart] = useState([]);
-  const wholeCart = [...cart];
+  // const [id, setID] = useState(props.books?.id);
+  // const [bookPrice, setBookPrice] = useState(props.books?.price);
+  // const [bookTitle, setBookTitle] = useState(props.books?.title);
+  const [listOfBooks, setListOfBooks] = useState('');
+  const cart = [...listOfBooks, { purchaseCount }];
+  const totalCount = 0;
 
-  // Cookies.set('productName', { product });
-  function handleChange(e) {
-    const addToCart = e.target.value;
-    document.cookie = `name=${product}; path=/single_shopping_pages/woman_in_the_dunes`;
-  }
+  // useEffect(() => {
+  //   Cookie.set('productName', purchaseCount);
+  // }, []);
+
+  Cookie.set('productName', totalCount);
+  // function handleChange(e) {
+  //   const addToCart = e.target.value;
+  //   document.cookie = `name=${product}; path=/products/${id}`;
+  // }
   return (
     <>
       <div style={addToCartStyles}>
         <p>Price: </p>
-        {/* In Stock will eventually be a property */}
         <p>In Stock</p>
         <div>
           <div>Quantity:</div>
@@ -51,8 +57,12 @@ export default function AddToCart(props) {
           </select>
         </div>
 
-        <button style={addButtonStyles}>
-          <Link onClick={handleChange} href="/checkout/confirmAddToCart">
+        <button
+          style={addButtonStyles}
+          value={props.id}
+          onClick={() => setPurchaseCount(totalCount + 1)}
+        >
+          <Link href="/confirmAddToCart">
             <a>Add To Cart</a>
           </Link>
         </button>
