@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Layout from './components/Layout';
 import { useState } from 'react';
+import nextCookies from 'next-cookies';
 
 const containerStyles = {
   display: 'flex',
@@ -93,12 +94,16 @@ const productDetailStyles = {
 };
 
 export default function Cart(props) {
+  const [numOfProductsInCart, setNumOfProductsInCart] = useState(
+    props.sumOfProducts,
+  );
+
   return (
     <>
-      <Layout>
+      <Layout numOfProductsInCart={numOfProductsInCart}>
         <h1>Your Cart</h1>
         <div style={containerStyles}>
-          {wholeListOfBooks.map((book) => (
+          {/* {props.books.map((book) => (
             <div key={book.id} style={itemBorder}>
               <div style={productInfoStyles}>
                 <img style={imageStyles} src={book.productImage} />
@@ -132,7 +137,7 @@ export default function Cart(props) {
                 </div>
               </div>
             </div>
-          ))}
+          ))} */}
 
           <div style={buttonBorderStyles}>
             <button style={purchaseButtonStyles}>
@@ -145,15 +150,32 @@ export default function Cart(props) {
   );
 }
 
-export async function getServerSideProps() {
-  // const id = context.query.id;
+export async function getServerSideProps(context) {
+  // const { getBookById } = await import('../util/database');
+  // const books = await getBookById(id);
+
   const { getBooks } = await import('../util/database');
   const books = await getBooks();
 
   const props = {};
-  if (books) props.books = books;
+  if (books) props.books = books[0];
 
+  const allCookies = nextCookies(context);
+  const productInCart = allCookies.productInCart || [];
+
+  const numOfProducts = Object.values(allCookies);
+  const reducer = (accumulator, currentValue) =>
+    parseInt(accumulator) + parseInt(currentValue);
+  function calcSumOfProducts() {
+    if (numOfProducts.length > 0) {
+      return numOfProducts.reduce(reducer);
+    } else {
+      return 0;
+    }
+  }
+
+  const sumOfProducts = calcSumOfProducts();
   return {
-    props: props,
+    props: { props, sumOfProducts },
   };
 }

@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import nextCookies from 'next-cookies';
 import Cookie from 'js-cookie';
 import { getProductInCart } from '../../util/cookie';
+import Layout from './Layout';
 
 const addToCartStyles = {
   display: 'flex',
@@ -25,22 +26,8 @@ const addButtonStyles = {
 };
 
 export default function AddToCart(props) {
-  // const [id, setID] = useState(props.books?.id);
-  // const [bookPrice, setBookPrice] = useState(props.books?.price);
-  // const [bookTitle, setBookTitle] = useState(props.books?.title);
-  const [listOfBooks, setListOfBooks] = useState('');
-  const cart = [...listOfBooks, { purchaseCount }];
-  const totalCount = 0;
+  const [id, setID] = useState(props.books?.id);
 
-  // useEffect(() => {
-  //   Cookie.set('productName', purchaseCount);
-  // }, []);
-
-  Cookie.set('productName', totalCount);
-  // function handleChange(e) {
-  //   const addToCart = e.target.value;
-  //   document.cookie = `name=${product}; path=/products/${id}`;
-  // }
   return (
     <>
       <div style={addToCartStyles}>
@@ -56,29 +43,21 @@ export default function AddToCart(props) {
             <option>5</option>
           </select>
         </div>
-
-        <button
-          style={addButtonStyles}
-          value={props.id}
-          onClick={() => setPurchaseCount(totalCount + 1)}
-        >
-          <Link href="/confirmAddToCart">
-            <a>Add To Cart</a>
-          </Link>
-        </button>
+        <Link href="/confirmAddToCart">
+          <a style={addButtonStyles} onClick={props.handleChange}>
+            Add To Cart
+          </a>
+        </Link>
       </div>
     </>
   );
 }
 
 export function getServerSideProps(context) {
-  console.log(context);
-  const allCookies = nextCookies(context);
-  const productInCart = allCookies.productInCart || [];
+  const props = {};
+  if (books) props.books = books[0];
 
   return {
-    props: {
-      productInCart: ['1', '2'],
-    },
+    props: props,
   };
 }

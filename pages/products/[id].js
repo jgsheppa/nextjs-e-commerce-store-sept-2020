@@ -1,8 +1,11 @@
 import Layout from '../components/Layout.js';
 import AddToCart from '../components/AddToCart.js';
 import Head from 'next/head';
-import { useState } from 'react';
-import camelcaseKeys from 'camelcase-keys';
+import { useState, useEffect } from 'react';
+import nextCookies from 'next-cookies';
+import Cookie from 'js-cookie';
+import { parseCookies } from '../../util/cookie.js';
+import cookies from 'next-cookies';
 
 const allProductsContainer = {
   display: 'flex',
@@ -14,51 +17,72 @@ const productContainer = {
   display: 'flex',
   flexDirection: 'column',
 };
-export default function product(props) {
-  const [id, setID] = useState(props.books?.id);
-  const [firstName, setFirstName] = useState(props.books?.firstName);
-  const [lastName, setLastName] = useState(props.books?.lastName);
-  const [title, setTitle] = useState(props.books?.title);
-  const [price, setPrice] = useState(props.books?.price);
-  const [productImage, setProductImage] = useState(props.books?.productImage);
-  const [altTag, setAltTag] = useState(props.books?.alt);
-  // const product = products.find((currentProduct) => {
-  //   if (currentProduct.id === props.id) {
-  //     return true;
-  //   }
-  //   console.log(false);
-  //   return false;
-  // });
 
-  if (!props.books) {
+export default function id(props) {
+  const [numOfProductsInCart, setNumOfProductsInCart] = useState(
+    props.sumOfProducts,
+  );
+
+  const [id, setID] = useState(props.props.books?.id);
+  const [firstName, setFirstName] = useState(props.props.books?.firstName);
+  const [lastName, setLastName] = useState(props.props.books?.lastName);
+  const [title, setTitle] = useState(props.props.books?.title);
+  const [price, setPrice] = useState(props.props.books?.price);
+  const [productImage, setProductImage] = useState(
+    props.props.books?.productImage,
+  );
+  const [altTag, setAltTag] = useState(props.books?.alt);
+
+  // const [purchaseCount, setPurchaseCount] = useState(() =>
+  //   JSON.parse(props.cookieObj),
+  // );
+  // const [purchaseCount, setPurchaseCount] = useState(() => props.cookieObj);
+
+  const [purchaseCount, setPurchaseCount] = useState(0);
+  console.log(props.getCookies[id]);
+
+  useEffect(() => {
+    Cookie.set(id, purchaseCount);
+  }, [purchaseCount]);
+
+  if (!props.props.books) {
     return (
-      <Layout>
+      <>
         <Head>
           <title>User not found</title>
         </Head>
-        User not found.
-      </Layout>
+        <Layout numOfProductsInCart={numOfProductsInCart}>
+          <div>User not found.</div>
+        </Layout>
+      </>
     );
   }
   return (
-    <Layout>
-      <h1>
-        {title} - {firstName} {lastName}
-      </h1>
-      <div style={allProductsContainer}>
-        <div style={productContainer}>
-          <a>
-            <img src={productImage} alt={altTag}></img>
-          </a>
-          <p>
-            {firstName} {lastName}
-          </p>
-          <p>{title}</p>
-          <p>Price: {price}</p>
+    <>
+      <Layout numOfProductsInCart={numOfProductsInCart}>
+        <h1>
+          {title} - {firstName} {lastName}
+        </h1>
+        <div style={allProductsContainer}>
+          <div style={productContainer}>
+            <a>
+              <img src={productImage} alt={altTag}></img>
+            </a>
+            <p>
+              {firstName} {lastName}
+            </p>
+            <p>{title}</p>
+            <p>Price: {price}</p>
+          </div>
+          <AddToCart
+            handleChange={() => {
+              setPurchaseCount(purchaseCount + 1);
+            }}
+            value={purchaseCount}
+          ></AddToCart>
         </div>
-        <AddToCart title={title} id={id}></AddToCart>
-      </div>
-    </Layout>
+      </Layout>
+    </>
   );
 }
 
@@ -66,12 +90,34 @@ export async function getServerSideProps(context) {
   const id = context.query.id;
   const { getBookById } = await import('../../util/database');
   const books = await getBookById(id);
-  console.log(books);
 
   const props = {};
   if (books) props.books = books[0];
 
+  const allCookies = nextCookies(context);
+  const productInCart = allCookies.productInCart || [];
+
+  const numOfProducts = Object.values(allCookies);
+  const reducer = (accumulator, currentValue) =>
+    parseInt(accumulator) + parseInt(currentValue);
+  function calcSumOfProducts() {
+    if (numOfProducts.length > 0) {
+      return numOfProducts.reduce(reducer);
+    } else {
+      return 0;
+    }
+  }
+
+  const sumOfProducts = calcSumOfProducts();
+
+  const bookID = JSON.stringify(books[0].id);
+
+  const getCookies = parseCookies(context.req);
+  const cookieObj = getCookies[bookID];
+  // console.log(getCookies);
+  console.log(cookieObj);
+
   return {
-    props: props,
+    props: { props, sumOfProducts, allCookies, getCookies },
   };
 }

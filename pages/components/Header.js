@@ -1,6 +1,8 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import { useState } from 'react';
+import nextCookies from 'next-cookies';
+import Cookie from 'js-cookie';
 
 const headerStyles = {
   margin: '0 10%',
@@ -45,8 +47,8 @@ const cartStyles = {
 const numStyles = {
   marginLeft: '30px',
 };
-export default function Header() {
-  // const [itemCount, setItemCount] = useState(0);
+
+export default function Header(props) {
   return (
     <>
       <Head>
@@ -62,18 +64,17 @@ export default function Header() {
               alt="book nook logo"
             />
           </a>
-
           <div style={navContainerStyles}>
             <Link href="/products/shop">
               <a style={navStyles}>Shop</a>
             </Link>
-            <Link href="/nav/contact">
+            <Link href="/contact">
               <a style={navStyles}>Contact</a>
             </Link>
             <div style={shoppingCartStyles}>
-              <Link href="/checkout/cart">
+              <Link href="/cart">
                 <a>
-                  <div style={numStyles}>0</div>
+                  <div style={numStyles}>{props.numOfProductsInCart}</div>
                   <img
                     style={cartStyles}
                     alt="Shopping Cart"

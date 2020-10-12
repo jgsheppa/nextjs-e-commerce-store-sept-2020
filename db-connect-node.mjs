@@ -6,12 +6,8 @@ dotenv.config();
 
 const sql = postgres();
 
-
-
 const books = await sql`
   SELECT * from books;
 `;
-
-console.log(books);
 
 process.exit(0);
