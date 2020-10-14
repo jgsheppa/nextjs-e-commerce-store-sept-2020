@@ -97,17 +97,32 @@ export default function Cart(props) {
   const [numOfProductsInCart, setNumOfProductsInCart] = useState(
     props.sumOfProducts,
   );
+  const [allProducts, setAllProducts] = useState(props.props.books);
+  const [product, setProduct] = useState({});
+  const [cart, setCart] = useState(putItemsInCart);
+  const allItemsInCart = [...cart];
+  console.log(cart);
+
+  function putItemsInCart() {
+    const itemArray = [];
+    for (let i = 0; i < allProducts.length; i++) {
+      if (props.cookieKeysToInt.includes(allProducts[i].id)) {
+        itemArray.push(allProducts[i]);
+      }
+    }
+    return itemArray;
+  }
+  console.log(putItemsInCart());
 
   return (
     <>
       <Layout numOfProductsInCart={numOfProductsInCart}>
         <h1>Your Cart</h1>
         <div style={containerStyles}>
-          {/* {props.books.map((book) => (
+          {cart.map((book) => (
             <div key={book.id} style={itemBorder}>
               <div style={productInfoStyles}>
                 <img style={imageStyles} src={book.productImage} />
-
                 <div style={productDetailStyles}>
                   <div>
                     <b>
@@ -137,7 +152,7 @@ export default function Cart(props) {
                 </div>
               </div>
             </div>
-          ))} */}
+          ))}
 
           <div style={buttonBorderStyles}>
             <button style={purchaseButtonStyles}>
@@ -156,11 +171,11 @@ export async function getServerSideProps(context) {
 
   const { getBooks } = await import('../util/database');
   const books = await getBooks();
-
   const props = {};
-  if (books) props.books = books[0];
+  if (books) props.books = books;
 
   const allCookies = nextCookies(context);
+
   const productInCart = allCookies.productInCart || [];
 
   const numOfProducts = Object.values(allCookies);
@@ -174,8 +189,13 @@ export async function getServerSideProps(context) {
     }
   }
 
+  const cookieKeys = Object.keys(allCookies);
+  const cookieKeysToInt = cookieKeys.map((value) => parseInt(value));
+  console.log(cookieKeys);
+  console.log(cookieKeysToInt);
+
   const sumOfProducts = calcSumOfProducts();
   return {
-    props: { props, sumOfProducts },
+    props: { props, sumOfProducts, allCookies, cookieKeysToInt },
   };
 }

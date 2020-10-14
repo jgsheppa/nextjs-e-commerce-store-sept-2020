@@ -33,17 +33,17 @@ export default function id(props) {
   );
   const [altTag, setAltTag] = useState(props.books?.alt);
 
-  // const [purchaseCount, setPurchaseCount] = useState(() =>
-  //   JSON.parse(props.cookieObj),
-  // );
-  // const [purchaseCount, setPurchaseCount] = useState(() => props.cookieObj);
+  const cookie = props.getCookies[id];
 
-  const [purchaseCount, setPurchaseCount] = useState(0);
-  console.log(props.getCookies[id]);
+  const [listOfItems, setListOfItems] = useState(cookie || []);
+  // console.log(listOfItems);
+  const wholeListOfItems = [...listOfItems, { id }];
+  // console.log(wholeListOfItems);
+  const [count, setCount] = useState(0);
 
-  useEffect(() => {
-    Cookie.set(id, purchaseCount);
-  }, [purchaseCount]);
+  // useEffect(() => {
+  //   Cookie.set(id, count);
+  // }, []);
 
   if (!props.props.books) {
     return (
@@ -76,9 +76,8 @@ export default function id(props) {
           </div>
           <AddToCart
             handleChange={() => {
-              setPurchaseCount(purchaseCount + 1);
+              Cookie.set(id, 1);
             }}
-            value={purchaseCount}
           ></AddToCart>
         </div>
       </Layout>
@@ -95,11 +94,13 @@ export async function getServerSideProps(context) {
   if (books) props.books = books[0];
 
   const allCookies = nextCookies(context);
+
   const productInCart = allCookies.productInCart || [];
 
   const numOfProducts = Object.values(allCookies);
   const reducer = (accumulator, currentValue) =>
     parseInt(accumulator) + parseInt(currentValue);
+
   function calcSumOfProducts() {
     if (numOfProducts.length > 0) {
       return numOfProducts.reduce(reducer);
@@ -113,9 +114,7 @@ export async function getServerSideProps(context) {
   const bookID = JSON.stringify(books[0].id);
 
   const getCookies = parseCookies(context.req);
-  const cookieObj = getCookies[bookID];
-  // console.log(getCookies);
-  console.log(cookieObj);
+  console.log(getCookies[bookID]);
 
   return {
     props: { props, sumOfProducts, allCookies, getCookies },

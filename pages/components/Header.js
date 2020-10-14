@@ -49,6 +49,7 @@ const numStyles = {
 };
 
 export default function Header(props) {
+  console.log(props.numOfProductsInCart);
   return (
     <>
       <Head>
