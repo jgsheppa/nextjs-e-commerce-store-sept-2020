@@ -3,6 +3,7 @@ import Layout from './components/Layout';
 import nextCookies from 'next-cookies';
 import Cookie from 'js-cookie';
 import { useState } from 'react';
+import { sumQuantityOfProducts } from './../util/cookie';
 
 const containerStyles = {
   display: 'flex',
@@ -27,12 +28,10 @@ const addButtonStyles = {
 };
 
 export default function confirmAddToCart(props) {
-  const [numOfProductsInCart, setNumOfProductsInCart] = useState(
-    props.sumOfProducts,
-  );
+  const sumOfProductsCalculator = sumQuantityOfProducts();
   return (
     <>
-      <Layout numOfProductsInCart={numOfProductsInCart}>
+      <Layout sumOfProductsCalculator={sumOfProductsCalculator}>
         <div style={containerStyles}>
           <h1>Item Added to Your Cart</h1>
           <div style={buttonContainerStyles}>
@@ -42,7 +41,7 @@ export default function confirmAddToCart(props) {
               </Link>
             </button>
             <button style={addButtonStyles}>
-              <Link href="pages/cart">
+              <Link href="/cart">
                 <a>Go To Cart</a>
               </Link>
             </button>

@@ -4,6 +4,7 @@ import nextCookies from 'next-cookies';
 import Cookie from 'js-cookie';
 import { getProductInCart } from '../../util/cookie';
 import Layout from './Layout';
+import { addProductToCookieCart } from '../../util/cookie';
 
 const addToCartStyles = {
   display: 'flex',
@@ -26,8 +27,6 @@ const addButtonStyles = {
 };
 
 export default function AddToCart(props) {
-  const [id, setID] = useState(props.books?.id);
-
   return (
     <>
       <div style={addToCartStyles}>
@@ -44,7 +43,10 @@ export default function AddToCart(props) {
           </select>
         </div>
         <Link href="/confirmAddToCart">
-          <a style={addButtonStyles} onClick={props.handleChange}>
+          <a
+            style={addButtonStyles}
+            onClick={() => addProductToCookieCart(props.id)}
+          >
             Add To Cart
           </a>
         </Link>
@@ -56,8 +58,10 @@ export default function AddToCart(props) {
 export function getServerSideProps(context) {
   const props = {};
   if (books) props.books = books[0];
+  const bookInCart = allCookies.book || [];
 
   return {
     props: props,
+    bookInCart,
   };
 }

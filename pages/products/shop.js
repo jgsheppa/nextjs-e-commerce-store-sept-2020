@@ -1,9 +1,10 @@
 import Layout from '../components/Layout.js';
 // import { products } from '../../util/database';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import nextCookies from 'next-cookies';
 import Cookie from 'js-cookie';
+import { sumQuantityOfProducts } from '../../util/cookie';
 
 const containerStyles = {
   display: 'flex',
@@ -24,12 +25,25 @@ const productContainer = {
 };
 
 export default function Shop(props) {
-  const [numOfProductsInCart, setNumOfProductsInCart] = useState(
-    props.sumOfProducts,
-  );
+  const sumOfProductsCalculator = sumQuantityOfProducts();
+
+  const [bookFromCookie, setBookFromCookie] = useState(props.bookCookies);
+  const [booksInCart, setBooksInCart] = useState(props.props.books);
+
+  useEffect(() => {
+    setBooksInCart(
+      props.props.books.map((book) => {
+        return {
+          ...book,
+          inCart: bookFromCookie.includes(book.id),
+        };
+      }),
+    );
+  }, [props.props.books, bookFromCookie, setBooksInCart]);
+
   return (
     <>
-      <Layout numOfProductsInCart={numOfProductsInCart}>
+      <Layout sumOfProductsCalculator={sumOfProductsCalculator}>
         <div style={containerStyles}>
           <h1>The Nook</h1>
         </div>
@@ -74,19 +88,60 @@ export default function Shop(props) {
 //   };
 // }
 
+// export async function getServerSideProps(context) {
+//   const { getBooks } = await import('../../util/database');
+//   const books = await getBooks();
+
+//   const props = {};
+//   if (books) props.books = books;
+
+//   const allCookies = nextCookies(context);
+//   const productInCart = allCookies.productInCart || [];
+
+//   const numOfProducts = Object.values(allCookies);
+//   const reducer = (accumulator, currentValue) =>
+//     parseInt(accumulator) + parseInt(currentValue);
+//   function calcSumOfProducts() {
+//     if (numOfProducts.length > 0) {
+//       return numOfProducts.reduce(reducer);
+//     } else {
+//       return 0;
+//     }
+//   }
+
+//   const sumOfProducts = calcSumOfProducts();
+
+//   return {
+//     props: { props, sumOfProducts },
+//   };
+// }
+
 export async function getServerSideProps(context) {
-  const { getBooks } = await import('../../util/database');
+  const id = context.query.id;
+  const { getBookById, getBooks } = await import('../../util/database');
+  const { getCartFromCookies, toggleItemsInCartInCookie } = await import(
+    '../../util/cookie'
+  );
+
+  // console.log(getCartFromCookies());
+
+  // console.log(`My cookies: ${getCartFromCookies()}`);
+
   const books = await getBooks();
+  const bookByID = await getBookById();
 
   const props = {};
   if (books) props.books = books;
+  // console.log(props.books);
+
+  // console.log(toggleItemsInCartInCookie(props.books.id));
 
   const allCookies = nextCookies(context);
-  const productInCart = allCookies.productInCart || [];
 
   const numOfProducts = Object.values(allCookies);
   const reducer = (accumulator, currentValue) =>
     parseInt(accumulator) + parseInt(currentValue);
+
   function calcSumOfProducts() {
     if (numOfProducts.length > 0) {
       return numOfProducts.reduce(reducer);
@@ -97,7 +152,16 @@ export async function getServerSideProps(context) {
 
   const sumOfProducts = calcSumOfProducts();
 
+  const bookInCart = allCookies.book || [];
+  // console.log(bookInCart);
+
+  // console.log(props.books);
   return {
-    props: { props, sumOfProducts },
+    props: {
+      props,
+      sumOfProducts,
+      allCookies,
+      bookCookies: bookInCart,
+    },
   };
 }

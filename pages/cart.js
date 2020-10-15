@@ -2,6 +2,7 @@ import Link from 'next/link';
 import Layout from './components/Layout';
 import { useState } from 'react';
 import nextCookies from 'next-cookies';
+import { sumQuantityOfProducts, getCartFromCookies } from './../util/cookie';
 
 const containerStyles = {
   display: 'flex',
@@ -94,32 +95,47 @@ const productDetailStyles = {
 };
 
 export default function Cart(props) {
-  const [numOfProductsInCart, setNumOfProductsInCart] = useState(
-    props.sumOfProducts,
-  );
-  const [allProducts, setAllProducts] = useState(props.props.books);
-  const [product, setProduct] = useState({});
-  const [cart, setCart] = useState(putItemsInCart);
-  const allItemsInCart = [...cart];
-  console.log(cart);
+  const sumOfProductsCalculator = sumQuantityOfProducts();
 
-  function putItemsInCart() {
+  const [allProducts, setAllProducts] = useState(props.props.books);
+
+  const cookieCart = getCartFromCookies();
+  const cartQuantities = cookieCart.map((item) => {
+    if (item.count > 0) {
+      return item.count;
+    }
+    item;
+  });
+
+  const cartProducts = cookieCart.map((item) => {
+    if (item.count > 0) {
+      return item.id;
+    }
+    item;
+  });
+
+  const [items, setItems] = useState(cartProducts);
+
+  const [bag, setBag] = useState(putItemsInCart(items));
+  const allItemsInCart = [...bag];
+  console.log(typeof cartProducts[0]);
+
+  function putItemsInCart(cartItems) {
     const itemArray = [];
     for (let i = 0; i < allProducts.length; i++) {
-      if (props.cookieKeysToInt.includes(allProducts[i].id)) {
+      if (items.includes(allProducts[i].id)) {
         itemArray.push(allProducts[i]);
       }
     }
     return itemArray;
   }
-  console.log(putItemsInCart());
 
   return (
     <>
-      <Layout numOfProductsInCart={numOfProductsInCart}>
+      <Layout sumOfProductsCalculator={sumOfProductsCalculator}>
         <h1>Your Cart</h1>
         <div style={containerStyles}>
-          {cart.map((book) => (
+          {bag.map((book) => (
             <div key={book.id} style={itemBorder}>
               <div style={productInfoStyles}>
                 <img style={imageStyles} src={book.productImage} />
@@ -166,17 +182,20 @@ export default function Cart(props) {
 }
 
 export async function getServerSideProps(context) {
-  // const { getBookById } = await import('../util/database');
-  // const books = await getBookById(id);
-
   const { getBooks } = await import('../util/database');
+  const { getCartFromCookies, toggleItemsInCartInCookie } = await import(
+    '../util/cookie'
+  );
+
+  console.log(`My cookies: ${getCartFromCookies()}`);
+
   const books = await getBooks();
   const props = {};
   if (books) props.books = books;
 
-  const allCookies = nextCookies(context);
+  console.log(toggleItemsInCartInCookie(props.books.id));
 
-  const productInCart = allCookies.productInCart || [];
+  const allCookies = nextCookies(context);
 
   const numOfProducts = Object.values(allCookies);
   const reducer = (accumulator, currentValue) =>
@@ -191,8 +210,8 @@ export async function getServerSideProps(context) {
 
   const cookieKeys = Object.keys(allCookies);
   const cookieKeysToInt = cookieKeys.map((value) => parseInt(value));
-  console.log(cookieKeys);
-  console.log(cookieKeysToInt);
+  // console.log(cookieKeys);
+  // console.log(cookieKeysToInt);
 
   const sumOfProducts = calcSumOfProducts();
   return {

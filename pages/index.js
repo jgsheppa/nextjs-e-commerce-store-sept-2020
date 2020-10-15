@@ -5,9 +5,7 @@ import Link from 'next/link';
 import Cookie from 'js-cookie';
 import nextCookies from 'next-cookies';
 import { useState } from 'react';
-// import { getBookById } from './../util/database';
-
-// const book = getBookById('3');
+import { sumQuantityOfProducts } from './../util/cookie';
 
 const containerStyles = {
   // display: 'flex',
@@ -38,16 +36,14 @@ const textStyles = {
 };
 
 export default function Index(props) {
-  const [numOfProductsInCart, setNumOfProductsInCart] = useState(
-    props.sumOfProducts,
-  );
+  const sumOfProductsCalculator = sumQuantityOfProducts();
   return (
     <>
       <Head>
         <title>Book Nook</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Layout numOfProductsInCart={numOfProductsInCart}>
+      <Layout sumOfProductsCalculator={sumOfProductsCalculator}>
         <div style={containerStyles}></div>
         <div style={containerStyles}>
           <div style={textFlexBox}>

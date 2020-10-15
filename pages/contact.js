@@ -1,6 +1,6 @@
 import Layout from './components/Layout.js';
 import nextCookies from 'next-cookies';
-import { useState } from 'react';
+import { sumQuantityOfProducts } from './../util/cookie';
 
 const containerStyles = {
   display: 'flex',
@@ -23,12 +23,10 @@ const textFlexBox = {
 };
 
 export default function Contact(props) {
-  const [numOfProductsInCart, setNumOfProductsInCart] = useState(
-    props.sumOfProducts,
-  );
+  const sumOfProductsCalculator = sumQuantityOfProducts();
   return (
     <>
-      <Layout numOfProductsInCart={numOfProductsInCart}>
+      <Layout sumOfProductsCalculator={sumOfProductsCalculator}>
         <div style={containerStyles}>
           <div style={infoContainer}>
             <h1>Contact Us</h1>

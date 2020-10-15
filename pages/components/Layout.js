@@ -6,9 +6,9 @@ import { useState } from 'react';
 
 export default function Layout(props) {
   const [numOfProductsInCart, setNumOfProductsInCart] = useState(
-    props.numOfProductsInCart,
+    props.sumOfProductsCalculator,
   );
-  // console.log(numOfProductsInCart);
+  console.log(numOfProductsInCart);
   return (
     <>
       <Head>
