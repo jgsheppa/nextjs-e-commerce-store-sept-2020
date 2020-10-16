@@ -1,3 +1,4 @@
+// import cookies from '../components/node_modules/js-cookie';
 import cookies from 'js-cookie';
 
 export function getCartFromCookies() {

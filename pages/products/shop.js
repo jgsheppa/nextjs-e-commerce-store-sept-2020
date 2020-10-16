@@ -1,4 +1,4 @@
-import Layout from '../components/Layout.js';
+import Layout from '../../components/Layout.js';
 // import { products } from '../../util/database';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';

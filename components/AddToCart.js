@@ -1,10 +1,6 @@
 import Link from 'next/link';
-import { useState, useEffect } from 'react';
-import nextCookies from 'next-cookies';
-import Cookie from 'js-cookie';
-import { getProductInCart } from '../../util/cookie';
-import Layout from './Layout';
-import { addProductToCookieCart } from '../../util/cookie';
+import { addProductToCookieCart } from '../util/cookie.js';
+import { Cookie } from '../util/types';
 
 const addToCartStyles = {
   display: 'flex',
@@ -25,6 +21,8 @@ const addButtonStyles = {
   color: '#fff',
   borderRadius: '15px',
 };
+
+// type Props = Cookie;
 
 export default function AddToCart(props) {
   return (
@@ -55,13 +53,13 @@ export default function AddToCart(props) {
   );
 }
 
-export function getServerSideProps(context) {
-  const props = {};
-  if (books) props.books = books[0];
-  const bookInCart = allCookies.book || [];
+// export function getServerSideProps(context) {
+//   const props = {};
+//   if (books) props.books = books[0];
+//   const bookInCart = allCookies.book || [];
 
-  return {
-    props: props,
-    bookInCart,
-  };
-}
+//   return {
+//     props: props,
+//     bookInCart,
+//   };
+// }

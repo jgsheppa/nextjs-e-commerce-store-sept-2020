@@ -1,4 +1,4 @@
-import Layout from './components/Layout.js';
+import Layout from '../components/Layout.js';
 import nextCookies from 'next-cookies';
 import { sumQuantityOfProducts } from './../util/cookie';
 

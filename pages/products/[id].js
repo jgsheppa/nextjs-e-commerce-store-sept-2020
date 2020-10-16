@@ -1,9 +1,8 @@
-import Layout from '../components/Layout.js';
-import AddToCart from '../components/AddToCart.js';
+import Layout from '../../components/Layout.js';
+import AddToCart from '../../components/AddToCart.js';
 import Head from 'next/head';
 import { useState, useEffect } from 'react';
 import nextCookies from 'next-cookies';
-import Cookie from 'js-cookie';
 import cookies from 'next-cookies';
 import { makeCookie, sumQuantityOfProducts } from '../../util/cookie';
 
@@ -35,6 +34,7 @@ export default function id(props) {
   }
 
   const bookInfo = findBookInfo();
+  console.log(bookInfo);
   console.log(props.bookInCart);
 
   const [firstName, setFirstName] = useState(bookInfo.firstName);

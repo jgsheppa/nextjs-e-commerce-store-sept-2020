@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import Layout from './components/Layout.js';
+import Layout from '../components/Layout.js';
 import Cookies from 'next-cookies';
 import Link from 'next/link';
 import Cookie from 'js-cookie';

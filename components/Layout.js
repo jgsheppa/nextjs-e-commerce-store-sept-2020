@@ -1,14 +1,15 @@
 import Head from 'next/head';
 import Header from './Header.js';
 import Footer from './Footer.js';
-import { loadGetInitialProps } from 'next/dist/next-server/lib/utils';
 import { useState } from 'react';
+import { SumOfProducts } from '../util/types';
 
 export default function Layout(props) {
   const [numOfProductsInCart, setNumOfProductsInCart] = useState(
     props.sumOfProductsCalculator,
   );
-  console.log(numOfProductsInCart);
+  //Type === number
+  // console.log(numOfProductsInCart);
   return (
     <>
       <Head>

@@ -1,34 +1,25 @@
 {
   "compilerOptions": {
-    "lib": [
-      "es2019",
-      "DOM",
-      "es2020.promise",
-      "es2020.bigint",
-      "es2020.string"
-    ],
+    "target": "es5",
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
-    "strict": true,
-    "noEmit": true,
-    "jsx": "preserve",
-    "esModuleInterop": true,
-    "downlevelIteration": true,
-    "resolveJsonModule": true,
     "skipLibCheck": true,
-    "allowSyntheticDefaultImports": true,
+    "strict": false,
     "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "esModuleInterop": true,
     "module": "esnext",
     "moduleResolution": "node",
+    "resolveJsonModule": true,
     "isolatedModules": true,
-    "target": "es5"
+    "jsx": "preserve"
   },
   "include": [
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "**/*.js"
+    "components/AddToCart.js",
+    "components/Layout.js"
   ],
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["node_modules"]
 }

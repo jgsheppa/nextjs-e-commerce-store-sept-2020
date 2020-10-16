@@ -1,8 +1,5 @@
 import Head from 'next/head';
 import Link from 'next/link';
-import { useState } from 'react';
-import nextCookies from 'next-cookies';
-import Cookie from 'js-cookie';
 
 const headerStyles = {
   margin: '0 10%',
@@ -49,7 +46,6 @@ const numStyles = {
 };
 
 export default function Header(props) {
-  console.log(props.numOfProductsInCart);
   return (
     <>
       <Head>

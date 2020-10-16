@@ -102,7 +102,6 @@ const productDetailStyles = {
   alignItems: 'flex-start',
   marginBottom: '20px',
   lineHeight: '2',
-  maxWidth: '300px',
 };
 
 export default function Cart(props) {
@@ -162,9 +161,12 @@ export default function Cart(props) {
   return (
     <>
       <Layout sumOfProductsCalculator={sumOfProductsCalculator}>
-        <h1>Your Cart</h1>
+        <h1>Checkout</h1>
         <div style={pageContainer}>
           <div style={containerStyles}>
+            <h2>Shipping Address</h2>
+            <h2>Paymend Method</h2>
+            <h2>Review Items and Shipping</h2>
             {newCart.map((book) => (
               <div key={book.id} style={itemBorder}>
                 <div style={productInfoStyles}>
@@ -203,16 +205,13 @@ export default function Cart(props) {
           </div>
           <div>
             <div style={buttonBorderStyles}>
+              <Link href="/thankYouPage">
+                <a style={purchaseButtonStyles}>Place Your Order</a>
+              </Link>
               <div>
                 <b>Subtotal:</b>
                 <div>{subTotal}</div>
               </div>
-              <Link href="/checkout">
-                <a style={purchaseButtonStyles}>Proceed To Checkout</a>
-              </Link>
-              {/* <button style={purchaseButtonStyles}>
-                <a>Proceed To Checkout</a>
-              </button> */}
             </div>
           </div>
         </div>

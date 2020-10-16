@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import Layout from './components/Layout';
+import Layout from '../components/Layout';
 import nextCookies from 'next-cookies';
 import Cookie from 'js-cookie';
 import { useState } from 'react';
@@ -43,6 +43,11 @@ export default function confirmAddToCart(props) {
             <button style={addButtonStyles}>
               <Link href="/cart">
                 <a>Go To Cart</a>
+              </Link>
+            </button>
+            <button style={addButtonStyles}>
+              <Link href="/products/shop">
+                <a>Proceed To Checkout</a>
               </Link>
             </button>
           </div>
