@@ -1,6 +1,6 @@
 import Head from 'next/head';
-import Header from './Header.js';
-import Footer from './Footer.js';
+import Header from './Header';
+import Footer from './Footer';
 import { useState } from 'react';
 import { SumOfProducts } from '../util/types';
 

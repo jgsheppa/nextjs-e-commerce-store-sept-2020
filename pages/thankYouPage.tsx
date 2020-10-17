@@ -1,13 +1,14 @@
 import Head from 'next/head';
-import Layout from '../components/Layout.js';
+import Layout from '../components/Layout';
+import { Style } from '../util/types';
 
-const containerStyles = {
+const containerStyles: Style = {
   // display: 'flex',
   // flexDirection: 'column',
   // alignContent: 'center',
 };
 
-const textFlexBox = {
+const textFlexBox: Style = {
   display: 'flex',
   flexDirection: 'row',
   flexWrap: 'wrap',
@@ -16,7 +17,7 @@ const textFlexBox = {
   margin: 'auto',
 };
 
-const textStyles = {
+const textStyles: Style = {
   display: 'flex',
   flexDirection: 'Column',
   alignItems: 'flex-start',

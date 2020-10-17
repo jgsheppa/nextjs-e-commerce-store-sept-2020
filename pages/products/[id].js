@@ -1,9 +1,8 @@
-import Layout from '../../components/Layout.js';
-import AddToCart from '../../components/AddToCart.js';
+import Layout from '../../components/Layout';
+import AddToCart from '../../components/AddToCart';
 import Head from 'next/head';
 import { useState, useEffect } from 'react';
 import nextCookies from 'next-cookies';
-import cookies from 'next-cookies';
 import { makeCookie, sumQuantityOfProducts } from '../../util/cookie';
 
 const allProductsContainer = {

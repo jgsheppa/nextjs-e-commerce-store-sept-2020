@@ -1,5 +1,9 @@
-// import cookies from '../components/node_modules/js-cookie';
 import cookies from 'js-cookie';
+
+// type Cookies = {
+//   id: number;
+//   count: number;
+// }[];
 
 export function getCartFromCookies() {
   const cart = cookies.getJSON('book') || [];

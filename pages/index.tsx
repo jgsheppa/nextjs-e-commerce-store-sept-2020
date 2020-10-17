@@ -1,11 +1,7 @@
 import Head from 'next/head';
-import Layout from '../components/Layout.js';
-import Cookies from 'next-cookies';
-import Link from 'next/link';
-import Cookie from 'js-cookie';
-import nextCookies from 'next-cookies';
-import { useState } from 'react';
-import { sumQuantityOfProducts } from './../util/cookie';
+import Layout from '../components/Layout';
+import { sumQuantityOfProducts } from '../util/cookie.js';
+import { Style } from '../util/types';
 
 const containerStyles = {
   // display: 'flex',
@@ -13,7 +9,7 @@ const containerStyles = {
   // alignContent: 'center',
 };
 
-const textFlexBox = {
+const textFlexBox: Style = {
   display: 'flex',
   flexDirection: 'row',
   flexWrap: 'wrap',
@@ -22,13 +18,13 @@ const textFlexBox = {
   margin: 'auto',
 };
 
-const sleepBookStyles = {
-  maxWidth: '400px',
-  maxHeight: 'auto',
-  marginTop: '20px',
-};
+// const sleepBookStyles = {
+//   maxWidth: '400px',
+//   maxHeight: 'auto',
+//   marginTop: '20px',
+// };
 
-const textStyles = {
+const textStyles: Style = {
   display: 'flex',
   flexDirection: 'Column',
   alignItems: 'flex-start',
@@ -72,33 +68,4 @@ export default function Index(props) {
       </Layout>
     </>
   );
-}
-
-export async function getServerSideProps(context) {
-  // const id = Cookie.get()
-  // const { getBookById } = await import('../util/database');
-  // const books = await getBookById(id);
-
-  // const props = {};
-  // if (books) props.books = books[0];
-
-  const allCookies = nextCookies(context);
-  const productInCart = allCookies.productInCart || [];
-
-  const numOfProducts = Object.values(allCookies);
-  const reducer = (accumulator, currentValue) =>
-    parseInt(accumulator) + parseInt(currentValue);
-  function calcSumOfProducts() {
-    if (numOfProducts.length > 0) {
-      return numOfProducts.reduce(reducer);
-    } else {
-      return 0;
-    }
-  }
-
-  const sumOfProducts = calcSumOfProducts();
-
-  return {
-    props: { sumOfProducts },
-  };
 }

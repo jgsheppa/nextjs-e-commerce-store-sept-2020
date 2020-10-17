@@ -1,17 +1,16 @@
 import Link from 'next/link';
 import Layout from '../components/Layout';
 import nextCookies from 'next-cookies';
-import Cookie from 'js-cookie';
-import { useState } from 'react';
-import { sumQuantityOfProducts } from './../util/cookie';
+import { sumQuantityOfProducts } from '../util/cookie.js';
+import { Style } from '../util/types';
 
-const containerStyles = {
+const containerStyles: Style = {
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
 };
 
-const buttonContainerStyles = {
+const buttonContainerStyles: Style = {
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'space-evenly',
@@ -19,7 +18,7 @@ const buttonContainerStyles = {
   minWidth: '500px',
 };
 
-const addButtonStyles = {
+const addButtonStyles: Style = {
   padding: '20px 30px',
   fontSize: '20px',
   backgroundColor: '#5963DE',
@@ -27,7 +26,7 @@ const addButtonStyles = {
   borderRadius: '15px',
 };
 
-export default function confirmAddToCart(props) {
+export default function confirmAddToCart() {
   const sumOfProductsCalculator = sumQuantityOfProducts();
   return (
     <>
@@ -55,33 +54,4 @@ export default function confirmAddToCart(props) {
       </Layout>
     </>
   );
-}
-
-export async function getServerSideProps(context) {
-  // const id = Cookie.get()
-  // const { getBookById } = await import('../util/database');
-  // const books = await getBookById(id);
-
-  // const props = {};
-  // if (books) props.books = books[0];
-
-  const allCookies = nextCookies(context);
-  const productInCart = allCookies.productInCart || [];
-
-  const numOfProducts = Object.values(allCookies);
-  const reducer = (accumulator, currentValue) =>
-    parseInt(accumulator) + parseInt(currentValue);
-  function calcSumOfProducts() {
-    if (numOfProducts.length > 0) {
-      return numOfProducts.reduce(reducer);
-    } else {
-      return 0;
-    }
-  }
-
-  const sumOfProducts = calcSumOfProducts();
-
-  return {
-    props: { sumOfProducts },
-  };
 }

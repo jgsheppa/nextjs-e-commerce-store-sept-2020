@@ -1,41 +1,59 @@
-import Layout from '../../components/Layout.js';
-// import { products } from '../../util/database';
+import Layout from '../../components/Layout';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import nextCookies from 'next-cookies';
-import Cookie from 'js-cookie';
-import { sumQuantityOfProducts } from '../../util/cookie';
+import { sumQuantityOfProducts } from '../../util/cookie.js';
+import { Style } from '../../util/types';
 
-const containerStyles = {
+const containerStyles: Style = {
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
 };
 
-const allProductsContainer = {
+const allProductsContainer: Style = {
   display: 'flex',
   flexWrap: 'wrap',
   flexDirection: 'row',
   justifyContent: 'space-around',
   alignContent: 'center',
 };
-const productContainer = {
+const productContainer: Style = {
   display: 'flex',
   flexDirection: 'column',
 };
 
-export default function Shop(props) {
+type Props = {
+  props: {
+    books: {
+      id: number;
+      firstName: string;
+      lastName: string;
+      title: string;
+      productImage: string;
+      price: string;
+      alt: string;
+    }[];
+  };
+  sumOfProducts: { id: number; count: number }[];
+  allCookies: { books: { id: number; count: number }[] };
+  bookCookies: { id: number; count: number }[];
+};
+
+export default function Shop(props: Props) {
   const sumOfProductsCalculator = sumQuantityOfProducts();
 
   const [bookFromCookie, setBookFromCookie] = useState(props.bookCookies);
   const [booksInCart, setBooksInCart] = useState(props.props.books);
+
+  console.log(booksInCart);
 
   useEffect(() => {
     setBooksInCart(
       props.props.books.map((book) => {
         return {
           ...book,
-          inCart: bookFromCookie.includes(book.id),
+          inCart: bookFromCookie,
         };
       }),
     );
@@ -76,46 +94,6 @@ export default function Shop(props) {
   );
 }
 
-// export async function getServerSideProps() {
-//   const { getBooks } = await import('../../util/database');
-//   const books = await getBooks();
-
-//   const props = {};
-//   if (books) props.books = books;
-
-//   return {
-//     props: props,
-//   };
-// }
-
-// export async function getServerSideProps(context) {
-//   const { getBooks } = await import('../../util/database');
-//   const books = await getBooks();
-
-//   const props = {};
-//   if (books) props.books = books;
-
-//   const allCookies = nextCookies(context);
-//   const productInCart = allCookies.productInCart || [];
-
-//   const numOfProducts = Object.values(allCookies);
-//   const reducer = (accumulator, currentValue) =>
-//     parseInt(accumulator) + parseInt(currentValue);
-//   function calcSumOfProducts() {
-//     if (numOfProducts.length > 0) {
-//       return numOfProducts.reduce(reducer);
-//     } else {
-//       return 0;
-//     }
-//   }
-
-//   const sumOfProducts = calcSumOfProducts();
-
-//   return {
-//     props: { props, sumOfProducts },
-//   };
-// }
-
 export async function getServerSideProps(context) {
   const id = context.query.id;
   const { getBookById, getBooks } = await import('../../util/database');
@@ -130,27 +108,40 @@ export async function getServerSideProps(context) {
   const books = await getBooks();
   const bookByID = await getBookById();
 
-  const props = {};
+  const props: {
+    books: {
+      id: number;
+      firstName: string;
+      lastName: string;
+      title: string;
+      productImage: string;
+      price: string;
+      alt: string;
+    }[];
+  } = { books };
   if (books) props.books = books;
-  // console.log(props.books);
-
-  // console.log(toggleItemsInCartInCookie(props.books.id));
 
   const allCookies = nextCookies(context);
 
-  const numOfProducts = Object.values(allCookies);
-  const reducer = (accumulator, currentValue) =>
-    parseInt(accumulator) + parseInt(currentValue);
+  const numOfProductsAsStrings = Object.values(allCookies);
 
-  function calcSumOfProducts() {
-    if (numOfProducts.length > 0) {
-      return numOfProducts.reduce(reducer);
+  const intNumOfProducts = numOfProductsAsStrings.map((string) =>
+    parseInt(string),
+  );
+
+  function calcSumOfProducts(arrayOfValues: number[]): number {
+    if (arrayOfValues.length > 0) {
+      let total = arrayOfValues[0];
+      for (let i = 1; i < arrayOfValues.length; i++) {
+        total += arrayOfValues[i];
+      }
+      return total;
     } else {
       return 0;
     }
   }
 
-  const sumOfProducts = calcSumOfProducts();
+  const sumOfProducts = calcSumOfProducts(intNumOfProducts);
 
   const bookInCart = allCookies.book || [];
   // console.log(bookInCart);

@@ -1,4 +1,6 @@
-const footerStyles = {
+import { Style } from '../util/types';
+
+const footerStyles: Style = {
   padding: '20px',
   backgroundColor: '#000',
   position: 'fixed',

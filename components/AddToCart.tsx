@@ -1,8 +1,8 @@
 import Link from 'next/link';
 import { addProductToCookieCart } from '../util/cookie.js';
-import { Cookie } from '../util/types';
+import { Style } from '../util/types';
 
-const addToCartStyles = {
+const addToCartStyles: Style = {
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'space-evenly',
@@ -15,16 +15,20 @@ const addToCartStyles = {
   margin: '0',
 };
 
-const addButtonStyles = {
+const addButtonStyles: Style = {
   padding: '10px 20px',
   backgroundColor: '#5963DE',
   color: '#fff',
   borderRadius: '15px',
 };
 
-// type Props = Cookie;
+type Props = {
+  id: number;
+  count: number | undefined;
+};
 
-export default function AddToCart(props) {
+export default function AddToCart(props: Props) {
+  console.log(props);
   return (
     <>
       <div style={addToCartStyles}>

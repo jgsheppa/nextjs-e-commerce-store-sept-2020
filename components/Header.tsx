@@ -1,11 +1,12 @@
 import Head from 'next/head';
 import Link from 'next/link';
+import { Style } from '../util/types';
 
-const headerStyles = {
+const headerStyles: Style = {
   margin: '0 10%',
 };
 
-const headerContainerStyles = {
+const headerContainerStyles: Style = {
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'space-between',
@@ -13,7 +14,7 @@ const headerContainerStyles = {
   marginTop: '10px',
 };
 
-const navContainerStyles = {
+const navContainerStyles: Style = {
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'space-evenly',
@@ -21,7 +22,7 @@ const navContainerStyles = {
   maxWidth: '600px',
 };
 
-const navStyles = {
+const navStyles: Style = {
   // display: 'flex',
   // flexDirection: 'row',
   // justifyContent: 'center',
@@ -32,16 +33,16 @@ const navStyles = {
   marginLeft: '20px',
 };
 
-const shoppingCartStyles = {
+const shoppingCartStyles: Style = {
   display: 'flex',
   flexDirection: 'column',
 };
 
-const cartStyles = {
+const cartStyles: Style = {
   margin: '-5px 0 0 20px',
 };
 
-const numStyles = {
+const numStyles: Style = {
   marginLeft: '30px',
 };
 

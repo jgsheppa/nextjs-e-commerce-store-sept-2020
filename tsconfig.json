@@ -18,8 +18,10 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "components/AddToCart.js",
-    "components/Layout.js"
+    "components/AddToCart.tsx",
+    "components/Layout.tsx",
+    "util/cookie.js",
+    "pages/_app.js"
   ],
   "exclude": ["node_modules"]
 }
