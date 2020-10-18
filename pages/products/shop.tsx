@@ -129,6 +129,8 @@ export async function getServerSideProps(context) {
     parseInt(string),
   );
 
+  // TypeScript gave me trouble for using redux
+  // so I went with a good old for-loop
   function calcSumOfProducts(arrayOfValues: number[]): number {
     if (arrayOfValues.length > 0) {
       let total = arrayOfValues[0];
