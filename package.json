@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start -p ${PORT:-\"3000\"}",
-    "migrate": "dotenv ley"
+    "migrate": "dotenv ley",
+    "heroku-postbuild": "yarn migrate up && yarn build"
   },
   "dependencies": {
     "camelcase-keys": "^6.2.2",
@@ -27,6 +28,5 @@
   },
   "cacheDirectories": [
     ".next/cache"
-  ],
-  "heroku-postbuild": "yarn migrate up && yarn build"
+  ]
 }
