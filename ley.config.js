@@ -1,4 +1,4 @@
-import { setPostgresDefaultsOnHeroku } from '../util/database';
+import { setPostgresDefaultsOnHeroku } from '../util/setPostgresDefaultsOnHeroku';
 
 setPostgresDefaultsOnHeroku();
 
