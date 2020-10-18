@@ -7,8 +7,6 @@ setPostgresDefaultsOnHeroku();
 
 dotenv.config();
 
-// console.log(dotenv.config(setPostgresDefaultsOnHeroku));
-
 const sql =
   process.env.NODE_ENV === 'production'
     ? // Heroku needs SSL connections but
