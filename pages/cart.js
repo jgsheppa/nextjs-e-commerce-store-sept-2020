@@ -227,13 +227,9 @@ export async function getServerSideProps(context) {
     '../util/cookie'
   );
 
-  console.log(`My cookies: ${getCartFromCookies()}`);
-
   const books = await getBooks();
   const props = {};
   if (books) props.books = books;
-
-  console.log(toggleItemsInCartInCookie(props.books.id));
 
   const allCookies = nextCookies(context);
 

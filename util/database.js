@@ -29,6 +29,7 @@ export async function getBookById(id) {
 
   return books.map(camelcaseKeys);
 }
+
 // export async function getUserById(id) {
 //   // Return undefined if the id is not
 //   // in the correct format

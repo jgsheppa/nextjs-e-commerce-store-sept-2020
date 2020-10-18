@@ -1,6 +1,6 @@
-import setPostgresDefaultsOnHeroku from '../util/setPostgresDefaultsOnHeroku';
+const extractHerokuDataBaseVars = require('../util/setPostgresDefaultsOnHeroku');
 
-setPostgresDefaultsOnHeroku();
+extractHerokuDataBaseVars();
 
 const options = {};
 
