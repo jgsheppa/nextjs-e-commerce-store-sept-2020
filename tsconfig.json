@@ -21,7 +21,8 @@
     "components/AddToCart.tsx",
     "components/Layout.tsx",
     "util/cookie.js",
-    "pages/_app.js"
+    "pages/_app.js",
+    "util/setPostgresDefaultsOnHeroku.js"
   ],
   "exclude": ["node_modules"]
 }

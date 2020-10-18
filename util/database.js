@@ -1,11 +1,13 @@
 import postgres from 'postgres';
 import dotenv from 'dotenv';
 import camelcaseKeys from 'camelcase-keys';
-import { setPostgresDefaultsOnHeroku } from './setPostgresDefaultsOnHeroku';
+import setPostgresDefaultsOnHeroku from './setPostgresDefaultsOnHeroku';
 
-// console.log(setPostgresDefaultsOnHeroku());
+setPostgresDefaultsOnHeroku();
 
-dotenv.config(setPostgresDefaultsOnHeroku);
+dotenv.config();
+
+// console.log(dotenv.config(setPostgresDefaultsOnHeroku));
 
 const sql =
   process.env.NODE_ENV === 'production'
