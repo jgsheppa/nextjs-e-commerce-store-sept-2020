@@ -32,3 +32,15 @@ p {
   line-height: 1.6;
   color: #2f2828;
 }
+
+.inputfield {
+  padding: 8px 32px;
+  border-radius: 4px;
+  border: 1px solid #cccccc;
+  font-size: 16px;
+  margin: 12px 0;
+}
+.inputfield:focus {
+  border: solid #fa8535 2px;
+  outline: none !important;
+}

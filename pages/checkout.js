@@ -11,7 +11,7 @@ const pageContainer = {
   flexDirection: 'row',
   flexWrap: 'wrap',
   alignItems: 'center',
-  justifyContent: 'space-between',
+  justifyContent: 'space-around',
   marginBottom: '100px',
 };
 const containerStyles = {
@@ -64,55 +64,53 @@ const removeItemStyles = {
 const buttonBorderStyles = {
   display: 'flex',
   flexDirection: 'column',
-  justifyContent: 'center',
+  justifyContent: 'space-around',
   alignContent: 'center',
   border: 'solid',
   borderRadius: '15px',
   borderColor: '#000',
-  // maxHeight: '400px',
-  // maxWidth: '200px',
   padding: '40px',
   marginRight: '30px',
 };
 
-const purchaseButtonStyles = {
-  fontSize: '20px',
-  fontWeight: 'bold',
-  padding: '30px 50px',
-  borderRadius: '15px',
-  backgroundColor: '#DE5963',
-  color: '#fff',
-};
+// const purchaseButtonStyles = {
+//   fontSize: '20px',
+//   fontWeight: 'bold',
+//   padding: '30px 50px',
+//   borderRadius: '15px',
+//   backgroundColor: '#DE5963',
+//   color: '#fff',
+// };
 
-const imageStyles = {
-  padding: '20px',
-  maxHeight: '300px',
-  maxWidth: 'auto',
-};
+// const imageStyles = {
+//   padding: '20px',
+//   maxHeight: '300px',
+//   maxWidth: 'auto',
+// };
 
-const productInfoStyles = {
-  display: 'flex',
-  flexDirection: 'row',
-  alignItems: 'space-evenly',
-  justifyContent: 'center',
-};
+// const productInfoStyles = {
+//   display: 'flex',
+//   flexDirection: 'row',
+//   alignItems: 'space-evenly',
+//   justifyContent: 'center',
+// };
 
-const productDetailStyles = {
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'flex-end',
-  alignItems: 'flex-start',
-  marginBottom: '20px',
-  lineHeight: '2',
-};
+// const productDetailStyles = {
+//   display: 'flex',
+//   flexDirection: 'column',
+//   justifyContent: 'flex-end',
+//   alignItems: 'flex-start',
+//   marginBottom: '20px',
+//   lineHeight: '2',
+// };
 
-const formStyles = {
-  padding: '8px 32px',
-  borderRadius: '4px',
-  border: '1px solid #cccccc',
-  fontSize: '16px',
-  marginBottom: '8px',
-};
+// const formStyles = {
+//   padding: '8px 32px',
+//   borderRadius: '4px',
+//   border: '1px solid #cccccc',
+//   fontSize: '16px',
+//   marginBottom: '8px',
+// };
 
 const formContainerStyles = {
   display: 'flex',
@@ -132,10 +130,23 @@ const cardExpireInfo = {
 };
 
 const submitButtonStyles = {
-  padding: '8px 40px',
-  fontSize: '20px',
+  padding: '24px 40px',
+  fontSize: '16px',
+  fontWeight: 'bold',
   color: '#fff',
-  backgroundColor: '#5963DE',
+  backgroundColor: '#DE5963',
+  borderRadius: '8px',
+  textAlign: 'center',
+};
+
+const subtotalButtonStyles = {
+  display: 'flex',
+  flexDirection: 'row',
+};
+
+const nameInputStyles = {
+  display: 'flex',
+  flexDirection: 'row',
 };
 
 export default function Cart(props) {
@@ -209,10 +220,58 @@ export default function Cart(props) {
           <div style={containerStyles}>
             <div>
               <Formik
-                initialValues={{ email: '', firstname: '', lastname: '' }}
+                initialValues={{
+                  email: '',
+                  firstname: '',
+                  lastname: '',
+                  streetaddress: '',
+                  aptnumber: '',
+                  city: '',
+                  state: '',
+                  country: '',
+                  zipcode: '',
+                  cardholder: '',
+                  cardnumber: '',
+                  mm: '',
+                  yy: '',
+                  securitynumber: '',
+                }}
                 validate={(values) => {
                   const errors = {};
-                  if (!values.email) {
+
+                  if (!values.firstname) {
+                    errors.firstname = 'Required';
+                  } else if (!/[a-zA-Z]+/i.test(values.firstname)) {
+                    errors.firstname = 'Invalid first name';
+                  } else if (!values.lastname) {
+                    errors.lastname = 'Required';
+                  } else if (!/[a-zA-Z]+/i.test(values.lastname)) {
+                    errors.lastname = 'Invalid last name';
+                  } else if (!values.streetaddress) {
+                    errors.streetaddress = 'Required';
+                  } else if (!/[\da-zA-Z\s(.)]+/i.test(values.streetaddress)) {
+                    errors.streetaddress = 'Invalid street address';
+                  } else if (!values.aptnumber) {
+                    errors.aptnumber = 'Required';
+                  } else if (!/\d+/i.test(values.aptnumber)) {
+                    errors.aptnumber = 'Invalid apartment number';
+                  } else if (!values.city) {
+                    errors.city = 'Required';
+                  } else if (!/[a-zA-Z]+/i.test(values.city)) {
+                    errors.city = 'Invalid city';
+                  } else if (!values.state) {
+                    errors.state = 'Required';
+                  } else if (!/[a-zA-Z]+/i.test(values.state)) {
+                    errors.state = 'Invalid state';
+                  } else if (!values.country) {
+                    errors.country = 'Required';
+                  } else if (!/[a-zA-Z]+/i.test(values.country)) {
+                    errors.country = 'Invalid country';
+                  } else if (!values.zipcode) {
+                    errors.zipcode = 'Required';
+                  } else if (!/\d+/i.test(values.zipcode)) {
+                    errors.zipcode = 'Invalid zip code';
+                  } else if (!values.email) {
                     errors.email = 'Required';
                   } else if (
                     !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(
@@ -220,6 +279,26 @@ export default function Cart(props) {
                     )
                   ) {
                     errors.email = 'Invalid email address';
+                  } else if (!values.cardholder) {
+                    errors.cardholder = 'Required';
+                  } else if (!/[a-zA-Z]+/i.test(values.cardholder)) {
+                    errors.cardholder = 'Invalid cardholder name';
+                  } else if (!values.cardnumber) {
+                    errors.cardnumber = 'Required';
+                  } else if (!/\d+/i.test(values.cardnumber)) {
+                    errors.cardnumber = 'Invalid card number';
+                  } else if (!values.mm) {
+                    errors.mm = 'Required';
+                  } else if (!/\d{2}/i.test(values.mm)) {
+                    errors.mm = 'Invalid month number';
+                  } else if (!values.yy) {
+                    errors.yy = 'Required';
+                  } else if (!/\d{2}/i.test(values.yy)) {
+                    errors.yy = 'Invalid year';
+                  } else if (!values.securitynumber) {
+                    errors.securitynumber = 'Required';
+                  } else if (!/\d{4}/i.test(values.securitynumber)) {
+                    errors.securitynumber = 'Invalid security number';
                   }
                   return errors;
                 }}
@@ -234,66 +313,70 @@ export default function Cart(props) {
                   <Form>
                     <div style={formContainerStyles}>
                       <h2>Shipping Address</h2>
-                      <div>
-                        <Field
-                          style={formStyles}
-                          type="firstname"
-                          name="firstname"
-                          placeholder="First Name"
-                        />
-                        <ErrorMessage name="firstname" component="div" />
-                        <Field
-                          style={formStyles}
-                          type="lastname"
-                          name="lastname"
-                          placeholder="Last Name"
-                        />
-                        <ErrorMessage name="lastname" component="div" />
+                      <div style={nameInputStyles}>
+                        <div>
+                          <Field
+                            className="inputfield"
+                            type="firstname"
+                            name="firstname"
+                            placeholder="First Name"
+                          />
+                          <ErrorMessage name="firstname" component="div" />
+                        </div>
+                        <div>
+                          <Field
+                            className="inputfield"
+                            type="lastname"
+                            name="lastname"
+                            placeholder="Last Name"
+                          />
+                          <ErrorMessage name="lastname" component="div" />
+                        </div>
                       </div>
                       <Field
-                        style={formStyles}
+                        className="inputfield"
                         type="streetaddress"
                         name="streetaddress"
                         placeholder="Street Address"
                       />
                       <ErrorMessage name="streetaddress" component="div" />
                       <Field
-                        style={formStyles}
+                        className="inputfield"
                         type="aptnumber"
                         name="aptnumber"
                         placeholder="Apt Number"
                       />
                       <ErrorMessage name="aptnumber" component="div" />
                       <Field
-                        style={formStyles}
+                        className="inputfield"
                         type="city"
                         name="city"
                         placeholder="City"
                       />
                       <ErrorMessage name="city" component="div" />
                       <Field
-                        style={formStyles}
+                        className="inputfield"
                         type="state"
                         name="state"
                         placeholder="State"
                       />
                       <ErrorMessage name="state" component="div" />
                       <Field
-                        style={formStyles}
+                        className="inputfield"
                         type="country"
                         name="country"
                         placeholder="Country"
                       />
                       <ErrorMessage name="country" component="div" />
                       <Field
-                        style={formStyles}
+                        className="inputfield"
                         type="zipcode"
                         name="zipcode"
                         placeholder="Zip Code"
                       />
                       <ErrorMessage name="zipcode" component="div" />
                       <Field
-                        style={formStyles}
+                        className="inputfield"
                         type="email"
                         name="email"
                         placeholder="Email Address"
@@ -303,50 +386,56 @@ export default function Cart(props) {
                     <div style={formContainerStyles}>
                       <h2>Paymend Method</h2>
                       <Field
-                        style={formStyles}
+                        className="inputfield"
                         type="cardholder"
                         name="cardholder"
                         placeholder="Cardholder"
                       />
                       <ErrorMessage name="cardholder" component="div" />
                       <Field
-                        style={formStyles}
+                        className="inputfield"
                         type="cardnumber"
                         name="cardnumber"
                         placeholder="Card Number"
                       />
                       <ErrorMessage name="cardnumber" component="div" />
                       <div style={cardExpireInfo}>
-                        <Field
-                          style={formStyles}
-                          type="mm"
-                          name="mm"
-                          placeholder="MM"
-                          margin="0 8px 0 0"
-                        />
-                        <ErrorMessage name="mm" component="div" />
-                        <Field
-                          style={formStyles}
-                          type="yy"
-                          name="yy"
-                          placeholder="YY"
-                        />
-                        <ErrorMessage name="yy" component="div" />
+                        <div>
+                          <Field
+                            className="inputfield"
+                            type="mm"
+                            name="mm"
+                            placeholder="MM"
+                            margin="0 8px 0 0"
+                          />
+                          <ErrorMessage name="mm" component="div" />
+                        </div>
+                        <div>
+                          <Field
+                            className="inputfield"
+                            type="yy"
+                            name="yy"
+                            placeholder="YY"
+                          />
+                          <ErrorMessage name="yy" component="div" />
+                        </div>
                       </div>
                       <Field
-                        style={formStyles}
+                        className="inputfield"
                         type="securitynumber"
                         name="securitynumber"
                         placeholder="Security Number"
                       />
                       <ErrorMessage name="securitynumber" component="div" />
-                      <button
-                        style={submitButtonStyles}
-                        type="submit"
-                        disabled={isSubmitting}
-                      >
-                        Submit
-                      </button>
+                      <Link href="/thankYouPage">
+                        <a
+                          style={submitButtonStyles}
+                          type="submit"
+                          disabled={isSubmitting}
+                        >
+                          Place Your Order
+                        </a>
+                      </Link>
                     </div>
                   </Form>
                 )}
@@ -355,10 +444,7 @@ export default function Cart(props) {
           </div>
           <div>
             <div style={buttonBorderStyles}>
-              <Link href="/thankYouPage">
-                <a style={purchaseButtonStyles}>Place Your Order</a>
-              </Link>
-              <div>
+              <div style={subtotalButtonStyles}>
                 <b>Subtotal:</b>
                 <div>{centsToDollars(subTotal)}</div>
               </div>

@@ -113,12 +113,12 @@ const productDetailStyles = {
 export default function Cart(props) {
   const sumOfProductsCalculator = sumQuantityOfProducts();
   const [allProducts, setAllProducts] = useState(props.props.books);
-  // const [deleteProduct, setDeleteProduct] = useState(cookieCart);
-  console.log(allProducts);
 
   const cookieCart = getCartFromCookies();
 
-  const cookieProductIds = cookieCart.map((item) => {
+  const [productCookies, setProductCookies] = useState(cookieCart);
+
+  const cookieProductIds = productCookies.map((item) => {
     if (item.count > 0) {
       return item.id;
     }
@@ -129,7 +129,6 @@ export default function Cart(props) {
 
   function addQtyToBookInfo(bookInfo, cookieIds, bookIds, cookies) {
     const newBookInfo = [...bookInfo];
-    // const newBookInfo = [];
     for (let i = 0; i < bookInfo.length; i++) {
       if (cookieIds.includes(bookIds[i])) {
         newBookInfo[i].count = cookies[i].count;
@@ -142,7 +141,7 @@ export default function Cart(props) {
     allProducts,
     cookieProductIds,
     bookInfoIds,
-    cookieCart,
+    productCookies,
   );
 
   function putItemsInCart(cartItems, idNums) {
@@ -156,8 +155,10 @@ export default function Cart(props) {
   }
 
   const cart = putItemsInCart(bookInfoWithQty, cookieProductIds);
+  console.log(cart);
 
   const [cartState, setCartState] = useState(cart);
+  console.log(cartState);
 
   function findSubtotal(products, cookieObjs) {
     let total = 0;
@@ -171,7 +172,7 @@ export default function Cart(props) {
     return total;
   }
 
-  const subTotal = findSubtotal(allProducts, cookieCart);
+  const subTotal = findSubtotal(allProducts, productCookies);
 
   return (
     <>
@@ -212,6 +213,7 @@ export default function Cart(props) {
                     <button
                       onClick={() => {
                         deleteProductFromCookieCart(book.id);
+                        setProductCookies(cookieCart);
                       }}
                       style={removeItemStyles}
                     >
@@ -231,9 +233,6 @@ export default function Cart(props) {
               <Link href="/checkout">
                 <a style={purchaseButtonStyles}>Proceed To Checkout</a>
               </Link>
-              {/* <button style={purchaseButtonStyles}>
-                <a>Proceed To Checkout</a>
-              </button> */}
             </div>
           </div>
         </div>
