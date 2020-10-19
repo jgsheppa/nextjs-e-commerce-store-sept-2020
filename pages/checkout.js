@@ -4,6 +4,7 @@ import { useState } from 'react';
 import nextCookies from 'next-cookies';
 import { sumQuantityOfProducts, getCartFromCookies } from './../util/cookie';
 import { centsToDollars } from './../util/helper';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
 
 const pageContainer = {
   display: 'flex',
@@ -105,6 +106,38 @@ const productDetailStyles = {
   lineHeight: '2',
 };
 
+const formStyles = {
+  padding: '8px 32px',
+  borderRadius: '4px',
+  border: '1px solid #cccccc',
+  fontSize: '16px',
+  marginBottom: '8px',
+};
+
+const formContainerStyles = {
+  display: 'flex',
+  flexDirection: 'column',
+  flexWrap: 'wrap',
+  // alignItems: 'space-around',
+  // justifyContent: 'flex-start',
+  marginLeft: '20px',
+};
+
+const cardExpireInfo = {
+  display: 'flex',
+  flexDirection: 'row',
+  flexWrap: 'wrap',
+  alignItems: 'space-between',
+  justifyContent: 'space-between',
+};
+
+const submitButtonStyles = {
+  padding: '8px 40px',
+  fontSize: '20px',
+  color: '#fff',
+  backgroundColor: '#5963DE',
+};
+
 export default function Cart(props) {
   const sumOfProductsCalculator = sumQuantityOfProducts();
   const [allProducts, setAllProducts] = useState(props.props.books);
@@ -174,44 +207,151 @@ export default function Cart(props) {
         <h1>Checkout</h1>
         <div style={pageContainer}>
           <div style={containerStyles}>
-            <h2>Shipping Address</h2>
-            <h2>Paymend Method</h2>
-            <h2>Review Items and Shipping</h2>
-            {cartState.map((book) => (
-              <div key={book.id} style={itemBorder}>
-                <div style={productInfoStyles}>
-                  <img style={imageStyles} src={book.productImage} />
-                  <div style={productDetailStyles}>
-                    <div>
-                      <b>
-                        {book.firstName} {book.lastName}
-                      </b>
+            <div>
+              <Formik
+                initialValues={{ email: '', firstname: '', lastname: '' }}
+                validate={(values) => {
+                  const errors = {};
+                  if (!values.email) {
+                    errors.email = 'Required';
+                  } else if (
+                    !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(
+                      values.email,
+                    )
+                  ) {
+                    errors.email = 'Invalid email address';
+                  }
+                  return errors;
+                }}
+                onSubmit={(values, { setSubmitting }) => {
+                  setTimeout(() => {
+                    alert(JSON.stringify(values, null, 2));
+                    setSubmitting(false);
+                  }, 400);
+                }}
+              >
+                {({ isSubmitting }) => (
+                  <Form>
+                    <div style={formContainerStyles}>
+                      <h2>Shipping Address</h2>
+                      <div>
+                        <Field
+                          style={formStyles}
+                          type="firstname"
+                          name="firstname"
+                          placeholder="First Name"
+                        />
+                        <ErrorMessage name="firstname" component="div" />
+                        <Field
+                          style={formStyles}
+                          type="lastname"
+                          name="lastname"
+                          placeholder="Last Name"
+                        />
+                        <ErrorMessage name="lastname" component="div" />
+                      </div>
+                      <Field
+                        style={formStyles}
+                        type="streetaddress"
+                        name="streetaddress"
+                        placeholder="Street Address"
+                      />
+                      <ErrorMessage name="streetaddress" component="div" />
+                      <Field
+                        style={formStyles}
+                        type="aptnumber"
+                        name="aptnumber"
+                        placeholder="Apt Number"
+                      />
+                      <ErrorMessage name="aptnumber" component="div" />
+                      <Field
+                        style={formStyles}
+                        type="city"
+                        name="city"
+                        placeholder="City"
+                      />
+                      <ErrorMessage name="city" component="div" />
+                      <Field
+                        style={formStyles}
+                        type="state"
+                        name="state"
+                        placeholder="State"
+                      />
+                      <ErrorMessage name="state" component="div" />
+                      <Field
+                        style={formStyles}
+                        type="country"
+                        name="country"
+                        placeholder="Country"
+                      />
+                      <ErrorMessage name="country" component="div" />
+                      <Field
+                        style={formStyles}
+                        type="zipcode"
+                        name="zipcode"
+                        placeholder="Zip Code"
+                      />
+                      <ErrorMessage name="zipcode" component="div" />
+                      <Field
+                        style={formStyles}
+                        type="email"
+                        name="email"
+                        placeholder="Email Address"
+                      />
+                      <ErrorMessage name="email" component="div" />
                     </div>
-                    <div>
-                      <i>{book.title}</i>
+                    <div style={formContainerStyles}>
+                      <h2>Paymend Method</h2>
+                      <Field
+                        style={formStyles}
+                        type="cardholder"
+                        name="cardholder"
+                        placeholder="Cardholder"
+                      />
+                      <ErrorMessage name="cardholder" component="div" />
+                      <Field
+                        style={formStyles}
+                        type="cardnumber"
+                        name="cardnumber"
+                        placeholder="Card Number"
+                      />
+                      <ErrorMessage name="cardnumber" component="div" />
+                      <div style={cardExpireInfo}>
+                        <Field
+                          style={formStyles}
+                          type="mm"
+                          name="mm"
+                          placeholder="MM"
+                          margin="0 8px 0 0"
+                        />
+                        <ErrorMessage name="mm" component="div" />
+                        <Field
+                          style={formStyles}
+                          type="yy"
+                          name="yy"
+                          placeholder="YY"
+                        />
+                        <ErrorMessage name="yy" component="div" />
+                      </div>
+                      <Field
+                        style={formStyles}
+                        type="securitynumber"
+                        name="securitynumber"
+                        placeholder="Security Number"
+                      />
+                      <ErrorMessage name="securitynumber" component="div" />
+                      <button
+                        style={submitButtonStyles}
+                        type="submit"
+                        disabled={isSubmitting}
+                      >
+                        Submit
+                      </button>
                     </div>
-                    <div>{centsToDollars(book.price)}</div>
-                  </div>
-                </div>
-                <div style={itemInfoStyles}>
-                  <div style={quatityStyles}>
-                    <div>Quantity: </div>
-                    <select>
-                      <option>{book.count}</option>
-                      <option>0</option>
-                      <option>1</option>
-                      <option>2</option>
-                      <option>3</option>
-                      <option>4</option>
-                      <option>5+</option>
-                    </select>
-                  </div>
-                  <div>
-                    <button style={removeItemStyles}>Remove Item</button>
-                  </div>
-                </div>
-              </div>
-            ))}
+                  </Form>
+                )}
+              </Formik>
+            </div>
           </div>
           <div>
             <div style={buttonBorderStyles}>
