@@ -4,6 +4,7 @@ import Head from 'next/head';
 import { useState, useEffect } from 'react';
 import nextCookies from 'next-cookies';
 import { makeCookie, sumQuantityOfProducts } from '../../util/cookie';
+import { centsToDollars } from '../../util/helper';
 
 const allProductsContainer = {
   display: 'flex',
@@ -84,7 +85,7 @@ export default function id(props) {
               {firstName} {lastName}
             </p>
             <p>{title}</p>
-            <p>Price: {price}</p>
+            <p>Price: {centsToDollars(price)}</p>
           </div>
           <AddToCart id={id} cookieCount={cookieCount}></AddToCart>
         </div>

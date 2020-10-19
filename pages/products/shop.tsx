@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import nextCookies from 'next-cookies';
 import { sumQuantityOfProducts } from '../../util/cookie.js';
 import { Style } from '../../util/types';
+import { centsToDollars } from '../../util/helper';
 
 const containerStyles: Style = {
   display: 'flex',
@@ -46,8 +47,6 @@ export default function Shop(props: Props) {
   const [bookFromCookie, setBookFromCookie] = useState(props.bookCookies);
   const [booksInCart, setBooksInCart] = useState(props.props.books);
 
-  console.log(booksInCart);
-
   useEffect(() => {
     setBooksInCart(
       props.props.books.map((book) => {
@@ -83,7 +82,7 @@ export default function Shop(props: Props) {
                   <p>
                     <i>{book.title}</i>
                   </p>
-                  <p>Price: {book.price}</p>
+                  <p>Price: {centsToDollars(book.price)}</p>
                 </div>
               </div>
             );

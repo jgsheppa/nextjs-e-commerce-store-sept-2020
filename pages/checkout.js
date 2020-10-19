@@ -3,6 +3,7 @@ import Layout from '../components/Layout';
 import { useState } from 'react';
 import nextCookies from 'next-cookies';
 import { sumQuantityOfProducts, getCartFromCookies } from './../util/cookie';
+import { centsToDollars } from './../util/helper';
 
 const pageContainer = {
   display: 'flex',
@@ -107,42 +108,51 @@ const productDetailStyles = {
 export default function Cart(props) {
   const sumOfProductsCalculator = sumQuantityOfProducts();
   const [allProducts, setAllProducts] = useState(props.props.books);
+  // const [deleteProduct, setDeleteProduct] = useState(cookieCart);
+  console.log(allProducts);
 
   const cookieCart = getCartFromCookies();
 
-  const cartProducts = cookieCart.map((item) => {
+  const cookieProductIds = cookieCart.map((item) => {
     if (item.count > 0) {
       return item.id;
     }
     item;
   });
 
-  const [items, setItems] = useState(cartProducts);
+  const bookInfoIds = allProducts.map((item) => item.id);
 
-  function putItemsInCart(cartItems) {
+  function addQtyToBookInfo(bookInfo, cookieIds, bookIds, cookies) {
+    const newBookInfo = [...bookInfo];
+    // const newBookInfo = [];
+    for (let i = 0; i < bookInfo.length; i++) {
+      if (cookieIds.includes(bookIds[i])) {
+        newBookInfo[i].count = cookies[i].count;
+      }
+    }
+    return newBookInfo;
+  }
+
+  const bookInfoWithQty = addQtyToBookInfo(
+    allProducts,
+    cookieProductIds,
+    bookInfoIds,
+    cookieCart,
+  );
+
+  function putItemsInCart(cartItems, idNums) {
     const itemArray = [];
     for (let i = 0; i < allProducts.length; i++) {
-      if (items.includes(allProducts[i].id)) {
-        itemArray.push(allProducts[i]);
+      if (idNums.includes(cartItems[i].id)) {
+        itemArray.push(cartItems[i]);
       }
     }
     return itemArray;
   }
 
-  const [itemsInCart, setItemsInCart] = useState(putItemsInCart(allProducts));
+  const cart = putItemsInCart(bookInfoWithQty, cookieProductIds);
 
-  function addQtyToProduct(bookInfo, cookieObjs) {
-    for (let i = 0; i < cookieObjs.length; i++) {
-      for (let j = 0; j < cookieObjs.length; j++) {
-        if (bookInfo[i].id === cookieObjs[j].id) {
-          bookInfo[i].count = cookieObjs[j].count;
-        }
-      }
-    }
-    return bookInfo;
-  }
-
-  const newCart = addQtyToProduct(itemsInCart, cookieCart);
+  const [cartState, setCartState] = useState(cart);
 
   function findSubtotal(products, cookieObjs) {
     let total = 0;
@@ -167,7 +177,7 @@ export default function Cart(props) {
             <h2>Shipping Address</h2>
             <h2>Paymend Method</h2>
             <h2>Review Items and Shipping</h2>
-            {newCart.map((book) => (
+            {cartState.map((book) => (
               <div key={book.id} style={itemBorder}>
                 <div style={productInfoStyles}>
                   <img style={imageStyles} src={book.productImage} />
@@ -180,7 +190,7 @@ export default function Cart(props) {
                     <div>
                       <i>{book.title}</i>
                     </div>
-                    <div>{book.price}</div>
+                    <div>{centsToDollars(book.price)}</div>
                   </div>
                 </div>
                 <div style={itemInfoStyles}>
@@ -210,7 +220,7 @@ export default function Cart(props) {
               </Link>
               <div>
                 <b>Subtotal:</b>
-                <div>{subTotal}</div>
+                <div>{centsToDollars(subTotal)}</div>
               </div>
             </div>
           </div>

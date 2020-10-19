@@ -49,6 +49,22 @@ export function addProductToCookieCart(bookId) {
   return newCart;
 }
 
+export function deleteProductFromCookieCart(bookId) {
+  const cart = getCartFromCookies();
+  const addProduct = 0;
+
+  const newCart = cart.map((obj) => {
+    if (obj.id === bookId) {
+      obj.count = addProduct;
+    }
+    return obj;
+  });
+
+  cookies.set('book', newCart);
+
+  return newCart;
+}
+
 export function sumQuantityOfProducts() {
   const cart = getCartFromCookies();
 

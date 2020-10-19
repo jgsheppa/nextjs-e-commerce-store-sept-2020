@@ -4,7 +4,7 @@ const products = [
     last_name: 'Abe',
     title: 'Woman in the Dunes',
     product_image: '/kobo_abe.jpg',
-    price: '1000',
+    price: '10.00',
     alt: 'Woman in the Dunes by Kobo Abe',
   },
   {
@@ -12,7 +12,7 @@ const products = [
     last_name: 'Moore',
     title: 'Watchmen',
     product_image: '/watchmen.jpg',
-    price: '2200',
+    price: '22.00',
     alt: 'Watchmen by Allen Moore',
   },
   {
@@ -20,7 +20,7 @@ const products = [
     last_name: 'Kafka',
     title: 'Der Prozess',
     product_image: '/Kafka_Der_Prozess_1925.jpg',
-    price: '700',
+    price: '7.00',
     alt: 'Der Prozess by Franz Kafka',
   },
   {
@@ -28,7 +28,7 @@ const products = [
     last_name: 'Suess',
     title: 'The Sleep Book',
     product_image: '/sleepbook.jpg',
-    price: '1500',
+    price: '15.00',
     alt: 'The Sleep Book by Dr. Seuss',
   },
 ];
