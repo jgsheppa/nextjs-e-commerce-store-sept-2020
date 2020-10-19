@@ -47,3 +47,15 @@ export function deleteProductFromCookieCart(cart, bookId) {
 
   return newCart;
 }
+
+// Add count to database array
+
+export function addQtyToBookInfo(bookInfo, cookieIds, bookIds, cookies) {
+  const newBookInfo = [...bookInfo];
+  for (let i = 0; i < bookInfo.length; i++) {
+    if (cookieIds.includes(bookIds[i])) {
+      newBookInfo[i].count = cookies[i].count;
+    }
+  }
+  return newBookInfo;
+}
