@@ -406,6 +406,7 @@ export default function Cart(props) {
                             type="mm"
                             name="mm"
                             placeholder="MM"
+                            maxLength="2"
                             margin="0 8px 0 0"
                           />
                           <ErrorMessage name="mm" component="div" />
@@ -415,6 +416,7 @@ export default function Cart(props) {
                             className="inputfield"
                             type="yy"
                             name="yy"
+                            maxLength="2"
                             placeholder="YY"
                           />
                           <ErrorMessage name="yy" component="div" />
@@ -424,6 +426,7 @@ export default function Cart(props) {
                         className="inputfield"
                         type="securitynumber"
                         name="securitynumber"
+                        maxLength="4"
                         placeholder="Security Number"
                       />
                       <ErrorMessage name="securitynumber" component="div" />
