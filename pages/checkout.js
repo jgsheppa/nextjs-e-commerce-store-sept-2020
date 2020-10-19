@@ -153,7 +153,7 @@ export default function Cart(props) {
   const sumOfProductsCalculator = sumQuantityOfProducts();
   const [allProducts, setAllProducts] = useState(props.props.books);
   // const [deleteProduct, setDeleteProduct] = useState(cookieCart);
-  console.log(allProducts);
+  console.log(sumOfProductsCalculator);
 
   const cookieCart = getCartFromCookies();
 
