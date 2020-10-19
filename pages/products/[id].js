@@ -55,14 +55,6 @@ export default function id(props) {
   useEffect(() => {
     setBooksInCart(makeCookie(bookID));
     setCookieCount(booksInCart[0]?.count);
-    // setBooksInCart(
-    //   props.props.books.map((book) => {
-    //     return {
-    //       ...book,
-    //       inCart: bookFromCookie.includes(book.id),
-    //     };
-    //   }),
-    // );
   }, [props.books, bookFromCookie, setBooksInCart, makeCookie]);
 
   if (!props.books) {

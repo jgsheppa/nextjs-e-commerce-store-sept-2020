@@ -1,4 +1,4 @@
-const extractHerokuDataBaseVars = require('../util/setPostgresDefaultsOnHeroku');
+const extractHerokuDataBaseVars = require('./util/setPostgresDefaultsOnHeroku');
 
 extractHerokuDataBaseVars();
 
