@@ -45,7 +45,7 @@ export default function confirmAddToCart() {
               </Link>
             </button>
             <button style={addButtonStyles}>
-              <Link href="/products/shop">
+              <Link href="/checkout">
                 <a>Proceed To Checkout</a>
               </Link>
             </button>
