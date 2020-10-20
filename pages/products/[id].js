@@ -34,8 +34,6 @@ export default function id(props) {
   }
 
   const bookInfo = findBookInfo();
-  console.log(bookInfo);
-  console.log(props.bookInCart);
 
   const [firstName, setFirstName] = useState(bookInfo.firstName);
   const [lastName, setLastName] = useState(bookInfo.lastName);

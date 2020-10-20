@@ -1,4 +1,4 @@
-import { addQtyToBookInfo } from '../util/__tests__/utils.test';
+import { addQtyToBookInfo } from '../util/testUtils';
 
 const testBookIds = [1, 2, 3, 4];
 const testCookieIds = [1, 4];

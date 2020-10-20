@@ -1,4 +1,4 @@
-import { sumQuantityOfProducts } from '../util/__tests__/utils.test';
+import { sumQuantityOfProducts } from '../util/testUtils';
 
 const cart = [
   { id: 1, count: 0 },

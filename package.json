@@ -34,5 +34,10 @@
   },
   "cacheDirectories": [
     ".next/cache"
-  ]
+  ],
+  "jest": {
+    "testPathIgnorePatterns": [
+      "<rootDir>/cypress"
+    ]
+  }
 }

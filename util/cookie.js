@@ -1,14 +1,11 @@
 import cookies from 'js-cookie';
 
-// type Cookies = {
-//   id: number;
-//   count: number;
-// }[];
-
 export function getCartFromCookies() {
   const cart = cookies.getJSON('book') || [];
   return cart;
 }
+
+console.log(getCartFromCookies());
 
 export function makeCookie(bookId) {
   const cart = getCartFromCookies();
@@ -92,4 +89,19 @@ export function toggleItemsInCartInCookie(id) {
   cookies.set('book', newCart);
 
   return newCart;
+}
+
+// Calculate total value of products for cart in header
+const cart = getCartFromCookies();
+const numOfProducts = Object.values(cart);
+
+const reducer = (accumulator, currentValue) =>
+  parseInt(accumulator) + parseInt(currentValue);
+
+export function calcSumOfProducts(products, reducer) {
+  if (products.length > 0) {
+    return products.reduce(reducer);
+  } else {
+    return 0;
+  }
 }
