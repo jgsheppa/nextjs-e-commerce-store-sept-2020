@@ -448,7 +448,7 @@ export default function Cart(props) {
           <div>
             <div style={buttonBorderStyles}>
               <div style={subtotalButtonStyles}>
-                <b>Subtotal:</b>
+                <b data-cy="checkout-button">Subtotal:</b>
                 <div>{centsToDollars(subTotal)}</div>
               </div>
             </div>

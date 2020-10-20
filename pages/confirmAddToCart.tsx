@@ -36,7 +36,7 @@ export default function confirmAddToCart() {
           <div style={buttonContainerStyles}>
             <button style={addButtonStyles}>
               <Link href="/products/shop">
-                <a>Return to Shop</a>
+                <a data-cy="back-to-shop">Return to Shop</a>
               </Link>
             </button>
             <button style={addButtonStyles}>
@@ -46,7 +46,7 @@ export default function confirmAddToCart() {
             </button>
             <button style={addButtonStyles}>
               <Link href="/checkout">
-                <a>Proceed To Checkout</a>
+                <a data-cy="go-to-checkout">Proceed To Checkout</a>
               </Link>
             </button>
           </div>

@@ -216,6 +216,7 @@ export default function Cart(props) {
                         setProductCookies(cookieCart);
                       }}
                       style={removeItemStyles}
+                      data-cy="remove-button"
                     >
                       Remove Item
                     </button>
@@ -230,8 +231,10 @@ export default function Cart(props) {
                 <b>Subtotal:</b>
                 <div>{centsToDollars(subTotal)}</div>
               </div>
-              <Link href="/checkout">
-                <a style={purchaseButtonStyles}>Proceed To Checkout</a>
+              <Link href="/checkout" data-cy="go-to-checkout-button">
+                <a data-cy="go-to-checkout-button" style={purchaseButtonStyles}>
+                  Proceed To Checkout
+                </a>
               </Link>
             </div>
           </div>

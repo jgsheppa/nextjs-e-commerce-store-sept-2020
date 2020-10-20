@@ -64,12 +64,12 @@ export default function Shop(props: Props) {
         <div style={containerStyles}>
           <h1>The Nook</h1>
         </div>
-        <div style={allProductsContainer}>
+        <div data-cy="product-list" style={allProductsContainer}>
           {props.props.books.map((book) => {
             return (
               <div style={productContainer} key={book.id}>
                 <Link href={`/products/${book.id}`}>
-                  <a>
+                  <a data-cy={`products${book.id}`}>
                     <img src={book.productImage} alt={book.alt}></img>
                   </a>
                 </Link>

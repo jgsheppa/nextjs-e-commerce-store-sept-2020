@@ -47,6 +47,7 @@ const numStyles: Style = {
 };
 
 export default function Header(props) {
+  const cartValue = props.numOfProductsInCart;
   return (
     <>
       <Head>
@@ -64,15 +65,19 @@ export default function Header(props) {
           </a>
           <div style={navContainerStyles}>
             <Link href="/products/shop">
-              <a style={navStyles}>Shop</a>
+              <a style={navStyles} data-cy="go-to-shop">
+                Shop
+              </a>
             </Link>
             <Link href="/contact">
               <a style={navStyles}>Contact</a>
             </Link>
             <div style={shoppingCartStyles}>
               <Link href="/cart">
-                <a>
-                  <div style={numStyles}>{props.numOfProductsInCart}</div>
+                <a data-cy="go-to-cart">
+                  <div data-cy="header-cart-value" style={numStyles}>
+                    {cartValue}
+                  </div>
                   <img
                     style={cartStyles}
                     alt="Shopping Cart"

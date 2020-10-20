@@ -79,7 +79,11 @@ export default function id(props) {
         <div style={allProductsContainer}>
           <div style={productContainer}>
             <a>
-              <img src={productImage} alt={altTag}></img>
+              <img
+                data-cy="product-image"
+                src={productImage}
+                alt={altTag}
+              ></img>
             </a>
             <p>
               {firstName} {lastName}
@@ -87,6 +91,7 @@ export default function id(props) {
             <p>{title}</p>
             <p>Price: {centsToDollars(price)}</p>
           </div>
+
           <AddToCart id={id} cookieCount={cookieCount}></AddToCart>
         </div>
       </Layout>

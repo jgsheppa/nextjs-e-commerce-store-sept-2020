@@ -46,6 +46,7 @@ export default function AddToCart(props: Props) {
         </div>
         <Link href="/confirmAddToCart">
           <a
+            data-cy="add-product-to-cart"
             style={addButtonStyles}
             onClick={() => addProductToCookieCart(props.id)}
           >
