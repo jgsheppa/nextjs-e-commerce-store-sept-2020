@@ -19,9 +19,6 @@ const productContainer = {
 
 export default function id(props) {
   const sumOfProductsCalculator = sumQuantityOfProducts();
-  const [numOfProductsInCart, setNumOfProductsInCart] = useState(
-    props.sumOfProducts,
-  );
 
   const [bookID, setBookID] = useState(parseInt(props.id));
 
@@ -45,10 +42,8 @@ export default function id(props) {
   const [bookFromCookie, setBookFromCookie] = useState(props.bookCookies);
   const [booksInCart, setBooksInCart] = useState([]);
 
-  const [productCount, setProductCount] = useState(0);
-
   const id = props.id;
-  const [cookieCount, setCookieCount] = useState(0);
+  const [cookieCount, setCookieCount] = useState(sumOfProductsCalculator);
   console.log(cookieCount);
 
   useEffect(() => {
@@ -98,26 +93,11 @@ export default function id(props) {
 }
 
 export async function getServerSideProps(context) {
-  const { getBookById, getBooks } = await import('../../util/database');
+  const { getBooks } = await import('../../util/database');
 
   const books = await getBooks();
-  const bookByID = await getBookById();
 
   const allCookies = nextCookies(context);
-
-  const numOfProducts = Object.values(allCookies);
-  const reducer = (accumulator, currentValue) =>
-    parseInt(accumulator) + parseInt(currentValue);
-
-  function calcSumOfProducts() {
-    if (numOfProducts.length > 0) {
-      return numOfProducts.reduce(reducer);
-    } else {
-      return 0;
-    }
-  }
-
-  const sumOfProducts = calcSumOfProducts();
 
   const bookId = parseInt(context.query.id);
   const bookInCart = allCookies.book || [];
@@ -126,7 +106,6 @@ export async function getServerSideProps(context) {
   return {
     props: {
       books,
-      sumOfProducts,
       allCookies,
       bookCookies: bookInCart,
       id: bookId,

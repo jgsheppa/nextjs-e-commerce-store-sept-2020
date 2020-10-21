@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import Layout from '../components/Layout';
 import { useState } from 'react';
-import nextCookies from 'next-cookies';
 import { sumQuantityOfProducts, getCartFromCookies } from './../util/cookie';
 import { centsToDollars } from './../util/helper';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
@@ -73,45 +72,6 @@ const buttonBorderStyles = {
   marginRight: '30px',
 };
 
-// const purchaseButtonStyles = {
-//   fontSize: '20px',
-//   fontWeight: 'bold',
-//   padding: '30px 50px',
-//   borderRadius: '15px',
-//   backgroundColor: '#DE5963',
-//   color: '#fff',
-// };
-
-// const imageStyles = {
-//   padding: '20px',
-//   maxHeight: '300px',
-//   maxWidth: 'auto',
-// };
-
-// const productInfoStyles = {
-//   display: 'flex',
-//   flexDirection: 'row',
-//   alignItems: 'space-evenly',
-//   justifyContent: 'center',
-// };
-
-// const productDetailStyles = {
-//   display: 'flex',
-//   flexDirection: 'column',
-//   justifyContent: 'flex-end',
-//   alignItems: 'flex-start',
-//   marginBottom: '20px',
-//   lineHeight: '2',
-// };
-
-// const formStyles = {
-//   padding: '8px 32px',
-//   borderRadius: '4px',
-//   border: '1px solid #cccccc',
-//   fontSize: '16px',
-//   marginBottom: '8px',
-// };
-
 const formContainerStyles = {
   display: 'flex',
   flexDirection: 'column',
@@ -153,7 +113,6 @@ export default function Cart(props) {
   const sumOfProductsCalculator = sumQuantityOfProducts();
   const [allProducts, setAllProducts] = useState(props.props.books);
   // const [deleteProduct, setDeleteProduct] = useState(cookieCart);
-  console.log(sumOfProductsCalculator);
 
   const cookieCart = getCartFromCookies();
 
@@ -194,9 +153,7 @@ export default function Cart(props) {
     return itemArray;
   }
 
-  const cart = putItemsInCart(bookInfoWithQty, cookieProductIds);
-
-  const [cartState, setCartState] = useState(cart);
+  // const cart = putItemsInCart(bookInfoWithQty, cookieProductIds);
 
   function findSubtotal(products, cookieObjs) {
     let total = 0;
@@ -476,38 +433,12 @@ export default function Cart(props) {
 
 export async function getServerSideProps(context) {
   const { getBooks } = await import('../util/database');
-  const { getCartFromCookies, toggleItemsInCartInCookie } = await import(
-    '../util/cookie'
-  );
-
-  console.log(`My cookies: ${getCartFromCookies()}`);
 
   const books = await getBooks();
   const props = {};
   if (books) props.books = books;
 
-  console.log(toggleItemsInCartInCookie(props.books.id));
-
-  const allCookies = nextCookies(context);
-
-  const numOfProducts = Object.values(allCookies);
-  const reducer = (accumulator, currentValue) =>
-    parseInt(accumulator) + parseInt(currentValue);
-  function calcSumOfProducts() {
-    if (numOfProducts.length > 0) {
-      return numOfProducts.reduce(reducer);
-    } else {
-      return 0;
-    }
-  }
-
-  const cookieKeys = Object.keys(allCookies);
-  const cookieKeysToInt = cookieKeys.map((value) => parseInt(value));
-  // console.log(cookieKeys);
-  // console.log(cookieKeysToInt);
-
-  const sumOfProducts = calcSumOfProducts();
   return {
-    props: { props, sumOfProducts, allCookies, cookieKeysToInt },
+    props: { props },
   };
 }

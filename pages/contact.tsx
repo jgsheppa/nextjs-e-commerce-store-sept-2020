@@ -40,25 +40,3 @@ export default function Contact() {
     </>
   );
 }
-
-// export async function getServerSideProps(context) {
-//   const allCookies = nextCookies(context);
-//   const productInCart = allCookies.productInCart || [];
-
-//   const numOfProducts = Object.values(allCookies);
-//   const reducer = (accumulator, currentValue) =>
-//     parseInt(accumulator) + parseInt(currentValue);
-//   function calcSumOfProducts() {
-//     if (numOfProducts.length > 0) {
-//       return numOfProducts.reduce(reducer);
-//     } else {
-//       return 0;
-//     }
-//   }
-
-//   const sumOfProducts = calcSumOfProducts();
-
-//   return {
-//     props: { sumOfProducts },
-//   };
-// }

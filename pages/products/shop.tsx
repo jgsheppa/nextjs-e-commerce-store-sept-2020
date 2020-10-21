@@ -94,18 +94,9 @@ export default function Shop(props: Props) {
 }
 
 export async function getServerSideProps(context) {
-  const id = context.query.id;
-  const { getBookById, getBooks } = await import('../../util/database');
-  const { getCartFromCookies, toggleItemsInCartInCookie } = await import(
-    '../../util/cookie'
-  );
-
-  // console.log(getCartFromCookies());
-
-  // console.log(`My cookies: ${getCartFromCookies()}`);
+  const { getBooks } = await import('../../util/database');
 
   const books = await getBooks();
-  const bookByID = await getBookById();
 
   const props: {
     books: {
@@ -122,36 +113,11 @@ export async function getServerSideProps(context) {
 
   const allCookies = nextCookies(context);
 
-  const numOfProductsAsStrings = Object.values(allCookies);
-
-  const intNumOfProducts = numOfProductsAsStrings.map((string) =>
-    parseInt(string),
-  );
-
-  // TypeScript gave me trouble for using redux
-  // so I went with a good old for-loop
-  function calcSumOfProducts(arrayOfValues: number[]): number {
-    if (arrayOfValues.length > 0) {
-      let total = arrayOfValues[0];
-      for (let i = 1; i < arrayOfValues.length; i++) {
-        total += arrayOfValues[i];
-      }
-      return total;
-    } else {
-      return 0;
-    }
-  }
-
-  const sumOfProducts = calcSumOfProducts(intNumOfProducts);
-
   const bookInCart = allCookies.book || [];
-  // console.log(bookInCart);
 
-  // console.log(props.books);
   return {
     props: {
       props,
-      sumOfProducts,
       allCookies,
       bookCookies: bookInCart,
     },

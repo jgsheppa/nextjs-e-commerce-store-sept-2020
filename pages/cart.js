@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import Layout from '../components/Layout';
 import { useState } from 'react';
-import nextCookies from 'next-cookies';
 import {
   sumQuantityOfProducts,
   getCartFromCookies,
@@ -72,8 +71,6 @@ const buttonBorderStyles = {
   border: 'solid',
   borderRadius: '15px',
   borderColor: '#000',
-  // maxHeight: '400px',
-  // maxWidth: '200px',
   padding: '40px',
   marginRight: '30px',
 };
@@ -246,34 +243,12 @@ export default function Cart(props) {
 
 export async function getServerSideProps(context) {
   const { getBooks } = await import('../util/database');
-  const { getCartFromCookies, toggleItemsInCartInCookie } = await import(
-    '../util/cookie'
-  );
 
   const books = await getBooks();
   const props = {};
   if (books) props.books = books;
 
-  const allCookies = nextCookies(context);
-
-  const numOfProducts = Object.values(allCookies);
-  const reducer = (accumulator, currentValue) =>
-    parseInt(accumulator) + parseInt(currentValue);
-  function calcSumOfProducts() {
-    if (numOfProducts.length > 0) {
-      return numOfProducts.reduce(reducer);
-    } else {
-      return 0;
-    }
-  }
-
-  const cookieKeys = Object.keys(allCookies);
-  const cookieKeysToInt = cookieKeys.map((value) => parseInt(value));
-  // console.log(cookieKeys);
-  // console.log(cookieKeysToInt);
-
-  const sumOfProducts = calcSumOfProducts();
   return {
-    props: { props, sumOfProducts, allCookies, cookieKeysToInt },
+    props: { props },
   };
 }
