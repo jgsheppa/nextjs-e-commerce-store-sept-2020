@@ -36,13 +36,15 @@ type Props = {
       alt: string;
     }[];
   };
-  sumOfProducts: { id: number; count: number }[];
+  sumProducts: number;
   allCookies: { books: { id: number; count: number }[] };
   bookCookies: { id: number; count: number }[];
 };
 
 export default function Shop(props: Props) {
-  const sumOfProductsCalculator = sumQuantityOfProducts();
+  const [sumOfProductsCalculator, setSumOfProductsCalculator] = useState(
+    props.sumProducts,
+  );
 
   const [bookFromCookie, setBookFromCookie] = useState(props.bookCookies);
   const [booksInCart, setBooksInCart] = useState(props.props.books);
@@ -95,6 +97,7 @@ export default function Shop(props: Props) {
 
 export async function getServerSideProps(context) {
   const { getBooks } = await import('../../util/database');
+  const { sumQuantityOfProducts } = await import('../../util/cookie');
 
   const books = await getBooks();
 
@@ -115,11 +118,15 @@ export async function getServerSideProps(context) {
 
   const bookInCart = allCookies.book || [];
 
+  const sumProducts = sumQuantityOfProducts();
+  console.log(sumProducts);
+
   return {
     props: {
       props,
       allCookies,
       bookCookies: bookInCart,
+      sumProducts,
     },
   };
 }

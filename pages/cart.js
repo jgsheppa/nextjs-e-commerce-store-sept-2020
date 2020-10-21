@@ -1,11 +1,6 @@
 import Link from 'next/link';
 import Layout from '../components/Layout';
 import { useState } from 'react';
-import {
-  sumQuantityOfProducts,
-  getCartFromCookies,
-  deleteProductFromCookieCart,
-} from './../util/cookie';
 import { centsToDollars } from './../util/helper';
 
 const pageContainer = {
@@ -108,10 +103,10 @@ const productDetailStyles = {
 };
 
 export default function Cart(props) {
-  const sumOfProductsCalculator = sumQuantityOfProducts();
+  const sumOfProductsCalculator = props.sumProducts;
   const [allProducts, setAllProducts] = useState(props.props.books);
 
-  const cookieCart = getCartFromCookies();
+  const cookieCart = props.getCookies;
 
   const [productCookies, setProductCookies] = useState(cookieCart);
 
@@ -152,10 +147,8 @@ export default function Cart(props) {
   }
 
   const cart = putItemsInCart(bookInfoWithQty, cookieProductIds);
-  console.log(cart);
 
   const [cartState, setCartState] = useState(cart);
-  console.log(cartState);
 
   function findSubtotal(products, cookieObjs) {
     let total = 0;
@@ -209,7 +202,7 @@ export default function Cart(props) {
                   <div>
                     <button
                       onClick={() => {
-                        deleteProductFromCookieCart(book.id);
+                        props.deletedProduct;
                         setProductCookies(cookieCart);
                       }}
                       style={removeItemStyles}
@@ -243,12 +236,22 @@ export default function Cart(props) {
 
 export async function getServerSideProps(context) {
   const { getBooks } = await import('../util/database');
+  const {
+    getCartFromCookies,
+    deleteProductFromCookieCart,
+    sumQuantityOfProducts,
+  } = await import('../util/cookie');
 
   const books = await getBooks();
   const props = {};
   if (books) props.books = books;
 
+  const bookId = parseInt(context.query.id);
+  const sumProducts = sumQuantityOfProducts();
+  const deletedProduct = deleteProductFromCookieCart(bookId);
+  const getCookies = getCartFromCookies();
+
   return {
-    props: { props },
+    props: { props, sumProducts, deletedProduct, getCookies },
   };
 }

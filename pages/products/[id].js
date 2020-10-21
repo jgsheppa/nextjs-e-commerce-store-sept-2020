@@ -3,7 +3,6 @@ import AddToCart from '../../components/AddToCart';
 import Head from 'next/head';
 import { useState, useEffect } from 'react';
 import nextCookies from 'next-cookies';
-import { makeCookie, sumQuantityOfProducts } from '../../util/cookie';
 import { centsToDollars } from '../../util/helper';
 
 const allProductsContainer = {
@@ -18,7 +17,7 @@ const productContainer = {
 };
 
 export default function id(props) {
-  const sumOfProductsCalculator = sumQuantityOfProducts();
+  const sumOfProductsCalculator = props.sumProducts;
 
   const [bookID, setBookID] = useState(parseInt(props.id));
 
@@ -47,9 +46,9 @@ export default function id(props) {
   console.log(cookieCount);
 
   useEffect(() => {
-    setBooksInCart(makeCookie(bookID));
+    setBooksInCart(props.makeCookieForBrowser);
     setCookieCount(booksInCart[0]?.count);
-  }, [props.books, bookFromCookie, setBooksInCart, makeCookie]);
+  }, [props.books, bookFromCookie, setBooksInCart, props.makeCookieForBrowser]);
 
   if (!props.books) {
     return (
@@ -94,6 +93,9 @@ export default function id(props) {
 
 export async function getServerSideProps(context) {
   const { getBooks } = await import('../../util/database');
+  const { makeCookie, sumQuantityOfProducts } = await import(
+    '../../util/cookie'
+  );
 
   const books = await getBooks();
 
@@ -101,7 +103,9 @@ export async function getServerSideProps(context) {
 
   const bookId = parseInt(context.query.id);
   const bookInCart = allCookies.book || [];
-  console.log(bookInCart);
+
+  const makeCookieForBrowser = makeCookie(bookId);
+  const sumProducts = sumQuantityOfProducts();
 
   return {
     props: {
@@ -109,6 +113,8 @@ export async function getServerSideProps(context) {
       allCookies,
       bookCookies: bookInCart,
       id: bookId,
+      makeCookieForBrowser,
+      sumProducts,
     },
   };
 }

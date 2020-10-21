@@ -90,18 +90,3 @@ export function toggleItemsInCartInCookie(id) {
 
   return newCart;
 }
-
-// Calculate total value of products for cart in header
-const cart = getCartFromCookies();
-const numOfProducts = Object.values(cart);
-
-const reducer = (accumulator, currentValue) =>
-  parseInt(accumulator) + parseInt(currentValue);
-
-export function calcSumOfProducts(products, reducer) {
-  if (products.length > 0) {
-    return products.reduce(reducer);
-  } else {
-    return 0;
-  }
-}
