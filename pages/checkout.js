@@ -316,6 +316,7 @@ export default function Cart(props) {
                       <div style={nameInputStyles}>
                         <div>
                           <Field
+                            data-cy="firstname"
                             className="inputfield"
                             type="firstname"
                             name="firstname"
@@ -325,6 +326,7 @@ export default function Cart(props) {
                         </div>
                         <div>
                           <Field
+                            data-cy="lastname"
                             className="inputfield"
                             type="lastname"
                             name="lastname"
@@ -334,6 +336,7 @@ export default function Cart(props) {
                         </div>
                       </div>
                       <Field
+                        data-cy="streetaddress"
                         className="inputfield"
                         type="streetaddress"
                         name="streetaddress"
@@ -341,6 +344,7 @@ export default function Cart(props) {
                       />
                       <ErrorMessage name="streetaddress" component="div" />
                       <Field
+                        data-cy="aptnumber"
                         className="inputfield"
                         type="aptnumber"
                         name="aptnumber"
@@ -348,6 +352,7 @@ export default function Cart(props) {
                       />
                       <ErrorMessage name="aptnumber" component="div" />
                       <Field
+                        data-cy="city"
                         className="inputfield"
                         type="city"
                         name="city"
@@ -355,6 +360,7 @@ export default function Cart(props) {
                       />
                       <ErrorMessage name="city" component="div" />
                       <Field
+                        data-cy="state"
                         className="inputfield"
                         type="state"
                         name="state"
@@ -362,6 +368,7 @@ export default function Cart(props) {
                       />
                       <ErrorMessage name="state" component="div" />
                       <Field
+                        data-cy="country"
                         className="inputfield"
                         type="country"
                         name="country"
@@ -369,6 +376,7 @@ export default function Cart(props) {
                       />
                       <ErrorMessage name="country" component="div" />
                       <Field
+                        data-cy="zipcode"
                         className="inputfield"
                         type="zipcode"
                         name="zipcode"
@@ -376,6 +384,7 @@ export default function Cart(props) {
                       />
                       <ErrorMessage name="zipcode" component="div" />
                       <Field
+                        data-cy="email"
                         className="inputfield"
                         type="email"
                         name="email"
@@ -386,6 +395,7 @@ export default function Cart(props) {
                     <div style={formContainerStyles}>
                       <h2>Paymend Method</h2>
                       <Field
+                        data-cy="cardholder"
                         className="inputfield"
                         type="cardholder"
                         name="cardholder"
@@ -393,6 +403,7 @@ export default function Cart(props) {
                       />
                       <ErrorMessage name="cardholder" component="div" />
                       <Field
+                        data-cy="cardnumber"
                         className="inputfield"
                         type="cardnumber"
                         name="cardnumber"
@@ -402,6 +413,7 @@ export default function Cart(props) {
                       <div style={cardExpireInfo}>
                         <div>
                           <Field
+                            data-cy="mm"
                             className="inputfield"
                             type="mm"
                             name="mm"
@@ -413,6 +425,7 @@ export default function Cart(props) {
                         </div>
                         <div>
                           <Field
+                            data-cy="yy"
                             className="inputfield"
                             type="yy"
                             name="yy"
@@ -423,6 +436,7 @@ export default function Cart(props) {
                         </div>
                       </div>
                       <Field
+                        data-cy="securitynumber"
                         className="inputfield"
                         type="securitynumber"
                         name="securitynumber"
@@ -432,6 +446,7 @@ export default function Cart(props) {
                       <ErrorMessage name="securitynumber" component="div" />
                       <Link href="/thankYouPage">
                         <a
+                          data-cy="go-to-thank-you-page"
                           style={submitButtonStyles}
                           type="submit"
                           disabled={isSubmitting}
