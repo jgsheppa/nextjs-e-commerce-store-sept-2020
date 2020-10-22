@@ -130,6 +130,8 @@ export default function Cart(props) {
   const sumOfProductsCalculator = sumQuantityOfProducts();
   const [allProducts, setAllProducts] = useState(props.props.books);
 
+  console.log('props', props);
+
   const cookieCart = getCartFromCookies();
 
   function findSubtotal(products, cookieObjs) {
@@ -407,4 +409,16 @@ export default function Cart(props) {
       </Layout>
     </>
   );
+}
+
+export async function getServerSideProps(context) {
+  const { getBooks } = await import('../util/database');
+
+  const books = await getBooks();
+  const props = {};
+  if (books) props.books = books;
+
+  return {
+    props: { props },
+  };
 }
