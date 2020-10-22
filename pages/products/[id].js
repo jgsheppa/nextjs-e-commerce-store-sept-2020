@@ -4,20 +4,26 @@ import Head from 'next/head';
 import { useState, useEffect } from 'react';
 import nextCookies from 'next-cookies';
 import { centsToDollars } from '../../util/helper';
+import { sumQuantityOfProducts, getCartFromCookies } from '../../util/cookie';
 
 const allProductsContainer = {
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'space-around',
   alignContent: 'center',
+  marginBottom: '100px',
 };
+
 const productContainer = {
   display: 'flex',
-  flexDirection: 'column',
+  flexDirection: 'row',
+  justifyContent: 'center',
+  alignContent: 'space-between',
 };
 
 export default function id(props) {
-  const sumOfProductsCalculator = props.sumProducts;
+  // const sumOfProductsCalculator = props.sumProducts;
+  const sumOfProductsCalculator = sumQuantityOfProducts();
 
   const [bookID, setBookID] = useState(parseInt(props.id));
 
@@ -38,17 +44,20 @@ export default function id(props) {
   const [productImage, setProductImage] = useState(bookInfo.productImage);
   const [altTag, setAltTag] = useState(bookInfo.alt);
 
-  const [bookFromCookie, setBookFromCookie] = useState(props.bookCookies);
+  // const [bookFromCookie, setBookFromCookie] = useState(props.bookCookies);
   const [booksInCart, setBooksInCart] = useState([]);
+  console.log(booksInCart);
 
   const id = props.id;
   const [cookieCount, setCookieCount] = useState(sumOfProductsCalculator);
-  console.log(cookieCount);
+
+  const convertedPrice = centsToDollars(price);
+  console.log('price', convertedPrice);
 
   useEffect(() => {
-    setBooksInCart(props.makeCookieForBrowser);
-    setCookieCount(booksInCart[0]?.count);
-  }, [props.books, bookFromCookie, setBooksInCart, props.makeCookieForBrowser]);
+    setBooksInCart(getCartFromCookies());
+    setCookieCount(props.productCount);
+  }, []);
 
   if (!props.books) {
     return (
@@ -70,21 +79,28 @@ export default function id(props) {
         </h1>
         <div style={allProductsContainer}>
           <div style={productContainer}>
-            <a>
-              <img
-                data-cy="product-image"
-                src={productImage}
-                alt={altTag}
-              ></img>
-            </a>
-            <p>
-              {firstName} {lastName}
-            </p>
-            <p>{title}</p>
-            <p>Price: {centsToDollars(price)}</p>
+            <div>
+              <a>
+                <img
+                  data-cy="product-image"
+                  src={productImage}
+                  alt={altTag}
+                ></img>
+              </a>
+              <p>
+                {firstName} {lastName}
+              </p>
+              <p>{title}</p>
+              <p>Price: {convertedPrice}</p>
+            </div>
+            <div>
+              <AddToCart
+                convertedPrice={convertedPrice}
+                id={id}
+                cookieCount={cookieCount}
+              ></AddToCart>
+            </div>
           </div>
-
-          <AddToCart id={id} cookieCount={cookieCount}></AddToCart>
         </div>
       </Layout>
     </>
@@ -93,19 +109,37 @@ export default function id(props) {
 
 export async function getServerSideProps(context) {
   const { getBooks } = await import('../../util/database');
-  const { makeCookie, sumQuantityOfProducts } = await import(
-    '../../util/cookie'
-  );
+  const { sumQuantityOfProducts } = await import('../../util/cookie');
 
   const books = await getBooks();
+  // console.log('books', books);
 
   const allCookies = nextCookies(context);
+  // console.log('allCookies', allCookies);
 
   const bookId = parseInt(context.query.id);
   const bookInCart = allCookies.book || [];
 
-  const makeCookieForBrowser = makeCookie(bookId);
   const sumProducts = sumQuantityOfProducts();
+
+  function getServerCount(cookie, id) {
+    if (cookie.id === id) {
+      return cookie.count;
+    } else {
+      return 0;
+    }
+  }
+
+  const serverProductCount = allCookies?.book?.filter((cookie) => {
+    if (cookie.id && cookie.id === bookId) {
+      return cookie.count;
+    } else {
+      return [];
+    }
+  });
+
+  // const productCount = serverProductCount;
+  console.log(serverProductCount);
 
   return {
     props: {
@@ -113,7 +147,6 @@ export async function getServerSideProps(context) {
       allCookies,
       bookCookies: bookInCart,
       id: bookId,
-      makeCookieForBrowser,
       sumProducts,
     },
   };

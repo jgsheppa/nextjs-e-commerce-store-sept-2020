@@ -2,6 +2,7 @@ import Link from 'next/link';
 import Layout from '../components/Layout';
 import { useState } from 'react';
 import { centsToDollars } from './../util/helper';
+import { getCartFromCookies, sumQuantityOfProducts } from './../util/cookie';
 
 const pageContainer = {
   display: 'flex',
@@ -11,6 +12,7 @@ const pageContainer = {
   justifyContent: 'space-between',
   marginBottom: '100px',
 };
+
 const containerStyles = {
   display: 'flex',
   flexDirection: 'column',
@@ -28,6 +30,7 @@ const itemBorder = {
   borderColor: '#000',
   borderRadius: '20px',
   maxWidth: '800px',
+  margin: '20px 0 20px 20px',
 };
 
 const itemInfoStyles = {
@@ -103,10 +106,10 @@ const productDetailStyles = {
 };
 
 export default function Cart(props) {
-  const sumOfProductsCalculator = props.sumProducts;
+  const sumOfProductsCalculator = sumQuantityOfProducts();
   const [allProducts, setAllProducts] = useState(props.props.books);
 
-  const cookieCart = props.getCookies;
+  const cookieCart = getCartFromCookies();
 
   const [productCookies, setProductCookies] = useState(cookieCart);
 
@@ -145,6 +148,8 @@ export default function Cart(props) {
     }
     return itemArray;
   }
+
+  console.log('getCookies', getCartFromCookies());
 
   const cart = putItemsInCart(bookInfoWithQty, cookieProductIds);
 

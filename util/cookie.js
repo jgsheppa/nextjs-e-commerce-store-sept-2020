@@ -5,41 +5,52 @@ export function getCartFromCookies() {
   return cart;
 }
 
-console.log(getCartFromCookies());
+// export function makeCookie(bookId) {
+//   const cart = getCartFromCookies();
 
-export function makeCookie(bookId) {
-  const cart = getCartFromCookies();
+//   //Gets Id from Cookie
+//   const mappedCart = cart.map((cartItems) => cartItems.id);
 
-  //Gets Id from Cookie
-  const mappedCart = cart.map((cartItems) => cartItems.id);
+//   let newCart;
 
-  let newCart;
+//   if (mappedCart.includes(bookId)) {
+//     // Checks if cookie has been made for given product
+//     // newCart = cart.filter((cartItems) => cartItems.id === bookId);
+//     newCart = cart;
+//   } else {
+//     // If product id is not in the cookie-cart
+//     // then put it in the cart
+//     newCart = [...cart, { id: bookId }];
+//   }
 
-  if (mappedCart.includes(bookId)) {
-    // Checks if cookie has been made for given product
-    // newCart = cart.filter((cartItems) => cartItems.id === bookId);
-    newCart = cart;
-  } else {
-    // If product id is not in the cookie-cart
-    // then put it in the cart
-    newCart = [...cart, { id: bookId, count: 0 }];
-  }
+//   cookies.set('book', newCart);
 
-  cookies.set('book', newCart);
-
-  return newCart;
-}
+//   return newCart;
+// }
 
 export function addProductToCookieCart(bookId) {
   const cart = getCartFromCookies();
   const addProduct = 1;
+  console.log(cart);
+
+  // If cart has the key bookId in it
+  // then increment the count stored at that id
+  // otherwise add a new key value pair
+  // bookId: 1
+  let foundInCart = false;
 
   const newCart = cart.map((obj) => {
     if (obj.id === bookId) {
+      foundInCart = true;
       obj.count += addProduct;
     }
     return obj;
   });
+  console.log(newCart);
+
+  if (!foundInCart) {
+    newCart.push({ id: bookId, count: 1 });
+  }
 
   cookies.set('book', newCart);
 

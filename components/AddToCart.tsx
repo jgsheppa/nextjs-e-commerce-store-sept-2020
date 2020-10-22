@@ -25,14 +25,14 @@ const addButtonStyles: Style = {
 type Props = {
   id: number;
   count: number | undefined;
+  convertedPrice: string;
 };
 
 export default function AddToCart(props: Props) {
-  console.log(props);
   return (
     <>
       <div style={addToCartStyles}>
-        <p>Price: </p>
+        <p>Price: {props.convertedPrice}</p>
         <p>In Stock</p>
         <div>
           <div>Quantity:</div>
@@ -57,14 +57,3 @@ export default function AddToCart(props: Props) {
     </>
   );
 }
-
-// export function getServerSideProps(context) {
-//   const props = {};
-//   if (books) props.books = books[0];
-//   const bookInCart = allCookies.book || [];
-
-//   return {
-//     props: props,
-//     bookInCart,
-//   };
-// }

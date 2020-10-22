@@ -1,8 +1,10 @@
 import Layout from '../../components/Layout';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
-import nextCookies from 'next-cookies';
-import { sumQuantityOfProducts } from '../../util/cookie.js';
+import {
+  sumQuantityOfProducts,
+  getCartFromCookies,
+} from '../../util/cookie.js';
 import { Style } from '../../util/types';
 import { centsToDollars } from '../../util/helper';
 
@@ -10,6 +12,7 @@ const containerStyles: Style = {
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
+  margin: '30px 0',
 };
 
 const allProductsContainer: Style = {
@@ -22,6 +25,13 @@ const allProductsContainer: Style = {
 const productContainer: Style = {
   display: 'flex',
   flexDirection: 'column',
+  flex: '1',
+  margin: '0 40px 100px',
+  maxWidth: '800px',
+};
+
+const bookInfoStyles: Style = {
+  display: 'flex',
 };
 
 type Props = {
@@ -36,18 +46,16 @@ type Props = {
       alt: string;
     }[];
   };
-  sumProducts: number;
-  allCookies: { books: { id: number; count: number }[] };
-  bookCookies: { id: number; count: number }[];
 };
 
 export default function Shop(props: Props) {
   const [sumOfProductsCalculator, setSumOfProductsCalculator] = useState(
-    props.sumProducts,
+    sumQuantityOfProducts(),
   );
 
-  const [bookFromCookie, setBookFromCookie] = useState(props.bookCookies);
+  const [bookFromCookie, setBookFromCookie] = useState(getCartFromCookies());
   const [booksInCart, setBooksInCart] = useState(props.props.books);
+  console.log('bookFromCookie', bookFromCookie);
 
   useEffect(() => {
     setBooksInCart(
@@ -72,20 +80,23 @@ export default function Shop(props: Props) {
               <div style={productContainer} key={book.id}>
                 <Link href={`/products/${book.id}`}>
                   <a data-cy={`products${book.id}`}>
-                    <img src={book.productImage} alt={book.alt}></img>
+                    <img
+                      height="auto"
+                      width="200px"
+                      src={book.productImage}
+                      alt={book.alt}
+                    ></img>
                   </a>
                 </Link>
-                <div>
-                  <p>
-                    <b>
-                      {book.firstName} {book.lastName}
-                    </b>
-                  </p>
-                  <p>
-                    <i>{book.title}</i>
-                  </p>
-                  <p>Price: {centsToDollars(book.price)}</p>
-                </div>
+                <p>
+                  <b>
+                    {book.firstName} {book.lastName}
+                  </b>
+                </p>
+                <p>
+                  <i>{book.title}</i>
+                </p>
+                <p>Price: {centsToDollars(book.price)}</p>
               </div>
             );
           })}
@@ -97,7 +108,6 @@ export default function Shop(props: Props) {
 
 export async function getServerSideProps(context) {
   const { getBooks } = await import('../../util/database');
-  const { sumQuantityOfProducts } = await import('../../util/cookie');
 
   const books = await getBooks();
 
@@ -114,19 +124,9 @@ export async function getServerSideProps(context) {
   } = { books };
   if (books) props.books = books;
 
-  const allCookies = nextCookies(context);
-
-  const bookInCart = allCookies.book || [];
-
-  const sumProducts = sumQuantityOfProducts();
-  console.log(sumProducts);
-
   return {
     props: {
       props,
-      allCookies,
-      bookCookies: bookInCart,
-      sumProducts,
     },
   };
 }

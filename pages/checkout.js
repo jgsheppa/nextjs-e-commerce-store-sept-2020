@@ -9,7 +9,7 @@ const pageContainer = {
   display: 'flex',
   flexDirection: 'row',
   flexWrap: 'wrap',
-  alignItems: 'center',
+  alignItems: 'flex-start',
   justifyContent: 'space-around',
   marginBottom: '100px',
 };
@@ -20,6 +20,15 @@ const containerStyles = {
   alignItems: 'flex-start',
   justifyContent: 'space-around',
   marginLeft: '20px',
+};
+
+const formFlexBox = {
+  display: 'flex',
+  flexDirection: 'row',
+  flexWrap: 'wrap',
+  alignItems: 'flex-start',
+  justifyContent: 'space-around',
+  marginBottom: '100px',
 };
 
 const itemBorder = {
@@ -97,6 +106,7 @@ const submitButtonStyles = {
   backgroundColor: '#DE5963',
   borderRadius: '8px',
   textAlign: 'center',
+  marginBottom: '20px',
 };
 
 const subtotalButtonStyles = {
@@ -206,11 +216,9 @@ export default function Cart(props) {
                     errors.lastname = 'Invalid last name';
                   } else if (!values.streetaddress) {
                     errors.streetaddress = 'Required';
-                  } else if (!/[\da-zA-Z\s(.)]+/i.test(values.streetaddress)) {
-                    errors.streetaddress = 'Invalid street address';
                   } else if (!values.aptnumber) {
                     errors.aptnumber = 'Required';
-                  } else if (!/\d+/i.test(values.aptnumber)) {
+                  } else if (!/\d[a-zA-Z]+/i.test(values.aptnumber)) {
                     errors.aptnumber = 'Invalid apartment number';
                   } else if (!values.city) {
                     errors.city = 'Required';
@@ -268,161 +276,164 @@ export default function Cart(props) {
               >
                 {({ isSubmitting }) => (
                   <Form>
-                    <div style={formContainerStyles}>
-                      <h2>Shipping Address</h2>
-                      <div style={nameInputStyles}>
-                        <div>
-                          <Field
-                            data-cy="firstname"
-                            className="inputfield"
-                            type="firstname"
-                            name="firstname"
-                            placeholder="First Name"
-                          />
-                          <ErrorMessage name="firstname" component="div" />
+                    <div style={formFlexBox}>
+                      <div style={formContainerStyles}>
+                        <h2>Shipping Address</h2>
+                        <div style={nameInputStyles}>
+                          <div>
+                            <Field
+                              data-cy="firstname"
+                              className="inputfield"
+                              type="firstname"
+                              name="firstname"
+                              placeholder="First Name"
+                            />
+                            <ErrorMessage name="firstname" component="div" />
+                          </div>
+                          <div>
+                            <Field
+                              data-cy="lastname"
+                              className="inputfield"
+                              type="lastname"
+                              name="lastname"
+                              placeholder="Last Name"
+                            />
+                            <ErrorMessage name="lastname" component="div" />
+                          </div>
                         </div>
+                        <Field
+                          data-cy="streetaddress"
+                          className="inputfield"
+                          type="streetaddress"
+                          name="streetaddress"
+                          placeholder="Street Address"
+                        />
+                        <ErrorMessage name="streetaddress" component="div" />
+                        <Field
+                          data-cy="aptnumber"
+                          type="number"
+                          className="inputfield"
+                          type="aptnumber"
+                          name="aptnumber"
+                          placeholder="Apt Number"
+                        />
+                        <ErrorMessage name="aptnumber" component="div" />
+                        <Field
+                          data-cy="city"
+                          className="inputfield"
+                          type="city"
+                          name="city"
+                          placeholder="City"
+                        />
+                        <ErrorMessage name="city" component="div" />
+                        <Field
+                          data-cy="state"
+                          className="inputfield"
+                          type="state"
+                          name="state"
+                          placeholder="State"
+                        />
+                        <ErrorMessage name="state" component="div" />
+                        <Field
+                          data-cy="country"
+                          className="inputfield"
+                          type="country"
+                          name="country"
+                          placeholder="Country"
+                        />
+                        <ErrorMessage name="country" component="div" />
+                        <Field
+                          data-cy="zipcode"
+                          className="inputfield"
+                          type="zipcode"
+                          name="zipcode"
+                          placeholder="Zip Code"
+                        />
+                        <ErrorMessage name="zipcode" component="div" />
+                        <Field
+                          data-cy="email"
+                          className="inputfield"
+                          type="email"
+                          name="email"
+                          placeholder="Email Address"
+                        />
+                        <ErrorMessage name="email" component="div" />
+                      </div>
+                      <div style={formContainerStyles}>
+                        <h2>Paymend Method</h2>
+                        <Field
+                          data-cy="cardholder"
+                          className="inputfield"
+                          type="cardholder"
+                          name="cardholder"
+                          placeholder="Cardholder"
+                        />
+                        <ErrorMessage name="cardholder" component="div" />
+                        <Field
+                          data-cy="cardnumber"
+                          className="inputfield"
+                          type="cardnumber"
+                          name="cardnumber"
+                          placeholder="Card Number"
+                        />
+                        <ErrorMessage name="cardnumber" component="div" />
+                        <div style={cardExpireInfo}>
+                          <div>
+                            <Field
+                              data-cy="mm"
+                              className="inputfield"
+                              type="mm"
+                              name="mm"
+                              placeholder="MM"
+                              maxLength="2"
+                              margin="0 8px 0 0"
+                            />
+                            <ErrorMessage name="mm" component="div" />
+                          </div>
+                          <div>
+                            <Field
+                              data-cy="yy"
+                              className="inputfield"
+                              type="yy"
+                              name="yy"
+                              maxLength="2"
+                              placeholder="YY"
+                            />
+                            <ErrorMessage name="yy" component="div" />
+                          </div>
+                        </div>
+                        <Field
+                          data-cy="securitynumber"
+                          className="inputfield"
+                          type="securitynumber"
+                          name="securitynumber"
+                          maxLength="4"
+                          placeholder="Security Number"
+                        />
+                        <ErrorMessage name="securitynumber" component="div" />
+                        <Link href="/thankYouPage">
+                          <a
+                            data-cy="go-to-thank-you-page"
+                            style={submitButtonStyles}
+                            type="submit"
+                            disabled={isSubmitting}
+                          >
+                            Place Your Order
+                          </a>
+                        </Link>
                         <div>
-                          <Field
-                            data-cy="lastname"
-                            className="inputfield"
-                            type="lastname"
-                            name="lastname"
-                            placeholder="Last Name"
-                          />
-                          <ErrorMessage name="lastname" component="div" />
+                          <div style={buttonBorderStyles}>
+                            <div style={subtotalButtonStyles}>
+                              <b data-cy="checkout-button">Subtotal:</b>
+                              <div>{centsToDollars(subTotal)}</div>
+                            </div>
+                          </div>
                         </div>
                       </div>
-                      <Field
-                        data-cy="streetaddress"
-                        className="inputfield"
-                        type="streetaddress"
-                        name="streetaddress"
-                        placeholder="Street Address"
-                      />
-                      <ErrorMessage name="streetaddress" component="div" />
-                      <Field
-                        data-cy="aptnumber"
-                        className="inputfield"
-                        type="aptnumber"
-                        name="aptnumber"
-                        placeholder="Apt Number"
-                      />
-                      <ErrorMessage name="aptnumber" component="div" />
-                      <Field
-                        data-cy="city"
-                        className="inputfield"
-                        type="city"
-                        name="city"
-                        placeholder="City"
-                      />
-                      <ErrorMessage name="city" component="div" />
-                      <Field
-                        data-cy="state"
-                        className="inputfield"
-                        type="state"
-                        name="state"
-                        placeholder="State"
-                      />
-                      <ErrorMessage name="state" component="div" />
-                      <Field
-                        data-cy="country"
-                        className="inputfield"
-                        type="country"
-                        name="country"
-                        placeholder="Country"
-                      />
-                      <ErrorMessage name="country" component="div" />
-                      <Field
-                        data-cy="zipcode"
-                        className="inputfield"
-                        type="zipcode"
-                        name="zipcode"
-                        placeholder="Zip Code"
-                      />
-                      <ErrorMessage name="zipcode" component="div" />
-                      <Field
-                        data-cy="email"
-                        className="inputfield"
-                        type="email"
-                        name="email"
-                        placeholder="Email Address"
-                      />
-                      <ErrorMessage name="email" component="div" />
-                    </div>
-                    <div style={formContainerStyles}>
-                      <h2>Paymend Method</h2>
-                      <Field
-                        data-cy="cardholder"
-                        className="inputfield"
-                        type="cardholder"
-                        name="cardholder"
-                        placeholder="Cardholder"
-                      />
-                      <ErrorMessage name="cardholder" component="div" />
-                      <Field
-                        data-cy="cardnumber"
-                        className="inputfield"
-                        type="cardnumber"
-                        name="cardnumber"
-                        placeholder="Card Number"
-                      />
-                      <ErrorMessage name="cardnumber" component="div" />
-                      <div style={cardExpireInfo}>
-                        <div>
-                          <Field
-                            data-cy="mm"
-                            className="inputfield"
-                            type="mm"
-                            name="mm"
-                            placeholder="MM"
-                            maxLength="2"
-                            margin="0 8px 0 0"
-                          />
-                          <ErrorMessage name="mm" component="div" />
-                        </div>
-                        <div>
-                          <Field
-                            data-cy="yy"
-                            className="inputfield"
-                            type="yy"
-                            name="yy"
-                            maxLength="2"
-                            placeholder="YY"
-                          />
-                          <ErrorMessage name="yy" component="div" />
-                        </div>
-                      </div>
-                      <Field
-                        data-cy="securitynumber"
-                        className="inputfield"
-                        type="securitynumber"
-                        name="securitynumber"
-                        maxLength="4"
-                        placeholder="Security Number"
-                      />
-                      <ErrorMessage name="securitynumber" component="div" />
-                      <Link href="/thankYouPage">
-                        <a
-                          data-cy="go-to-thank-you-page"
-                          style={submitButtonStyles}
-                          type="submit"
-                          disabled={isSubmitting}
-                        >
-                          Place Your Order
-                        </a>
-                      </Link>
                     </div>
                   </Form>
                 )}
               </Formik>
-            </div>
-          </div>
-          <div>
-            <div style={buttonBorderStyles}>
-              <div style={subtotalButtonStyles}>
-                <b data-cy="checkout-button">Subtotal:</b>
-                <div>{centsToDollars(subTotal)}</div>
-              </div>
             </div>
           </div>
         </div>
@@ -442,3 +453,238 @@ export async function getServerSideProps(context) {
     props: { props },
   };
 }
+
+<Formik
+  initialValues={{
+    email: '',
+    firstname: '',
+    lastname: '',
+    streetaddress: '',
+    aptnumber: '',
+    city: '',
+    state: '',
+    country: '',
+    zipcode: '',
+    cardholder: '',
+    cardnumber: '',
+    mm: '',
+    yy: '',
+    securitynumber: '',
+  }}
+  validate={(values) => {
+    const errors = {};
+
+    if (!values.firstname) {
+      errors.firstname = 'Required';
+    } else if (!/[a-zA-Z]+/i.test(values.firstname)) {
+      errors.firstname = 'Invalid first name';
+    } else if (!values.lastname) {
+      errors.lastname = 'Required';
+    } else if (!/[a-zA-Z]+/i.test(values.lastname)) {
+      errors.lastname = 'Invalid last name';
+    } else if (!values.streetaddress) {
+      errors.streetaddress = 'Required';
+    } else if (!values.aptnumber) {
+      errors.aptnumber = 'Required';
+    } else if (!/\d[a-zA-Z]+/i.test(values.aptnumber)) {
+      errors.aptnumber = 'Invalid apartment number';
+    } else if (!values.city) {
+      errors.city = 'Required';
+    } else if (!/[a-zA-Z]+/i.test(values.city)) {
+      errors.city = 'Invalid city';
+    } else if (!values.state) {
+      errors.state = 'Required';
+    } else if (!/[a-zA-Z]+/i.test(values.state)) {
+      errors.state = 'Invalid state';
+    } else if (!values.country) {
+      errors.country = 'Required';
+    } else if (!/[a-zA-Z]+/i.test(values.country)) {
+      errors.country = 'Invalid country';
+    } else if (!values.zipcode) {
+      errors.zipcode = 'Required';
+    } else if (!/\d+/i.test(values.zipcode)) {
+      errors.zipcode = 'Invalid zip code';
+    } else if (!values.email) {
+      errors.email = 'Required';
+    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
+      errors.email = 'Invalid email address';
+    } else if (!values.cardholder) {
+      errors.cardholder = 'Required';
+    } else if (!/[a-zA-Z]+/i.test(values.cardholder)) {
+      errors.cardholder = 'Invalid cardholder name';
+    } else if (!values.cardnumber) {
+      errors.cardnumber = 'Required';
+    } else if (!/\d+/i.test(values.cardnumber)) {
+      errors.cardnumber = 'Invalid card number';
+    } else if (!values.mm) {
+      errors.mm = 'Required';
+    } else if (!/\d{2}/i.test(values.mm)) {
+      errors.mm = 'Invalid month number';
+    } else if (!values.yy) {
+      errors.yy = 'Required';
+    } else if (!/\d{2}/i.test(values.yy)) {
+      errors.yy = 'Invalid year';
+    } else if (!values.securitynumber) {
+      errors.securitynumber = 'Required';
+    } else if (!/\d{4}/i.test(values.securitynumber)) {
+      errors.securitynumber = 'Invalid security number';
+    }
+    return errors;
+  }}
+  onSubmit={(values, { setSubmitting }) => {
+    setTimeout(() => {
+      alert(JSON.stringify(values, null, 2));
+      setSubmitting(false);
+    }, 400);
+  }}
+>
+  {({ isSubmitting }) => (
+    <Form>
+      <div style={formContainerStyles}>
+        <h2>Shipping Address</h2>
+        <div style={nameInputStyles}>
+          <div>
+            <Field
+              data-cy="firstname"
+              className="inputfield"
+              type="firstname"
+              name="firstname"
+              placeholder="First Name"
+            />
+            <ErrorMessage name="firstname" component="div" />
+          </div>
+          <div>
+            <Field
+              data-cy="lastname"
+              className="inputfield"
+              type="lastname"
+              name="lastname"
+              placeholder="Last Name"
+            />
+            <ErrorMessage name="lastname" component="div" />
+          </div>
+        </div>
+        <Field
+          data-cy="streetaddress"
+          className="inputfield"
+          type="streetaddress"
+          name="streetaddress"
+          placeholder="Street Address"
+        />
+        <ErrorMessage name="streetaddress" component="div" />
+        <Field
+          data-cy="aptnumber"
+          type="number"
+          className="inputfield"
+          type="aptnumber"
+          name="aptnumber"
+          placeholder="Apt Number"
+        />
+        <ErrorMessage name="aptnumber" component="div" />
+        <Field
+          data-cy="city"
+          className="inputfield"
+          type="city"
+          name="city"
+          placeholder="City"
+        />
+        <ErrorMessage name="city" component="div" />
+        <Field
+          data-cy="state"
+          className="inputfield"
+          type="state"
+          name="state"
+          placeholder="State"
+        />
+        <ErrorMessage name="state" component="div" />
+        <Field
+          data-cy="country"
+          className="inputfield"
+          type="country"
+          name="country"
+          placeholder="Country"
+        />
+        <ErrorMessage name="country" component="div" />
+        <Field
+          data-cy="zipcode"
+          className="inputfield"
+          type="zipcode"
+          name="zipcode"
+          placeholder="Zip Code"
+        />
+        <ErrorMessage name="zipcode" component="div" />
+        <Field
+          data-cy="email"
+          className="inputfield"
+          type="email"
+          name="email"
+          placeholder="Email Address"
+        />
+        <ErrorMessage name="email" component="div" />
+      </div>
+      <div style={formContainerStyles}>
+        <h2>Paymend Method</h2>
+        <Field
+          data-cy="cardholder"
+          className="inputfield"
+          type="cardholder"
+          name="cardholder"
+          placeholder="Cardholder"
+        />
+        <ErrorMessage name="cardholder" component="div" />
+        <Field
+          data-cy="cardnumber"
+          className="inputfield"
+          type="cardnumber"
+          name="cardnumber"
+          placeholder="Card Number"
+        />
+        <ErrorMessage name="cardnumber" component="div" />
+        <div style={cardExpireInfo}>
+          <div>
+            <Field
+              data-cy="mm"
+              className="inputfield"
+              type="mm"
+              name="mm"
+              placeholder="MM"
+              maxLength="2"
+              margin="0 8px 0 0"
+            />
+            <ErrorMessage name="mm" component="div" />
+          </div>
+          <div>
+            <Field
+              data-cy="yy"
+              className="inputfield"
+              type="yy"
+              name="yy"
+              maxLength="2"
+              placeholder="YY"
+            />
+            <ErrorMessage name="yy" component="div" />
+          </div>
+        </div>
+        <Field
+          data-cy="securitynumber"
+          className="inputfield"
+          type="securitynumber"
+          name="securitynumber"
+          maxLength="4"
+          placeholder="Security Number"
+        />
+        <ErrorMessage name="securitynumber" component="div" />
+        <Link href="/thankYouPage">
+          <a
+            data-cy="go-to-thank-you-page"
+            style={submitButtonStyles}
+            type="submit"
+            disabled={isSubmitting}
+          >
+            Place Your Order
+          </a>
+        </Link>
+      </div>
+    </Form>
+  )}
+</Formik>;

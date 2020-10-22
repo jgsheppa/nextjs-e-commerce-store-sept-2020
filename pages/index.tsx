@@ -2,27 +2,31 @@ import Head from 'next/head';
 import Layout from '../components/Layout';
 import { sumQuantityOfProducts } from '../util/cookie.js';
 import { Style } from '../util/types';
+import Link from 'next/link';
 
-const containerStyles = {
-  // display: 'flex',
-  // flexDirection: 'column',
-  // alignContent: 'center',
+const containerStyles: Style = {
+  display: 'flex',
+  flexDirection: 'column',
+  alignContent: 'center',
+  marginBottom: '100px',
 };
 
-const textFlexBox: Style = {
+const sleepBookFlexBox: Style = {
   display: 'flex',
   flexDirection: 'row',
   flexWrap: 'wrap',
-  justifyContent: 'space-around',
+  // justifyContent: 'center',
+  // alignItems: 'space-between',
+  justifyContent: 'space-between',
   alignItems: 'center',
   margin: 'auto',
 };
 
-// const sleepBookStyles = {
-//   maxWidth: '400px',
-//   maxHeight: 'auto',
-//   marginTop: '20px',
-// };
+const sleepBookStyles: Style = {
+  maxWidth: '400px',
+  maxHeight: 'auto',
+  marginTop: '20px',
+};
 
 const textStyles: Style = {
   display: 'flex',
@@ -40,9 +44,8 @@ export default function Index(props) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout sumOfProductsCalculator={sumOfProductsCalculator}>
-        <div style={containerStyles}></div>
         <div style={containerStyles}>
-          <div style={textFlexBox}>
+          <div style={sleepBookFlexBox}>
             <div style={textStyles}>
               <h1>Find Your Stories</h1>
               <p>
@@ -58,11 +61,13 @@ export default function Index(props) {
                 translations of the same title.{' '}
               </p>
             </div>
-            {/* <Link href={`/products/[3]`}>
-              <a>
-                <img style={sleepBookStyles} src="/sleepbook.jpg" />;
-              </a>
-            </Link> */}
+            <div>
+              <Link href={`/products/3`}>
+                <a>
+                  <img style={sleepBookStyles} src="/ginafranco.png" />
+                </a>
+              </Link>
+            </div>
           </div>
         </div>
       </Layout>

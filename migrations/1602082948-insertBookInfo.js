@@ -31,6 +31,38 @@ const products = [
     price: '15.00',
     alt: 'The Sleep Book by Dr. Seuss',
   },
+  {
+    first_name: 'Gina',
+    last_name: 'Franco',
+    title: 'The Accidental',
+    product_image: '/ginafranco.png',
+    price: '19.00',
+    alt: 'The Accidental by Gina Franco',
+  },
+  {
+    first_name: 'Mary',
+    last_name: 'Shelley',
+    title: 'Frankenstein',
+    product_image: '/frankenstein.jpg',
+    price: '24.00',
+    alt: 'Frankenstein by Mary Shelley',
+  },
+  {
+    first_name: 'Fjodor',
+    last_name: 'Dostojevskij',
+    title: 'The Gambler',
+    product_image: '/gambler.jpg',
+    price: '15.00',
+    alt: 'The Gambler by Fjodor Dostojevskij',
+  },
+  {
+    first_name: 'Monica',
+    last_name: 'Berlin',
+    title: 'Nostalgia for a World Where We Can Live',
+    product_image: '/monicaberlin.jpg',
+    price: '19.00',
+    alt: 'Nostalgia for a World Where We Can Live by Monica Berlin',
+  },
 ];
 
 exports.up = async (sql) => {
