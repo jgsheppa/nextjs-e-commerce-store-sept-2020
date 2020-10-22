@@ -5,29 +5,6 @@ export function getCartFromCookies() {
   return cart;
 }
 
-// export function makeCookie(bookId) {
-//   const cart = getCartFromCookies();
-
-//   //Gets Id from Cookie
-//   const mappedCart = cart.map((cartItems) => cartItems.id);
-
-//   let newCart;
-
-//   if (mappedCart.includes(bookId)) {
-//     // Checks if cookie has been made for given product
-//     // newCart = cart.filter((cartItems) => cartItems.id === bookId);
-//     newCart = cart;
-//   } else {
-//     // If product id is not in the cookie-cart
-//     // then put it in the cart
-//     newCart = [...cart, { id: bookId }];
-//   }
-
-//   cookies.set('book', newCart);
-
-//   return newCart;
-// }
-
 export function addProductToCookieCart(bookId) {
   const cart = getCartFromCookies();
   const addProduct = 1;
@@ -92,7 +69,6 @@ export function sumQuantityOfProducts() {
 }
 
 export function toggleItemsInCartInCookie(id) {
-  // ['1', '3']
   const cart = getCartFromCookies();
 
   let newCart = [...cart, { id }];

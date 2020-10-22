@@ -149,8 +149,6 @@ export default function Cart(props) {
     return itemArray;
   }
 
-  console.log('getCookies', getCartFromCookies());
-
   const cart = putItemsInCart(bookInfoWithQty, cookieProductIds);
 
   const [cartState, setCartState] = useState(cart);
@@ -241,22 +239,18 @@ export default function Cart(props) {
 
 export async function getServerSideProps(context) {
   const { getBooks } = await import('../util/database');
-  const {
-    getCartFromCookies,
-    deleteProductFromCookieCart,
-    sumQuantityOfProducts,
-  } = await import('../util/cookie');
+  const { getCartFromCookies, deleteProductFromCookieCart } = await import(
+    '../util/cookie'
+  );
 
   const books = await getBooks();
   const props = {};
   if (books) props.books = books;
 
   const bookId = parseInt(context.query.id);
-  const sumProducts = sumQuantityOfProducts();
   const deletedProduct = deleteProductFromCookieCart(bookId);
-  const getCookies = getCartFromCookies();
 
   return {
-    props: { props, sumProducts, deletedProduct, getCookies },
+    props: { props, deletedProduct },
   };
 }

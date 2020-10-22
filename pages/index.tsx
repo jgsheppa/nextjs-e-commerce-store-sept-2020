@@ -15,8 +15,6 @@ const sleepBookFlexBox: Style = {
   display: 'flex',
   flexDirection: 'row',
   flexWrap: 'wrap',
-  // justifyContent: 'center',
-  // alignItems: 'space-between',
   justifyContent: 'space-between',
   alignItems: 'center',
   margin: 'auto',
@@ -35,7 +33,7 @@ const textStyles: Style = {
   maxWidth: '450px',
 };
 
-export default function Index(props) {
+export default function Index() {
   const sumOfProductsCalculator = sumQuantityOfProducts();
   return (
     <>

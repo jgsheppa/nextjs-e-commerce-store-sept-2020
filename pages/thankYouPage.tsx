@@ -3,26 +3,18 @@ import Layout from '../components/Layout';
 import { Style } from '../util/types';
 import { sumQuantityOfProducts } from './../util/cookie';
 
-const containerStyles: Style = {
-  // display: 'flex',
-  // flexDirection: 'column',
-  // alignContent: 'center',
-};
-
-const textFlexBox: Style = {
+const textContainer: Style = {
   display: 'flex',
-  flexDirection: 'row',
-  flexWrap: 'wrap',
-  justifyContent: 'space-around',
   alignItems: 'center',
-  margin: 'auto',
+  justifyContent: 'center',
 };
 
 const textStyles: Style = {
-  display: 'flex',
-  flexDirection: 'Column',
-  alignItems: 'flex-start',
-  maxWidth: '450px',
+  marginTop: '48px',
+  padding: '12px 36px',
+  border: 'double',
+  borderWidth: '8px',
+  maxWidth: '480px',
 };
 
 export default function Index() {
@@ -34,12 +26,9 @@ export default function Index() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout sumOfProductsCalculator={sumOfProductsCalculator}>
-        <div style={containerStyles}></div>
-        <div style={containerStyles}>
-          <div>
-            <div>
-              <h1>Thank You For Your Purchase!</h1>
-            </div>
+        <div style={textContainer}>
+          <div style={textStyles}>
+            <h1>Thank You For Your Purchase!</h1>
           </div>
         </div>
       </Layout>

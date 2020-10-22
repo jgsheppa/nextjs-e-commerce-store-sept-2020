@@ -30,10 +30,6 @@ const productContainer: Style = {
   maxWidth: '800px',
 };
 
-const bookInfoStyles: Style = {
-  display: 'flex',
-};
-
 type Props = {
   props: {
     books: {

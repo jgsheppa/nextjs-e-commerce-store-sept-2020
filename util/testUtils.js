@@ -1,6 +1,4 @@
 export function sumQuantityOfProducts(cart) {
-  // const cart = getCartFromCookies();
-
   const findCartValues = cart.map((item) => item.count);
 
   const reducer = (accumulator, currentValue) =>
@@ -17,7 +15,6 @@ export function sumQuantityOfProducts(cart) {
 }
 
 export function addProductToCookieCart(cart, bookId) {
-  // const cart = getCartFromCookies();
   const addProduct = 1;
 
   const newCart = cart.map((obj) => {
@@ -27,13 +24,10 @@ export function addProductToCookieCart(cart, bookId) {
     return obj;
   });
 
-  // cookies.set('book', newCart);
-
   return newCart;
 }
 
 export function deleteProductFromCookieCart(cart, bookId) {
-  // const cart = getCartFromCookies();
   const addProduct = 0;
 
   const newCart = cart.map((obj) => {
@@ -42,8 +36,6 @@ export function deleteProductFromCookieCart(cart, bookId) {
     }
     return obj;
   });
-
-  // cookies.set('book', newCart);
 
   return newCart;
 }

@@ -29,32 +29,3 @@ export async function getBookById(id) {
 
   return books.map(camelcaseKeys);
 }
-
-// export async function getUserById(id) {
-//   // Return undefined if the id is not
-//   // in the correct format
-//   if (!/^\d+$/.test(id)) return undefined;
-
-//   const users = await sql`
-//     SELECT * FROM users WHERE id = ${id};
-//   `;
-
-//   const camelcaseUsers = users.map(camelcaseKeys);
-//   return camelcaseUsers[0];
-// }
-
-// export async function updateUserById(id, user) {
-//   // Return undefined if the id is not
-//   // in the correct format
-//   if (!/^\d+$/.test(id)) return undefined;
-
-//   const users = await sql`
-//     UPDATE users
-//       SET first_name = ${user.firstName}
-//       WHERE id = ${id}
-//       RETURNING *;
-//   `;
-
-//   const camelcaseUsers = users.map(camelcaseKeys);
-//   return camelcaseUsers[0];
-// }
