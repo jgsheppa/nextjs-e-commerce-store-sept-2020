@@ -14,7 +14,7 @@ const buttonContainerStyles: Style = {
   flexDirection: 'row',
   justifyContent: 'space-around',
   alignItems: 'center',
-  width: '1100px',
+  width: '800px',
 };
 
 const addButtonStyles: Style = {
@@ -31,7 +31,16 @@ export default function confirmAddToCart() {
     <>
       <Layout sumOfProductsCalculator={sumOfProductsCalculator}>
         <div style={containerStyles}>
-          <h1>Item Added to Your Cart</h1>
+          <h1
+            style={{
+              borderTop: 'double',
+              padding: '36px 0',
+              borderWidth: '3px',
+              margin: '36px 0 20px',
+            }}
+          >
+            Item Added to Your Cart
+          </h1>
           <div style={buttonContainerStyles}>
             <div>
               <button style={addButtonStyles}>

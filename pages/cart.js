@@ -8,7 +8,7 @@ const pageContainer = {
   display: 'flex',
   flexDirection: 'row',
   flexWrap: 'wrap',
-  alignItems: 'center',
+  alignItems: 'flex-start',
   justifyContent: 'space-between',
   marginBottom: '100px',
 };
@@ -17,7 +17,7 @@ const containerStyles = {
   display: 'flex',
   flexDirection: 'column',
   flexWrap: 'wrap',
-  alignItems: 'flex-start',
+  alignItems: 'center',
   justifyContent: 'space-around',
   marginLeft: '20px',
 };
@@ -26,10 +26,10 @@ const itemBorder = {
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'space-between',
-  border: 'solid',
+  border: 'double',
   borderColor: '#000',
   borderRadius: '20px',
-  maxWidth: '800px',
+  width: '700px',
   margin: '20px 0 20px 20px',
 };
 
@@ -66,7 +66,8 @@ const buttonBorderStyles = {
   flexDirection: 'column',
   justifyContent: 'center',
   alignContent: 'center',
-  border: 'solid',
+  border: 'double',
+  borderWidth: '8px',
   borderRadius: '15px',
   borderColor: '#000',
   padding: '40px',
@@ -192,7 +193,15 @@ export default function Cart(props) {
   return (
     <>
       <Layout sumOfProductsCalculator={sumOfProductsCalculator}>
-        <h1>Your Cart</h1>
+        <h1
+          style={{
+            borderBottom: 'double',
+            padding: '0 0 36px',
+            borderWidth: '3px',
+          }}
+        >
+          Your Cart
+        </h1>
         <div style={pageContainer}>
           <div style={containerStyles}>
             {cart.map((book) => (
@@ -240,7 +249,7 @@ export default function Cart(props) {
               </div>
             ))}
           </div>
-          <div>
+          <div style={{ margin: '72px 0 0 40px' }}>
             <div style={buttonBorderStyles}>
               <div style={subTotalStyles}>
                 <div>

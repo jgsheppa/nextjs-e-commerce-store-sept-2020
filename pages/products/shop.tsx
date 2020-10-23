@@ -68,7 +68,9 @@ export default function Shop(props: Props) {
     <>
       <Layout sumOfProductsCalculator={sumOfProductsCalculator}>
         <div style={containerStyles}>
-          <h1>The Nook</h1>
+          <h1 style={{ borderBottom: 'double', padding: '0 0 8px' }}>
+            The Nook
+          </h1>
         </div>
         <div data-cy="product-list" style={allProductsContainer}>
           {props.props.books.map((book) => {

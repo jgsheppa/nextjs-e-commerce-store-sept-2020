@@ -8,7 +8,9 @@ const containerStyles: Style = {
   display: 'flex',
   flexDirection: 'column',
   alignContent: 'center',
-  marginBottom: '100px',
+  margin: '36px 0 100px',
+  paddingTop: '36px',
+  borderTop: 'double',
 };
 
 const sleepBookFlexBox: Style = {
@@ -45,7 +47,9 @@ export default function Index() {
         <div style={containerStyles}>
           <div style={sleepBookFlexBox}>
             <div style={textStyles}>
-              <h1>Find Your Stories</h1>
+              <h1 style={{ borderBottom: 'double', padding: '0 0 8px' }}>
+                Find Your Stories
+              </h1>
               <p>
                 Book Nook is an online shop for classic titles and bestsellers
                 alike. We find and promote the best editions and translations of

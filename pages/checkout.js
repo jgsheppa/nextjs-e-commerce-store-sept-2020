@@ -74,7 +74,7 @@ const buttonBorderStyles = {
   flexDirection: 'column',
   justifyContent: 'space-around',
   alignContent: 'center',
-  border: 'solid',
+  border: 'double',
   borderRadius: '15px',
   borderColor: '#000',
   padding: '40px',
@@ -151,7 +151,9 @@ export default function Cart(props) {
   return (
     <>
       <Layout sumOfProductsCalculator={sumOfProductsCalculator}>
-        <h1>Checkout</h1>
+        <h1 style={{ borderBottom: 'double', padding: '0 0 36px' }}>
+          Checkout
+        </h1>
         <div style={pageContainer}>
           <div style={containerStyles}>
             <div>

@@ -73,7 +73,15 @@ export default function id(props) {
   return (
     <>
       <Layout sumOfProductsCalculator={sumOfProductsCalculator}>
-        <h1 style={{ marginBottom: '60px' }}>
+        <h1
+          style={{
+            borderBottom: 'double',
+            borderTop: 'double',
+            padding: '36px 0',
+            borderWidth: '3px',
+            margin: '36px 0 60px',
+          }}
+        >
           {title} - {firstName} {lastName}
         </h1>
         <div style={allProductsContainer}>
@@ -87,9 +95,13 @@ export default function id(props) {
                 ></img>
               </a>
               <p>
-                {firstName} {lastName}
+                <i>
+                  {firstName} {lastName}
+                </i>
               </p>
-              <p>{title}</p>
+              <p>
+                <b>{title}</b>
+              </p>
               <p>Price: {convertedPrice}</p>
             </div>
             <div>

@@ -14,6 +14,7 @@ const textStyles: Style = {
   padding: '12px 36px',
   border: 'double',
   borderWidth: '8px',
+  borderColor: '#2f2828',
   maxWidth: '480px',
 };
 
