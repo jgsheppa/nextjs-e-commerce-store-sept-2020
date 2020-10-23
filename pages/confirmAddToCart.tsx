@@ -12,9 +12,9 @@ const containerStyles: Style = {
 const buttonContainerStyles: Style = {
   display: 'flex',
   flexDirection: 'row',
-  justifyContent: 'space-evenly',
+  justifyContent: 'space-around',
   alignItems: 'center',
-  minWidth: '500px',
+  width: '1100px',
 };
 
 const addButtonStyles: Style = {
@@ -33,21 +33,27 @@ export default function confirmAddToCart() {
         <div style={containerStyles}>
           <h1>Item Added to Your Cart</h1>
           <div style={buttonContainerStyles}>
-            <button style={addButtonStyles}>
-              <Link href="/products/shop">
-                <a data-cy="back-to-shop">Return to Shop</a>
-              </Link>
-            </button>
-            <button style={addButtonStyles}>
-              <Link href="/cart">
-                <a>Go To Cart</a>
-              </Link>
-            </button>
-            <button style={addButtonStyles}>
-              <Link href="/checkout">
-                <a data-cy="go-to-checkout">Proceed To Checkout</a>
-              </Link>
-            </button>
+            <div>
+              <button style={addButtonStyles}>
+                <Link href="/products/shop">
+                  <a data-cy="back-to-shop">Return to Shop</a>
+                </Link>
+              </button>
+            </div>
+            <div>
+              <button style={addButtonStyles}>
+                <Link href="/cart">
+                  <a>Go To Cart</a>
+                </Link>
+              </button>
+            </div>
+            <div>
+              <button style={addButtonStyles}>
+                <Link href="/checkout">
+                  <a data-cy="go-to-checkout">Proceed To Checkout</a>
+                </Link>
+              </button>
+            </div>
           </div>
         </div>
       </Layout>

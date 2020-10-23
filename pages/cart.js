@@ -105,11 +105,16 @@ const productDetailStyles = {
   maxWidth: '300px',
 };
 
+const subTotalStyles = {
+  marginBottom: '16px',
+};
+
 export default function Cart(props) {
   const sumOfProductsCalculator = sumQuantityOfProducts();
   const [allProducts, setAllProducts] = useState(props.props.books);
 
   const cookieCart = getCartFromCookies();
+  console.log('allProducts', allProducts);
 
   const [productCookies, setProductCookies] = useState(cookieCart);
 
@@ -124,13 +129,28 @@ export default function Cart(props) {
 
   function addQtyToBookInfo(bookInfo, cookieIds, bookIds, cookies) {
     const newBookInfo = [...bookInfo];
-    for (let i = 0; i < bookInfo.length; i++) {
-      if (cookieIds.includes(bookIds[i])) {
-        newBookInfo[i].count = cookies[i].count;
+    for (let i = 0; i < bookIds.length; i++) {
+      if (cookieIds.includes(newBookInfo[i].count)) {
+        newBookInfo[i].count = cookies[i]?.count;
+        console.log(newBookInfo);
       }
     }
     return newBookInfo;
   }
+
+  // function addCountToCookies(products, cookies, cookieIds) {
+  //   const newProductArray = [...products];
+  //   newProductArray.map((product) => {
+  //     for (let i = 0; i < newProductArray.length; i++) {
+  //       if (cookieIds.includes(product.id)) {
+  //         product.count = cookies[i]?.count;
+  //       }
+  //     }
+  //     return product;
+  //   });
+  // }
+
+  // console.log(addCountToCookies(allProducts, productCookies, cookieProductIds));
 
   const bookInfoWithQty = addQtyToBookInfo(
     allProducts,
@@ -138,6 +158,8 @@ export default function Cart(props) {
     bookInfoIds,
     productCookies,
   );
+
+  console.log(bookInfoWithQty);
 
   function putItemsInCart(cartItems, idNums) {
     const itemArray = [];
@@ -151,7 +173,7 @@ export default function Cart(props) {
 
   const cart = putItemsInCart(bookInfoWithQty, cookieProductIds);
 
-  const [cartState, setCartState] = useState(cart);
+  // const [cartState, setCartState] = useState(cart);
 
   function findSubtotal(products, cookieObjs) {
     let total = 0;
@@ -173,7 +195,7 @@ export default function Cart(props) {
         <h1>Your Cart</h1>
         <div style={pageContainer}>
           <div style={containerStyles}>
-            {cartState.map((book) => (
+            {cart.map((book) => (
               <div key={book.id} style={itemBorder}>
                 <div style={productInfoStyles}>
                   <img style={imageStyles} src={book.productImage} />
@@ -220,9 +242,11 @@ export default function Cart(props) {
           </div>
           <div>
             <div style={buttonBorderStyles}>
-              <div>
-                <b>Subtotal:</b>
-                <div>{centsToDollars(subTotal)}</div>
+              <div style={subTotalStyles}>
+                <div>
+                  <b>Subtotal:</b>
+                  {centsToDollars(subTotal)}
+                </div>
               </div>
               <Link href="/checkout" data-cy="go-to-checkout-button">
                 <a data-cy="go-to-checkout-button" style={purchaseButtonStyles}>

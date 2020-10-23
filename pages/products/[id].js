@@ -17,8 +17,11 @@ const allProductsContainer = {
 const productContainer = {
   display: 'flex',
   flexDirection: 'row',
-  justifyContent: 'center',
-  alignContent: 'space-between',
+  flexWrap: 'wrap',
+  justifyContent: 'space-between',
+  alignContent: 'center',
+  minWidth: '400px',
+  width: '800px',
 };
 
 export default function id(props) {
@@ -70,7 +73,7 @@ export default function id(props) {
   return (
     <>
       <Layout sumOfProductsCalculator={sumOfProductsCalculator}>
-        <h1>
+        <h1 style={{ marginBottom: '60px' }}>
           {title} - {firstName} {lastName}
         </h1>
         <div style={allProductsContainer}>
