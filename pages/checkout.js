@@ -127,7 +127,6 @@ const nameInputStyles = {
 };
 
 export default function Cart(props) {
-  const sumOfProductsCalculator = sumQuantityOfProducts();
   const [allProducts, setAllProducts] = useState(props.props.books);
 
   console.log('props', props);
@@ -150,7 +149,7 @@ export default function Cart(props) {
 
   return (
     <>
-      <Layout sumOfProductsCalculator={sumOfProductsCalculator}>
+      <Layout>
         <h1 style={{ borderBottom: 'double', padding: '0 0 36px' }}>
           Checkout
         </h1>

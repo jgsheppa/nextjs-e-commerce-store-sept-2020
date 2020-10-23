@@ -64,7 +64,7 @@ export default function id(props) {
         <Head>
           <title>User not found</title>
         </Head>
-        <Layout sumOfProductsCalculator={sumOfProductsCalculator}>
+        <Layout>
           <div>User not found.</div>
         </Layout>
       </>
@@ -72,7 +72,7 @@ export default function id(props) {
   }
   return (
     <>
-      <Layout sumOfProductsCalculator={sumOfProductsCalculator}>
+      <Layout>
         <h1
           style={{
             borderBottom: 'double',

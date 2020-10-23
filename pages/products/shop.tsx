@@ -45,10 +45,6 @@ type Props = {
 };
 
 export default function Shop(props: Props) {
-  const [sumOfProductsCalculator, setSumOfProductsCalculator] = useState(
-    sumQuantityOfProducts(),
-  );
-
   const [bookFromCookie, setBookFromCookie] = useState(getCartFromCookies());
   const [booksInCart, setBooksInCart] = useState(props.props.books);
   console.log('bookFromCookie', bookFromCookie);
@@ -66,7 +62,7 @@ export default function Shop(props: Props) {
 
   return (
     <>
-      <Layout sumOfProductsCalculator={sumOfProductsCalculator}>
+      <Layout>
         <div style={containerStyles}>
           <h1 style={{ borderBottom: 'double', padding: '0 0 8px' }}>
             The Nook

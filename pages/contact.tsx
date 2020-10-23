@@ -1,5 +1,4 @@
 import Layout from '../components/Layout';
-import { sumQuantityOfProducts } from './../util/cookie.js';
 import { Style } from './../util/types';
 
 const containerStyles: Style = {
@@ -23,10 +22,9 @@ const textFlexBox: Style = {
 };
 
 export default function Contact() {
-  const sumOfProductsCalculator = sumQuantityOfProducts();
   return (
     <>
-      <Layout sumOfProductsCalculator={sumOfProductsCalculator}>
+      <Layout>
         <div style={containerStyles}>
           <div style={infoContainer}>
             <h1>Contact Us</h1>

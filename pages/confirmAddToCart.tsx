@@ -26,10 +26,9 @@ const addButtonStyles: Style = {
 };
 
 export default function confirmAddToCart() {
-  const sumOfProductsCalculator = sumQuantityOfProducts();
   return (
     <>
-      <Layout sumOfProductsCalculator={sumOfProductsCalculator}>
+      <Layout>
         <div style={containerStyles}>
           <h1
             style={{

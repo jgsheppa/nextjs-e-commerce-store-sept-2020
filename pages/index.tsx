@@ -1,6 +1,5 @@
 import Head from 'next/head';
 import Layout from '../components/Layout';
-import { sumQuantityOfProducts } from '../util/cookie.js';
 import { Style } from '../util/types';
 import Link from 'next/link';
 
@@ -36,14 +35,13 @@ const textStyles: Style = {
 };
 
 export default function Index() {
-  const sumOfProductsCalculator = sumQuantityOfProducts();
   return (
     <>
       <Head>
         <title>Book Nook</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Layout sumOfProductsCalculator={sumOfProductsCalculator}>
+      <Layout>
         <div style={containerStyles}>
           <div style={sleepBookFlexBox}>
             <div style={textStyles}>

@@ -195,7 +195,7 @@ export default function Cart(props) {
   }
   return (
     <>
-      <Layout sumOfProductsCalculator={sumOfProductsCalculator}>
+      <Layout>
         <h1
           style={{
             borderBottom: 'double',
