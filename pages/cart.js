@@ -1,8 +1,12 @@
 import Link from 'next/link';
 import Layout from '../components/Layout';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { centsToDollars } from './../util/helper';
-import { getCartFromCookies, sumQuantityOfProducts } from './../util/cookie';
+import {
+  getCartFromCookies,
+  sumQuantityOfProducts,
+  deleteProductFromCookieCart,
+} from './../util/cookie';
 
 const pageContainer = {
   display: 'flex',
@@ -111,11 +115,12 @@ const subTotalStyles = {
 };
 
 export default function Cart(props) {
-  const sumOfProductsCalculator = sumQuantityOfProducts();
+  const [sumOfProductsCalculator, setSumOfProductsCalculator] = useState(
+    sumQuantityOfProducts(),
+  );
   const [allProducts, setAllProducts] = useState(props.props.books);
 
   const cookieCart = getCartFromCookies();
-  console.log('allProducts', allProducts);
 
   const [productCookies, setProductCookies] = useState(cookieCart);
 
@@ -139,28 +144,12 @@ export default function Cart(props) {
     return newBookInfo;
   }
 
-  // function addCountToCookies(products, cookies, cookieIds) {
-  //   const newProductArray = [...products];
-  //   newProductArray.map((product) => {
-  //     for (let i = 0; i < newProductArray.length; i++) {
-  //       if (cookieIds.includes(product.id)) {
-  //         product.count = cookies[i]?.count;
-  //       }
-  //     }
-  //     return product;
-  //   });
-  // }
-
-  // console.log(addCountToCookies(allProducts, productCookies, cookieProductIds));
-
   const bookInfoWithQty = addQtyToBookInfo(
     allProducts,
     cookieProductIds,
     bookInfoIds,
     productCookies,
   );
-
-  console.log(bookInfoWithQty);
 
   function putItemsInCart(cartItems, idNums) {
     const itemArray = [];
@@ -173,8 +162,9 @@ export default function Cart(props) {
   }
 
   const cart = putItemsInCart(bookInfoWithQty, cookieProductIds);
+  console.log(cart);
 
-  // const [cartState, setCartState] = useState(cart);
+  const [cartState, setCartState] = useState(cart);
 
   function findSubtotal(products, cookieObjs) {
     let total = 0;
@@ -190,6 +180,18 @@ export default function Cart(props) {
 
   const subTotal = findSubtotal(allProducts, productCookies);
 
+  function deleteProduct(productId, cart) {
+    const deletedItem = cart.filter((cartItem) => {
+      return cartItem.id === productId;
+    });
+    const newCart = [];
+    for (let i = 0; i < cart.length; i++) {
+      if (cart[i].id !== deletedItem[0].id) {
+        newCart.push(cart[i]);
+      }
+    }
+    setCartState(newCart);
+  }
   return (
     <>
       <Layout sumOfProductsCalculator={sumOfProductsCalculator}>
@@ -204,27 +206,27 @@ export default function Cart(props) {
         </h1>
         <div style={pageContainer}>
           <div style={containerStyles}>
-            {cart.map((book) => (
-              <div key={book.id} style={itemBorder}>
+            {cartState.map((book) => (
+              <div key={book?.id} style={itemBorder}>
                 <div style={productInfoStyles}>
-                  <img style={imageStyles} src={book.productImage} />
+                  <img style={imageStyles} src={book?.productImage} />
                   <div style={productDetailStyles}>
                     <div>
                       <b>
-                        {book.firstName} {book.lastName}
+                        {book?.firstName} {book?.lastName}
                       </b>
                     </div>
                     <div>
-                      <i>{book.title}</i>
+                      <i>{book?.title}</i>
                     </div>
-                    <div>{centsToDollars(book.price)}</div>
+                    <div>{centsToDollars(book?.price)}</div>
                   </div>
                 </div>
                 <div style={itemInfoStyles}>
                   <div style={quatityStyles}>
                     <div>Quantity: </div>
                     <select>
-                      <option>{book.count}</option>
+                      <option>{book?.count}</option>
                       <option>0</option>
                       <option>1</option>
                       <option>2</option>
@@ -236,8 +238,8 @@ export default function Cart(props) {
                   <div>
                     <button
                       onClick={() => {
-                        props.deletedProduct;
-                        setProductCookies(cookieCart);
+                        deleteProduct(book?.id, cartState);
+                        deleteProductFromCookieCart(book.id);
                       }}
                       style={removeItemStyles}
                       data-cy="remove-button"
@@ -281,9 +283,8 @@ export async function getServerSideProps(context) {
   if (books) props.books = books;
 
   const bookId = parseInt(context.query.id);
-  const deletedProduct = deleteProductFromCookieCart(bookId);
 
   return {
-    props: { props, deletedProduct },
+    props: { props },
   };
 }
