@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import { Style } from '../util/types';
+import { sumQuantityOfProducts } from '../util/cookie';
 
 const headerStyles: Style = {
   margin: '0 10%',
@@ -46,8 +47,8 @@ const numStyles: Style = {
   marginLeft: '30px',
 };
 
-export default function Header(props) {
-  const cartValue = props.numOfProductsInCart;
+export default function Header() {
+  const cartValue = sumQuantityOfProducts();
   return (
     <>
       <Head>

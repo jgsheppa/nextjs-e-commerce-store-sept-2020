@@ -118,6 +118,7 @@ export default function Cart(props) {
   const [sumOfProductsCalculator, setSumOfProductsCalculator] = useState(
     sumQuantityOfProducts(),
   );
+  console.log('sum', sumOfProductsCalculator);
   const [allProducts, setAllProducts] = useState(props.props.books);
 
   const cookieCart = getCartFromCookies();
@@ -240,6 +241,7 @@ export default function Cart(props) {
                       onClick={() => {
                         deleteProduct(book?.id, cartState);
                         deleteProductFromCookieCart(book.id);
+                        setSumOfProductsCalculator(sumQuantityOfProducts());
                       }}
                       style={removeItemStyles}
                       data-cy="remove-button"
