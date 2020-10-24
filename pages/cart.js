@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Layout from '../components/Layout';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { centsToDollars } from './../util/helper';
 import {
   getCartFromCookies,
@@ -183,7 +183,9 @@ export default function Cart(props) {
   }
 
   const subTotal = findSubtotal(allProducts, productCookies);
-  const [totalCost, setTotalCost] = useState(centsToDollars(subTotal));
+  const [totalCost, setTotalCost] = useState(
+    centsToDollars(findSubtotal(allProducts, productCookies)),
+  );
 
   function deleteProduct(productId, cart) {
     const deletedItem = cart.filter((cartItem) => {
@@ -249,7 +251,7 @@ export default function Cart(props) {
                           setSumOfProductsCalculator(sumQuantityOfProducts());
                           setTotalCost(
                             centsToDollars(
-                              findSubtotal(allProducts, productCookies),
+                              findSubtotal(allProducts, getCartFromCookies()),
                             ),
                           );
                         }}
@@ -285,17 +287,12 @@ export default function Cart(props) {
   );
 }
 
-export async function getServerSideProps(context) {
+export async function getServerSideProps() {
   const { getBooks } = await import('../util/database');
-  const { getCartFromCookies, deleteProductFromCookieCart } = await import(
-    '../util/cookie'
-  );
 
   const books = await getBooks();
   const props = {};
   if (books) props.books = books;
-
-  const bookId = parseInt(context.query.id);
 
   return {
     props: { props },
