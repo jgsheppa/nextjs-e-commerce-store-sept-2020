@@ -336,7 +336,7 @@ export default function Cart(props) {
                           className="inputfield"
                           type="cardholder"
                           name="cardholder"
-                          placeholder="Cardholder"
+                          placeholder="Cardholder Name"
                         />
                         <ErrorMessage name="cardholder" component="div" />
                         <Field
@@ -378,7 +378,7 @@ export default function Cart(props) {
                           type="securitynumber"
                           name="securitynumber"
                           maxLength="4"
-                          placeholder="Security Number"
+                          placeholder="CVV"
                         />
                         <ErrorMessage name="securitynumber" component="div" />
                         <Link href="/thankYouPage">

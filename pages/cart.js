@@ -11,10 +11,12 @@ import {
 const pageContainer = {
   display: 'flex',
   flexDirection: 'row',
+  flex: '1',
   flexWrap: 'wrap',
-  alignItems: 'flex-start',
-  justifyContent: 'space-between',
+  alignItems: 'space-around',
+  justifyContent: 'flex-start',
   marginBottom: '100px',
+  maxWidth: '1200px',
 };
 
 const containerStyles = {
@@ -23,7 +25,7 @@ const containerStyles = {
   flexWrap: 'wrap',
   alignItems: 'center',
   justifyContent: 'space-around',
-  marginLeft: '20px',
+  // marginLeft: '20px',
 };
 
 const itemBorder = {
@@ -33,8 +35,9 @@ const itemBorder = {
   border: 'double',
   borderColor: '#000',
   borderRadius: '20px',
-  width: '700px',
-  margin: '20px 0 20px 20px',
+  // width: '700px',
+  // minWidth: '400px',
+  margin: '0 0 20px',
 };
 
 const itemInfoStyles = {
@@ -45,8 +48,8 @@ const itemInfoStyles = {
   maxWidth: '1000px',
   maxHeight: '150px',
   minHeight: '150px',
-  minWidth: '400px',
-  width: '500px',
+  minWidth: '300px',
+
   padding: '30px 20px',
 };
 
@@ -180,6 +183,7 @@ export default function Cart(props) {
   }
 
   const subTotal = findSubtotal(allProducts, productCookies);
+  const [totalCost, setTotalCost] = useState(centsToDollars(subTotal));
 
   function deleteProduct(productId, cart) {
     const deletedItem = cart.filter((cartItem) => {
@@ -207,58 +211,65 @@ export default function Cart(props) {
         </h1>
         <div style={pageContainer}>
           <div style={containerStyles}>
-            {cartState.map((book) => (
-              <div key={book?.id} style={itemBorder}>
-                <div style={productInfoStyles}>
-                  <img style={imageStyles} src={book?.productImage} />
-                  <div style={productDetailStyles}>
-                    <div>
-                      <b>
-                        {book?.firstName} {book?.lastName}
-                      </b>
+            <div>
+              {cartState.map((book) => (
+                <div key={book?.id} style={itemBorder}>
+                  <div style={productInfoStyles}>
+                    <img style={imageStyles} src={book?.productImage} />
+                    <div style={productDetailStyles}>
+                      <div>
+                        <b>
+                          {book?.firstName} {book?.lastName}
+                        </b>
+                      </div>
+                      <div>
+                        <i>{book?.title}</i>
+                      </div>
+                      <div>{centsToDollars(book?.price)}</div>
+                    </div>
+                  </div>
+                  <div style={itemInfoStyles}>
+                    <div style={quatityStyles}>
+                      <div>Quantity: </div>
+                      <select>
+                        <option>{book?.count}</option>
+                        <option>0</option>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5+</option>
+                      </select>
                     </div>
                     <div>
-                      <i>{book?.title}</i>
+                      <button
+                        onClick={() => {
+                          deleteProduct(book?.id, cartState);
+                          deleteProductFromCookieCart(book.id);
+                          setSumOfProductsCalculator(sumQuantityOfProducts());
+                          setTotalCost(
+                            centsToDollars(
+                              findSubtotal(allProducts, productCookies),
+                            ),
+                          );
+                        }}
+                        style={removeItemStyles}
+                        data-cy="remove-button"
+                      >
+                        Remove Item
+                      </button>
                     </div>
-                    <div>{centsToDollars(book?.price)}</div>
                   </div>
                 </div>
-                <div style={itemInfoStyles}>
-                  <div style={quatityStyles}>
-                    <div>Quantity: </div>
-                    <select>
-                      <option>{book?.count}</option>
-                      <option>0</option>
-                      <option>1</option>
-                      <option>2</option>
-                      <option>3</option>
-                      <option>4</option>
-                      <option>5+</option>
-                    </select>
-                  </div>
-                  <div>
-                    <button
-                      onClick={() => {
-                        deleteProduct(book?.id, cartState);
-                        deleteProductFromCookieCart(book.id);
-                        setSumOfProductsCalculator(sumQuantityOfProducts());
-                      }}
-                      style={removeItemStyles}
-                      data-cy="remove-button"
-                    >
-                      Remove Item
-                    </button>
-                  </div>
-                </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
           <div style={{ margin: '72px 0 0 40px' }}>
             <div style={buttonBorderStyles}>
               <div style={subTotalStyles}>
                 <div>
                   <b>Subtotal:</b>
-                  {centsToDollars(subTotal)}
+                  {totalCost}
                 </div>
               </div>
               <Link href="/checkout" data-cy="go-to-checkout-button">
