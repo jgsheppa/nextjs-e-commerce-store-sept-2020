@@ -2,11 +2,13 @@
 
 Book Nook is an e-commerce store made with [Next.js](https://nextjs.org/) and bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app). This site uses a `PostgreSQL` database to retrieve information for its pages, such as author names, prices, and book titles. Additionally, some of the files for this project were written using `Typescript`:
 
+![Typescript](https://github.com/jgsheppa/nextjs-e-commerce-store-sept-2020/blob/master/public/screenshot-typescript.png)
+
 #### Testing
 
 Unit tests were created using `Jest` and E2E tests were run using `Cypress`. One of the `Jest` unit tests can been seen below:
 
-![Jest Unit Test]()
+![Jest Unit Test](https://github.com/jgsheppa/nextjs-e-commerce-store-sept-2020/blob/master/public/screenshot-testing.png)
 
 ![Book Nook Shopping Page](https://github.com/jgsheppa/nextjs-e-commerce-store-sept-2020/blob/master/public/screenshot-shop.png)
 
