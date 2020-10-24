@@ -1,6 +1,8 @@
 ### Book Nook - An E-commerce Store
 
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+Book Nook is an e-commerce store made with [Next.js](https://nextjs.org/) and bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+
+![Book Nook Shopping Page](https://github.com/jgsheppa/react-meme-generator-ul-2020/blob/master/B.png)
 
 ## Getting Started
 
