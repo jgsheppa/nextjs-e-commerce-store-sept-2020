@@ -8,7 +8,6 @@ export function getCartFromCookies() {
 export function addProductToCookieCart(bookId) {
   const cart = getCartFromCookies();
   const addProduct = 1;
-  console.log(cart);
 
   // If cart has the key bookId in it
   // then increment the count stored at that id
@@ -23,7 +22,6 @@ export function addProductToCookieCart(bookId) {
     }
     return obj;
   });
-  console.log(newCart);
 
   if (!foundInCart) {
     newCart.push({ id: bookId, count: 1 });
@@ -35,23 +33,8 @@ export function addProductToCookieCart(bookId) {
 }
 
 export function deleteProductFromCookieCart(bookId) {
-  // const cart = getCartFromCookies();
-  // const addProduct = 0;
-
-  // const newCart = cart.map((obj) => {
-  //   if (obj.id === bookId) {
-  //     obj.count = addProduct;
-  //   }
-  //   return obj;
-  // });
-
-  // cookies.set('book', newCart);
-
-  // return newCart;
-
   const cart = getCartFromCookies();
   const removeProduct = 0;
-  console.log(cart);
 
   // If cart has the key bookId in it
   // then decrease the count stored at that id

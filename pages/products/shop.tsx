@@ -47,7 +47,6 @@ type Props = {
 export default function Shop(props: Props) {
   const [bookFromCookie, setBookFromCookie] = useState(getCartFromCookies());
   const [booksInCart, setBooksInCart] = useState(props.props.books);
-  console.log('bookFromCookie', bookFromCookie);
 
   useEffect(() => {
     setBooksInCart(

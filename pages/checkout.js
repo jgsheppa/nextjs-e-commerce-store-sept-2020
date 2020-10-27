@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Layout from '../components/Layout';
 import { useState } from 'react';
-import { sumQuantityOfProducts, getCartFromCookies } from './../util/cookie';
+import { getCartFromCookies } from './../util/cookie';
 import { centsToDollars } from './../util/helper';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 
@@ -30,44 +30,6 @@ const formFlexBox = {
   justifyContent: 'space-around',
   marginBottom: '100px',
 };
-
-// const itemBorder = {
-//   display: 'flex',
-//   flexDirection: 'row',
-//   justifyContent: 'space-between',
-//   border: 'solid',
-//   borderColor: '#000',
-//   borderRadius: '20px',
-//   maxWidth: '800px',
-// };
-
-// const itemInfoStyles = {
-//   display: 'flex',
-//   flexDirection: 'column',
-//   justifyContent: 'space-around',
-//   alignItems: 'flex-end',
-//   maxWidth: '1000px',
-//   maxHeight: '150px',
-//   minHeight: '150px',
-//   minWidth: '400px',
-//   width: '500px',
-//   padding: '30px 20px',
-// };
-
-// const quatityStyles = {
-//   display: 'flex',
-//   flexDirection: 'row',
-//   justifyContent: 'space-evenly',
-//   alignItems: 'flex-end',
-//   marginBottom: '10px',
-// };
-
-// const removeItemStyles = {
-//   padding: '10px 20px',
-//   backgroundColor: '#5963DE',
-//   color: '#fff',
-//   borderRadius: '15px',
-// };
 
 const buttonBorderStyles = {
   display: 'flex',
@@ -128,8 +90,6 @@ const nameInputStyles = {
 
 export default function Cart(props) {
   const [allProducts, setAllProducts] = useState(props.props.books);
-
-  console.log('props', props);
 
   const cookieCart = getCartFromCookies();
 

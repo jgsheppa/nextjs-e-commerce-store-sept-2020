@@ -1,7 +1,6 @@
 module.exports = function setPostgresDefaultsOnHeroku() {
   if (process.env.DATABASE_URL) {
     const url = require('url');
-    console.log(url);
 
     // Extract the connection information from the Heroku
     // environment variable

@@ -25,7 +25,6 @@ const containerStyles = {
   flexWrap: 'wrap',
   alignItems: 'center',
   justifyContent: 'space-around',
-  // marginLeft: '20px',
 };
 
 const itemBorder = {
@@ -35,8 +34,6 @@ const itemBorder = {
   border: 'double',
   borderColor: '#000',
   borderRadius: '20px',
-  // width: '700px',
-  // minWidth: '400px',
   margin: '0 0 20px',
 };
 
@@ -49,7 +46,6 @@ const itemInfoStyles = {
   maxHeight: '150px',
   minHeight: '150px',
   minWidth: '300px',
-
   padding: '30px 20px',
 };
 
@@ -121,7 +117,6 @@ export default function Cart(props) {
   const [sumOfProductsCalculator, setSumOfProductsCalculator] = useState(
     sumQuantityOfProducts(),
   );
-  console.log('sum', sumOfProductsCalculator);
   const [allProducts, setAllProducts] = useState(props.props.books);
 
   const cookieCart = getCartFromCookies();
@@ -142,7 +137,6 @@ export default function Cart(props) {
     for (let i = 0; i < bookIds.length; i++) {
       if (cookieIds.includes(newBookInfo[i].count)) {
         newBookInfo[i].count = cookies[i]?.count;
-        console.log(newBookInfo);
       }
     }
     return newBookInfo;
@@ -166,7 +160,6 @@ export default function Cart(props) {
   }
 
   const cart = putItemsInCart(bookInfoWithQty, cookieProductIds);
-  console.log(cart);
 
   const [cartState, setCartState] = useState(cart);
 
