@@ -30,4 +30,4 @@ You can start editing the page by modifying the files in the `pages` folder. The
 
 Book Nook was deployed using [Heroku](www.heroku.com), and you can do the same. First, go to the Heroku site and make an account. Next, go to your dashboard and click on `New` and then `Create New App`. If there are no bugs in the site, then the deployment should be seamless.
 
-First, click on `Deploy` in the sub-header. Next, connect your **Github** account to Heroku and select the project you want to deploy. Finally, go to the bottom of the page and click on `Deploy`. If you run into any trouble, check the `logs` on Heroku to see what went wrong.
+First, click on `Deploy` in the sub-header. Next, connect your **Github** account to Heroku and select the project you want to deploy. Finally, go to the bottom of the page and click on `Deploy`. If you run into any trouble, check the `logs` on Heroku to see what went wrong. Something usually does go wrong, so don't worry if the build fails.
