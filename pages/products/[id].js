@@ -127,22 +127,6 @@ export async function getServerSideProps(context) {
 
   const bookId = parseInt(context.query.id);
 
-  function getServerCount(cookie, id) {
-    if (cookie.id === id) {
-      return cookie.count;
-    } else {
-      return 0;
-    }
-  }
-
-  const serverProductCount = allCookies?.book?.filter((cookie) => {
-    if (cookie.id && cookie.id === bookId) {
-      return cookie.count;
-    } else {
-      return [];
-    }
-  });
-
   return {
     props: {
       books,
