@@ -1,8 +1,8 @@
-import Layout from '../../components/Layout';
-import AddToCart from '../../components/AddToCart';
 import Head from 'next/head';
 import { useState, useEffect } from 'react';
 import nextCookies from 'next-cookies';
+import Layout from '../../components/Layout';
+import AddToCart from '../../components/AddToCart';
 import { centsToDollars } from '../../util/helper';
 import { sumQuantityOfProducts, getCartFromCookies } from '../../util/cookie';
 
@@ -25,7 +25,28 @@ const productContainer = {
 };
 
 export default function id(props) {
+  if (props.id > props.books[props.books.length - 1].id) {
+    return (
+      <>
+        <Head>
+          <title>Item not found</title>
+        </Head>
+        <Layout>
+          <h1
+            style={{
+              padding: '36px 0',
+              margin: '36px 0 60px',
+            }}
+          >
+            Item not found.
+          </h1>
+        </Layout>
+      </>
+    );
+  }
+
   const sumOfProductsCalculator = sumQuantityOfProducts();
+  console.log(props);
 
   const [bookID, setBookID] = useState(parseInt(props.id));
 
@@ -48,7 +69,6 @@ export default function id(props) {
 
   const [booksInCart, setBooksInCart] = useState([]);
 
-  const id = props.id;
   const [cookieCount, setCookieCount] = useState(sumOfProductsCalculator);
 
   const convertedPrice = centsToDollars(price);
@@ -58,18 +78,6 @@ export default function id(props) {
     setCookieCount(props.productCount);
   }, []);
 
-  if (!props.books) {
-    return (
-      <>
-        <Head>
-          <title>User not found</title>
-        </Head>
-        <Layout>
-          <div>User not found.</div>
-        </Layout>
-      </>
-    );
-  }
   return (
     <>
       <Layout>
@@ -107,7 +115,7 @@ export default function id(props) {
             <div>
               <AddToCart
                 convertedPrice={convertedPrice}
-                id={id}
+                bookID={bookID}
                 cookieCount={cookieCount}
               ></AddToCart>
             </div>

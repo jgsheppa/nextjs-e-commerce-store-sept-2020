@@ -54,7 +54,7 @@ export default function AddToCart(props: Props) {
           <a
             data-cy="add-product-to-cart"
             style={addButtonStyles}
-            onClick={() => addProductToCookieCart(props.id)}
+            onClick={() => addProductToCookieCart(props.bookID)}
           >
             Add To Cart
           </a>

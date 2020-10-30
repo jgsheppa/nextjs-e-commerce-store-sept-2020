@@ -1,9 +1,12 @@
 import Link from 'next/link';
-import Layout from '../components/Layout';
 import { useState } from 'react';
-import { getCartFromCookies } from './../util/cookie';
-import { centsToDollars } from './../util/helper';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
+import Layout from '../components/Layout';
+import {
+  getCartFromCookies,
+  deleteAllProductsFromCookieCart,
+} from './../util/cookie';
+import { centsToDollars } from './../util/helper';
 
 const pageContainer = {
   display: 'flex',
@@ -91,6 +94,7 @@ const nameInputStyles = {
 export default function Cart(props) {
   const [allProducts, setAllProducts] = useState(props.props.books);
 
+  console.log('allProducts', allProducts);
   const cookieCart = getCartFromCookies();
 
   function findSubtotal(products, cookieObjs) {
@@ -347,6 +351,7 @@ export default function Cart(props) {
                             style={submitButtonStyles}
                             type="submit"
                             disabled={isSubmitting}
+                            onClick={deleteAllProductsFromCookieCart}
                           >
                             Place Your Order
                           </a>

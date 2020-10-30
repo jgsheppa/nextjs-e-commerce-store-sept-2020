@@ -25,7 +25,7 @@ const products = [
   },
   {
     first_name: 'Dr.',
-    last_name: 'Suess',
+    last_name: 'Seuss',
     title: 'The Sleep Book',
     product_image: '/sleepbook.jpg',
     price: '15.00',

@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import Layout from '../components/Layout';
-import { sumQuantityOfProducts } from '../util/cookie.js';
 import { Style } from '../util/types';
 
 const containerStyles: Style = {

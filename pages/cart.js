@@ -1,7 +1,7 @@
 import Link from 'next/link';
-import Layout from '../components/Layout';
 import { useState } from 'react';
 import { centsToDollars } from './../util/helper';
+import Layout from '../components/Layout';
 import {
   getCartFromCookies,
   sumQuantityOfProducts,
@@ -49,7 +49,7 @@ const itemInfoStyles = {
   padding: '30px 20px',
 };
 
-const quatityStyles = {
+const quantityStyles = {
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'space-evenly',
@@ -117,7 +117,7 @@ export default function Cart(props) {
   const [sumOfProductsCalculator, setSumOfProductsCalculator] = useState(
     sumQuantityOfProducts(),
   );
-  const [allProducts, setAllProducts] = useState(props.props.books);
+  const [allProducts, setAllProducts] = useState(props.bookInfo.books);
 
   const cookieCart = getCartFromCookies();
 
@@ -160,9 +160,11 @@ export default function Cart(props) {
   }
 
   const cart = putItemsInCart(bookInfoWithQty, cookieProductIds);
+  console.log(cart);
 
   const [cartState, setCartState] = useState(cart);
 
+  console.log('cart', cartState);
   function findSubtotal(products, cookieObjs) {
     let total = 0;
     for (let i = 0; i < cookieObjs.length; i++) {
@@ -175,7 +177,6 @@ export default function Cart(props) {
     return total;
   }
 
-  const subTotal = findSubtotal(allProducts, productCookies);
   const [totalCost, setTotalCost] = useState(
     centsToDollars(findSubtotal(allProducts, productCookies)),
   );
@@ -224,7 +225,7 @@ export default function Cart(props) {
                     </div>
                   </div>
                   <div style={itemInfoStyles}>
-                    <div style={quatityStyles}>
+                    <div style={quantityStyles}>
                       <div>Quantity: </div>
                       <select>
                         <option>{book?.count}</option>
@@ -283,11 +284,11 @@ export default function Cart(props) {
 export async function getServerSideProps() {
   const { getBooks } = await import('../util/database');
 
-  const books = await getBooks();
-  const props = {};
-  if (books) props.books = books;
+  const getBooksFromDB = await getBooks();
+  const bookInfo = {};
+  if (bookInfo) bookInfo.books = getBooksFromDB;
 
   return {
-    props: { props },
+    props: { bookInfo },
   };
 }

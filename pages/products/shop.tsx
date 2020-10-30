@@ -1,6 +1,6 @@
-import Layout from '../../components/Layout';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
+import Layout from '../../components/Layout';
 import { getCartFromCookies } from '../../util/cookie.js';
 import { Style } from '../../util/types';
 import { centsToDollars } from '../../util/helper';

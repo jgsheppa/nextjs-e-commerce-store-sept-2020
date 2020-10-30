@@ -1,7 +1,7 @@
 import Head from 'next/head';
+import Link from 'next/link';
 import Layout from '../components/Layout';
 import { Style } from '../util/types';
-import Link from 'next/link';
 
 const containerStyles: Style = {
   display: 'flex',

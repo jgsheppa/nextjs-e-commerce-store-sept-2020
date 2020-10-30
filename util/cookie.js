@@ -55,6 +55,28 @@ export function deleteProductFromCookieCart(bookId) {
   return newCart;
 }
 
+export function deleteAllProductsFromCookieCart() {
+  // const cart = getCartFromCookies();
+
+  // // If cart has the key bookId in it
+  // // then decrease the count stored at that id
+  // // otherwise add a new key value pair
+  // // bookId: 1
+  // let foundInCart = false;
+
+  // const newCart = cart.map((obj) => {
+  //   if (obj.id === bookId) {
+  //     foundInCart = true;
+  //     obj.count = removeProduct;
+  //   }
+  //   return obj;
+  // });
+
+  const deleteCookie = cookies.remove('book');
+
+  return deleteCookie;
+}
+
 export function sumQuantityOfProducts() {
   const cart = getCartFromCookies();
 
